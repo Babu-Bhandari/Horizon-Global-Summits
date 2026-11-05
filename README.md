@@ -1,40 +1,29 @@
-# The Website Workshop
+# HOHORIZON GLOBAL AFFAIRS
 
-A one-page portfolio for a website design studio. It includes selected work, services, the working approach, a short about section, and a contact note.
+A multi-page site for an international business forum. It runs locally with Vite.
 
-## Run it on localhost
+The preview at localhost is still the static site. The same design is also a WordPress theme in `wordpress-theme/hohorizon`. Upload that folder in Appearance → Themes, then activate it. Edit the hero in Appearance → Customize, and edit pages, events, speakers, sessions, and partners from the admin menu.
 
-From this folder:
+## Run it
 
 ```bash
 npm install
 npm run dev
 ```
 
-Vite prints a local address, usually [http://localhost:5173](http://localhost:5173). Open that in your browser. The page reloads when you edit the files.
+Open the address Vite prints, usually http://localhost:5173.
 
-To check the production build locally:
+## Edit the site
 
-```bash
-npm run build
-npm run preview
-```
+- Words, dates, venues and buttons live in the HTML page for that section.
+- Shared navigation and footer live in `src/main.js`.
+- Colours, type and layout live in `src/style.css`.
+- Put a hero film at `public/hero.mp4`. On desktop it plays muted, looped and inline. Phones keep the still image.
+- Set `data-email="you@example.com"` on each `<body>` when notes should open a mail draft.
+- Set `data-ga="G-XXXXXXXX"` on each `<body>` to allow Analytics after a visitor accepts the cookie notice.
 
-## Make it yours
+Placeholder dates, speakers, logos and figures are labelled. Replace them when the real details exist. Do not publish a sample profile as a confirmed speaker.
 
-- Words, projects, and services live in `index.html`.
-- Colors, type, and layout live in `src/style.css`.
-- Menu, project notes, and the contact form live in `src/main.js`.
-- On the contact form, set `data-email="you@example.com"` so “Send a note” opens the visitor’s mail app. Until then, the form only confirms the note in the browser.
+## Pages
 
-## Publish on GitHub
-
-This project is a normal git repository. After you change files:
-
-```bash
-git add .
-git commit -m "Describe what you changed"
-git push
-```
-
-The repository is [github.com/Babu-Bhandari/The-Website-Workshop](https://github.com/Babu-Bhandari/The-Website-Workshop). Later pushes update that same repository.
+Home, About, Mission, Events, Event details, Programme, Speakers, Partners, Membership, Become a Partner, Request an Invitation, Contact, Privacy, Terms.

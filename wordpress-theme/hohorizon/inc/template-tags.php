@@ -1,0 +1,538 @@
+<?php
+/**
+ * Template helpers.
+ *
+ * @package Hohorizon
+ */
+
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+/**
+ * Default text used until a Customizer value is saved.
+ *
+ * @return array<string, string>
+ */
+function hohorizon_defaults() {
+	return array(
+		'line1'            => 'HOHORIZON',
+		'line2'            => 'GLOBAL',
+		'line3'            => 'AFFAIRS',
+		'mark'             => 'Forum',
+		'button_partner'   => 'Become a partner',
+		'button_invite'    => 'Request an invite',
+		'hero_name'        => 'HOHORIZON Global Affairs',
+		'hero_date'        => 'Date to be confirmed.',
+		'hero_venue'       => 'Venue to be confirmed.',
+		'hero_side'        => "One focused day.\nFive live streams.",
+		'streams'          => 'Finance, Risk, Trade, Technology, Leadership',
+		'countdown'        => '',
+		'hero_image'       => 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=2000&q=80',
+		'intro_image'      => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=80',
+		'welcome_eyebrow'  => 'Welcome to HOHORIZON',
+		'welcome_title'    => 'Where global leaders connect and opportunities begin.',
+		'welcome_text'     => "HOHORIZON GLOBAL AFFAIRS is a forum, not a trade-show floor. It is built for people who already carry responsibility: the executive opening a new market, the investor testing a thesis, the policymaker who needs the view from the operating table.\n\nThe purpose is simple. Put the right people in one place, give them a clear programme, and leave enough time for the conversation that does not fit on a panel.",
+		'welcome_image'    => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80',
+		'stats_eyebrow'    => 'The room, in numbers',
+		'stats_title'      => 'Figures will be published when they are real.',
+		'stats'            => "International delegates | To be confirmed | Placeholder\nParticipating companies | To be confirmed | Placeholder\nCountries represented | To be confirmed | Placeholder\nIndustry leaders | To be confirmed | Placeholder\nStrategic partners | To be confirmed | Placeholder\nGlobal reach | To be confirmed | Placeholder",
+		'expect_eyebrow'   => 'What to expect',
+		'expect_title'     => 'A day built around the conversation.',
+		'events_eyebrow'   => 'Upcoming',
+		'events_title'     => 'Gatherings on the calendar will appear here.',
+		'programme_eyebrow'=> 'Sample agenda',
+		'programme_title'  => 'The programme is not confirmed yet.',
+		'programme_note'   => 'The rows below show the layout. Times, speakers and titles are placeholders.',
+		'topics_eyebrow'   => 'Discussion areas',
+		'topics_title'     => 'Five subjects. No filler track.',
+		'speakers_eyebrow' => 'Speakers',
+		'speakers_title'   => 'Names will be published when they are confirmed.',
+		'partners_eyebrow' => 'Partners',
+		'partners_title'   => 'Logo places, ready to be replaced.',
+		'member_eyebrow'   => 'Membership & partnership',
+		'member_title'     => 'A seat, or a role in the room.',
+		'member_text'      => 'Members come for the conversations and the introductions. Partners help shape the gathering and meet the people in it. Fees, if any, will be published when each opens. Nothing on this page is an offer.',
+		'member_points'    => "International networking with a host, not a directory.\nA path to executive conversations around the programme.\nVisibility only where it is agreed in advance.",
+		'member_image'     => 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=80',
+		'cta_eyebrow'      => 'Invitation',
+		'cta_title'        => 'Your next global connection starts here.',
+		'cta_text'         => 'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
+		'cta_image'        => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=80',
+		'footer_text'      => 'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
+		'public_email'     => 'Email to be confirmed',
+		'venue'            => 'Venue to be confirmed',
+		'inbox'            => '',
+		'ga'               => '',
+		'linkedin'         => '',
+		'instagram'        => '',
+		'youtube'          => '',
+		'facebook'         => '',
+	);
+}
+
+/**
+ * A Customizer value, or its default.
+ *
+ * @param string $key Key without the hohorizon_ prefix.
+ * @return string
+ */
+function hohorizon_mod($key) {
+	$defaults = hohorizon_defaults();
+	$default  = isset($defaults[$key]) ? $defaults[$key] : '';
+	$value    = get_theme_mod('hohorizon_' . $key, $default);
+	return is_string($value) ? $value : $default;
+}
+
+/**
+ * Permalink for a page slug created by the theme.
+ *
+ * @param string $slug Page slug.
+ * @return string
+ */
+function hohorizon_page_url($slug) {
+	$page = get_page_by_path($slug);
+	if ($page) {
+		return get_permalink($page);
+	}
+	return home_url('/' . trim($slug, '/') . '/');
+}
+
+/**
+ * Photo for a post: featured image, then a stored URL.
+ *
+ * @param int    $post_id Post ID.
+ * @param string $meta    Meta key.
+ * @param string $fallback Fallback URL.
+ * @return string
+ */
+function hohorizon_image_url($post_id, $meta = '_hohorizon_image', $fallback = '') {
+	$thumb = get_the_post_thumbnail_url($post_id, 'large');
+	if ($thumb) {
+		return $thumb;
+	}
+	$stored = get_post_meta($post_id, $meta, true);
+	if (is_string($stored) && $stored !== '') {
+		return $stored;
+	}
+	return $fallback;
+}
+
+/**
+ * Split a textarea into trimmed lines.
+ *
+ * @param string $text Raw text.
+ * @return string[]
+ */
+function hohorizon_lines($text) {
+	$lines = preg_split('/\r\n|\r|\n/', (string) $text);
+	$clean = array();
+	foreach ($lines as $line) {
+		$line = trim($line);
+		if ($line !== '') {
+			$clean[] = $line;
+		}
+	}
+	return $clean;
+}
+
+/**
+ * Stat rows: Label | Value | Note.
+ *
+ * @return array<int, array{0: string, 1: string, 2: string}>
+ */
+function hohorizon_stats() {
+	$rows = array();
+	foreach (hohorizon_lines(hohorizon_mod('stats')) as $line) {
+		$parts = array_map('trim', explode('|', $line));
+		if (count($parts) < 2 || $parts[0] === '') {
+			continue;
+		}
+		$rows[] = array($parts[0], $parts[1], isset($parts[2]) ? $parts[2] : '');
+	}
+	return $rows;
+}
+
+/**
+ * Session topic labels.
+ *
+ * @return array<string, string>
+ */
+function hohorizon_topics() {
+	return array(
+		'finance'    => 'Finance',
+		'investment' => 'Investment',
+		'trade'      => 'Global trade',
+		'technology' => 'Technology',
+		'leadership' => 'Leadership',
+		'risk'       => 'Risk management',
+	);
+}
+
+/**
+ * Partner tiers.
+ *
+ * @return array<string, string>
+ */
+function hohorizon_tiers() {
+	return array(
+		'strategic'     => 'Strategic partners',
+		'platinum'      => 'Platinum partners',
+		'gold'          => 'Gold partners',
+		'silver'        => 'Silver partners',
+		'institutional' => 'Institutional partners',
+		'media'         => 'Media partners',
+	);
+}
+
+/**
+ * Query theme content in menu order.
+ *
+ * @param string $type Post type.
+ * @param int    $count How many. -1 for all.
+ * @param array  $meta Optional meta query.
+ * @return WP_Query
+ */
+function hohorizon_query($type, $count = -1, $meta = array()) {
+	$args = array(
+		'post_type'      => $type,
+		'posts_per_page' => $count,
+		'orderby'        => 'menu_order',
+		'order'          => 'ASC',
+		'post_status'    => 'publish',
+	);
+	if ($meta) {
+		$args['meta_query'] = $meta;
+	}
+	return new WP_Query($args);
+}
+
+/**
+ * Page banner.
+ *
+ * @param int $post_id Post ID.
+ */
+function hohorizon_page_hero($post_id = 0) {
+	$post_id = $post_id ? $post_id : get_queried_object_id();
+	$image   = hohorizon_image_url($post_id, '_hohorizon_hero');
+	$eyebrow = get_post_meta($post_id, '_hohorizon_eyebrow', true);
+	echo '<section class="page-hero"';
+	if ($image) {
+		echo ' style="' . esc_attr('--hero:url(' . esc_url($image) . ')') . '"';
+	}
+	echo '><div class="wrap">';
+	if ($eyebrow) {
+		echo '<p class="eyebrow">' . esc_html($eyebrow) . '</p>';
+	}
+	echo '<h1>' . esc_html(get_the_title($post_id)) . '</h1>';
+	if (has_excerpt($post_id)) {
+		echo '<p>' . esc_html(get_the_excerpt($post_id)) . '</p>';
+	}
+	echo '</div></section>';
+}
+
+/**
+ * Heading and paragraph pairs from a page.
+ *
+ * @param int $post_id Post ID.
+ * @return array<int, array{title: string, text: string}>
+ */
+function hohorizon_pairs($post_id) {
+	$post = get_post($post_id);
+	if (!$post) {
+		return array();
+	}
+	$items   = array();
+	$current = null;
+	foreach (parse_blocks($post->post_content) as $block) {
+		if ($block['blockName'] === 'core/heading') {
+			if ($current) {
+				$items[] = $current;
+			}
+			$current = array(
+				'title' => trim(wp_strip_all_tags($block['innerHTML'])),
+				'text'  => '',
+			);
+		} elseif ($block['blockName'] === 'core/paragraph' && $current) {
+			$text = trim(wp_strip_all_tags($block['innerHTML']));
+			if ($text !== '') {
+				$current['text'] .= ($current['text'] === '' ? '' : ' ') . $text;
+			}
+		}
+	}
+	if ($current) {
+		$items[] = $current;
+	}
+	return $items;
+}
+
+/**
+ * Render a session row.
+ */
+function hohorizon_session_row() {
+	$topic = get_post_meta(get_the_ID(), '_hohorizon_topic', true);
+	$time  = get_post_meta(get_the_ID(), '_hohorizon_time', true);
+	$span  = get_post_meta(get_the_ID(), '_hohorizon_duration', true);
+	$who   = get_post_meta(get_the_ID(), '_hohorizon_speaker', true);
+	$role  = get_post_meta(get_the_ID(), '_hohorizon_role', true);
+	echo '<article class="session" data-topic="' . esc_attr($topic) . '">';
+	echo '<p>' . esc_html($time) . '<br />' . esc_html($span) . '</p>';
+	echo '<div><h3>' . esc_html(get_the_title()) . '</h3><p>' . esc_html(wp_strip_all_tags(get_the_content())) . '</p></div>';
+	echo '<p>' . esc_html($who) . '<br />' . esc_html($role) . '</p>';
+	echo '</article>';
+}
+
+/**
+ * Filter buttons for sessions.
+ */
+function hohorizon_filters() {
+	echo '<div class="filters" aria-label="Filter sessions">';
+	echo '<button type="button" data-filter="all" aria-pressed="true">All</button>';
+	foreach (hohorizon_topics() as $key => $label) {
+		echo '<button type="button" data-filter="' . esc_attr($key) . '">' . esc_html($label) . '</button>';
+	}
+	echo '</div>';
+}
+
+/**
+ * Primary menu when none has been saved.
+ */
+function hohorizon_primary_fallback() {
+	$items = array(
+		array('About', 'about', array(array('Our Mission', 'mission'))),
+		array('Agenda', 'programme', array()),
+		array('Speakers', 'speakers', array()),
+		array('Partners', 'partners', array(array('Membership', 'membership'), array('Become a Partner', 'become-a-partner'))),
+		array('Media', 'events', array()),
+		array('Contact', 'contact', array()),
+	);
+	foreach ($items as $item) {
+		echo '<div class="menu-item"><a href="' . esc_url(hohorizon_page_url($item[1])) . '">' . esc_html($item[0]) . '</a>';
+		if ($item[2]) {
+			echo '<div class="dropdown">';
+			foreach ($item[2] as $child) {
+				echo '<a href="' . esc_url(hohorizon_page_url($child[1])) . '">' . esc_html($child[0]) . '</a>';
+			}
+			echo '</div>';
+		}
+		echo '</div>';
+	}
+}
+
+/**
+ * Footer quick links fallback.
+ */
+function hohorizon_footer_quick_fallback() {
+	hohorizon_link_list(
+		array(
+			'About Us'             => 'about',
+			'Our Mission'          => 'mission',
+			'Membership'           => 'membership',
+			'Contact'              => 'contact',
+			'Privacy Policy'       => 'privacy',
+			'Terms & Conditions'   => 'terms',
+		)
+	);
+}
+
+/**
+ * Footer explore links fallback.
+ */
+function hohorizon_footer_explore_fallback() {
+	hohorizon_link_list(
+		array(
+			'Events'                 => 'events',
+			'Programme'              => 'programme',
+			'Speakers'               => 'speakers',
+			'Partners'               => 'partners',
+			'Become a Partner'       => 'become-a-partner',
+			'Request an invitation'  => 'invitation',
+		)
+	);
+}
+
+/**
+ * A simple link list.
+ *
+ * @param array<string, string> $links Label => slug.
+ */
+function hohorizon_link_list($links) {
+	echo '<ul>';
+	foreach ($links as $label => $slug) {
+		echo '<li><a href="' . esc_url(hohorizon_page_url($slug)) . '">' . esc_html($label) . '</a></li>';
+	}
+	echo '</ul>';
+}
+
+/**
+ * Menu markup that matches the existing stylesheet.
+ */
+class Hohorizon_Walker extends Walker_Nav_Menu {
+	/**
+	 * Open a submenu.
+	 *
+	 * @param string   $output Output.
+	 * @param int      $depth Depth.
+	 * @param stdClass $args Args.
+	 */
+	public function start_lvl(&$output, $depth = 0, $args = null) {
+		$output .= '<div class="dropdown">';
+	}
+
+	/**
+	 * Close a submenu.
+	 *
+	 * @param string   $output Output.
+	 * @param int      $depth Depth.
+	 * @param stdClass $args Args.
+	 */
+	public function end_lvl(&$output, $depth = 0, $args = null) {
+		$output .= '</div>';
+	}
+
+	/**
+	 * Open a menu item.
+	 *
+	 * @param string   $output Output.
+	 * @param WP_Post  $item Item.
+	 * @param int      $depth Depth.
+	 * @param stdClass $args Args.
+	 * @param int      $id ID.
+	 */
+	public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+		$classes = empty($item->classes) ? array() : (array) $item->classes;
+		$active  = in_array('current-menu-item', $classes, true) || in_array('current-menu-ancestor', $classes, true);
+		if ($depth === 0) {
+			$output .= '<div class="menu-item">';
+		}
+		$output .= '<a href="' . esc_url($item->url) . '"' . ($active ? ' aria-current="page"' : '') . '>' . esc_html($item->title) . '</a>';
+	}
+
+	/**
+	 * Close a menu item.
+	 *
+	 * @param string   $output Output.
+	 * @param WP_Post  $item Item.
+	 * @param int      $depth Depth.
+	 * @param stdClass $args Args.
+	 */
+	public function end_el(&$output, $item, $depth = 0, $args = null) {
+		if ($depth === 0) {
+			$output .= '</div>';
+		}
+	}
+}
+
+/**
+ * Event cards.
+ *
+ * @param int $count How many. -1 for all.
+ */
+function hohorizon_event_list($count = -1) {
+	$events = hohorizon_query('hoh_event', $count);
+	if (!$events->have_posts()) {
+		echo '<p class="lede">No gatherings have been published yet.</p>';
+		return;
+	}
+	echo '<div class="events">';
+	while ($events->have_posts()) {
+		$events->the_post();
+		$image = hohorizon_image_url(get_the_ID());
+		echo '<article class="event-card">';
+		if ($image) {
+			echo '<img src="' . esc_url($image) . '" alt="" />';
+		}
+		echo '<div><p class="eyebrow">' . esc_html((string) get_post_meta(get_the_ID(), '_hohorizon_kicker', true)) . '</p>';
+		echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+		echo '<p class="lede" style="margin-top:12px">' . esc_html(has_excerpt() ? get_the_excerpt() : '') . '</p>';
+		echo '<div class="actions">';
+		echo '<a class="btn btn-ink" href="' . esc_url(get_permalink()) . '">View details</a>';
+		echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('invitation')) . '">Request invitation</a>';
+		echo '</div></div></article>';
+	}
+	echo '</div>';
+	wp_reset_postdata();
+}
+
+/**
+ * Speaker cards.
+ *
+ * @param int  $count How many. -1 for all.
+ * @param bool $link Whether to link to the speakers page.
+ */
+function hohorizon_speaker_list($count = -1, $link = false) {
+	$speakers = hohorizon_query('hoh_speaker', $count);
+	if (!$speakers->have_posts()) {
+		echo '<p class="lede">No speaker profiles have been published yet.</p>';
+		return;
+	}
+	echo '<div class="speakers">';
+	$number = 1;
+	while ($speakers->have_posts()) {
+		$speakers->the_post();
+		$image = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+		$note  = get_post_meta(get_the_ID(), '_hohorizon_note', true);
+		echo '<article class="speaker" id="speaker-' . esc_attr((string) get_the_ID()) . '">';
+		echo '<div class="monogram" aria-hidden="true">';
+		if ($image) {
+			echo '<img src="' . esc_url($image) . '" alt="" />';
+		} else {
+			echo esc_html(str_pad((string) $number, 2, '0', STR_PAD_LEFT));
+		}
+		echo '</div>';
+		echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+		echo '<p>' . esc_html((string) get_post_meta(get_the_ID(), '_hohorizon_role', true)) . '</p>';
+		echo '<p>' . esc_html((string) get_post_meta(get_the_ID(), '_hohorizon_organisation', true)) . '</p>';
+		if (!$link) {
+			echo '<p>' . esc_html(wp_strip_all_tags(get_the_content())) . '</p>';
+		}
+		if ($note) {
+			echo '<p class="note">' . esc_html($note) . '</p>';
+		}
+		if ($link) {
+			echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('speakers') . '#speaker-' . get_the_ID()) . '">View profile</a>';
+		}
+		echo '</article>';
+		$number++;
+	}
+	echo '</div>';
+	wp_reset_postdata();
+}
+
+/**
+ * Logo tiles. Empty places stay labelled until a logo is added.
+ *
+ * @param int    $count How many. 0 lists the whole tier.
+ * @param string $tier Optional tier key.
+ */
+function hohorizon_partner_row($count = 0, $tier = '') {
+	$meta = array();
+	if ($tier !== '') {
+		$meta[] = array(
+			'key'   => '_hohorizon_tier',
+			'value' => $tier,
+		);
+	}
+	$partners = hohorizon_query('hoh_partner', $count > 0 ? $count : -1, $meta);
+	echo '<div class="logo-row">';
+	if ($partners->have_posts()) {
+		while ($partners->have_posts()) {
+			$partners->the_post();
+			$logo = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+			echo '<div class="logo-tile">';
+			if ($logo) {
+				echo '<img src="' . esc_url($logo) . '" alt="' . esc_attr(get_the_title()) . '" />';
+			} else {
+				echo esc_html(get_the_title());
+			}
+			echo '</div>';
+		}
+		wp_reset_postdata();
+	} else {
+		$slots = $count > 0 ? $count : 4;
+		for ($i = 0; $i < $slots; $i++) {
+			echo '<div class="logo-tile">Logo to add</div>';
+		}
+	}
+	echo '</div>';
+}

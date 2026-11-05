@@ -1,0 +1,13 @@
+/*
+Theme Name: HOHORIZON
+Theme URI: https://github.com/Babu-Bhandari/The-Website-Workshop
+Author: HOHORIZON GLOBAL AFFAIRS
+Description: The HOHORIZON GLOBAL AFFAIRS site, editable from the WordPress admin. Hero text lives in the Customizer. Pages, events, speakers, sessions, and partners are edited as content.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+Text Domain: hohorizon
+*/
+
+/* The design stylesheet is assets/theme.css and is loaded from functions.php. */

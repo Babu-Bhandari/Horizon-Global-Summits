@@ -3,409 +3,357 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Website Workshop — Website Design Portfolio</title>
-    <meta
-      name="description"
-      content="The Website Workshop designs and builds websites for independent businesses. A one-page portfolio of selected work, services, and a way to start a project."
-    />
+    <title>HOHORIZON GLOBAL AFFAIRS</title>
+    <meta name="description" content="HOHORIZON GLOBAL AFFAIRS is an invitation-led international business forum for leaders, investors and policymakers." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,640&family=Outfit:wght@380;480;560&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
-  <body>
+  <body class="has-hero" data-page="home" data-email="" data-ga="">
     <a class="skip" href="#content">Skip to content</a>
-
-    <header class="site-header">
-      <a class="logo" href="#top">
-        <span class="logo-mark" aria-hidden="true">W</span>
-        <span>The Website Workshop</span>
-      </a>
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="site-nav"
-      >
-        <span class="sr-only">Menu</span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav id="site-nav" class="nav" aria-label="Primary">
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#approach">Approach</a>
-        <a href="#about">About</a>
-        <a class="nav-cta" href="#contact">Start a project</a>
-      </nav>
-    </header>
-
-    <main id="content">
-      <section class="hero" id="top">
-        <div class="hero-copy">
-          <p class="eyebrow">Website design studio</p>
-          <h1>Websites shaped with care.</h1>
-          <p class="lead">
-            We design and build sites for independent businesses — clear
-            structure, considered type, and pages that feel finished.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">See the work</a>
-            <a class="button button-ghost" href="#contact">Start a project</a>
-          </div>
-          <dl class="stats">
-            <div>
-              <dt>Focus</dt>
-              <dd>Website design</dd>
-            </div>
-            <div>
-              <dt>Format</dt>
-              <dd>One page or many</dd>
-            </div>
-            <div>
-              <dt>Timeline</dt>
-              <dd>3–6 weeks</dd>
-            </div>
-          </dl>
-        </div>
-
-        <figure class="specimen">
-          <div class="browser">
-            <div class="browser-bar" aria-hidden="true">
-              <span></span><span></span><span></span>
-              <p>northline.studio</p>
-            </div>
-            <div class="browser-page">
-              <div class="mini-nav">
-                <strong>Northline</strong>
-                <em>Work / Studio / Visit</em>
-              </div>
-              <p class="mini-kicker">Architecture</p>
-              <p class="mini-title">Timber, light, and a quiet plan.</p>
-              <div class="mini-grid">
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <figcaption>A sample of the kind of site we design.</figcaption>
-        </figure>
-      </section>
-
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <span>Website design</span>
-          <span>One-page sites</span>
-          <span>Art direction</span>
-          <span>Type &amp; layout</span>
-          <span>Front-end build</span>
-          <span>Redesigns</span>
-          <span>Website design</span>
-          <span>One-page sites</span>
-          <span>Art direction</span>
-          <span>Type &amp; layout</span>
-          <span>Front-end build</span>
-          <span>Redesigns</span>
+    <div class="intro" id="intro">
+      <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=80')"></div>
+      <div class="hero-shade"></div>
+      <div class="intro-copy">
+        <p class="intro-title"><span>HOHORIZON</span><span>GLOBAL</span><span>AFFAIRS</span></p>
+        <div class="rule"></div>
+        <div class="intro-year">
+          <p class="striped">FORUM</p>
+          <p class="intro-pct"><span id="intro-pct">000</span>%</p>
         </div>
       </div>
-
-      <section class="section" id="work">
-        <div class="section-head">
-          <p class="eyebrow">Selected work</p>
-          <h2>Sites with a point of view.</h2>
-          <p>
-            Six recent projects. Open any card for the short case note — what
-            the business needed, and what the site does.
-          </p>
-        </div>
-        <div class="work-grid">
-          <article class="project project-feature">
-            <button
-              class="project-card"
-              type="button"
-              data-title="Northline"
-              data-meta="Architecture studio · 2026"
-              data-summary="A practice site for a studio that builds with timber and daylight. The page leads with the work, then the people, then a visit."
-              data-points="A project index that reads like a contents page|Photography given room, with short captions|A visit page with hours, map, and one clear action"
-            >
-              <div class="shot shot-northline" aria-hidden="true">
-                <span>Northline</span>
-                <i></i><i></i>
-              </div>
-              <div class="project-meta">
-                <p>01 — Architecture</p>
-                <h3>Northline</h3>
-              </div>
-            </button>
-          </article>
-
-          <article class="project">
-            <button
-              class="project-card"
-              type="button"
-              data-title="Marlowe"
-              data-meta="Independent bookshop · 2025"
-              data-summary="The shop, the shelves, and the week’s events on one page. Readers can find a book without feeling rushed through a catalog."
-              data-points="A reading list edited like a shop window|Event nights kept beside the books|A simple enquiry for special orders"
-            >
-              <div class="shot shot-marlowe" aria-hidden="true">
-                <span>Marlowe</span>
-              </div>
-              <div class="project-meta">
-                <p>02 — Bookshop</p>
-                <h3>Marlowe</h3>
-              </div>
-            </button>
-          </article>
-
-          <article class="project">
-            <button
-              class="project-card"
-              type="button"
-              data-title="Fieldnote"
-              data-meta="Outdoor goods · 2025"
-              data-summary="Product stories with margins. Fieldnote needed a site that could sell a jacket without looking like a template store."
-              data-points="Large product frames and plain language|A journal for trips and care notes|Checkout path kept visually quiet"
-            >
-              <div class="shot shot-field" aria-hidden="true">
-                <span>Fieldnote</span>
-                <i></i>
-              </div>
-              <div class="project-meta">
-                <p>03 — Outdoor</p>
-                <h3>Fieldnote</h3>
-              </div>
-            </button>
-          </article>
-
-          <article class="project">
-            <button
-              class="project-card"
-              type="button"
-              data-title="Atelier Sol"
-              data-meta="Ceramics · 2024"
-              data-summary="A catalog that treats each vessel as an object. Collectors browse slowly, then write to reserve a piece."
-              data-points="Objects shown one at a time|Clay, glaze, and size written in full|Reserve by note, not a noisy cart"
-            >
-              <div class="shot shot-sol" aria-hidden="true">
-                <span>Sol</span>
-                <b></b>
-              </div>
-              <div class="project-meta">
-                <p>04 — Ceramics</p>
-                <h3>Atelier Sol</h3>
-              </div>
-            </button>
-          </article>
-
-          <article class="project">
-            <button
-              class="project-card"
-              type="button"
-              data-title="Harbor &amp; Co."
-              data-meta="Guest house · 2026"
-              data-summary="Rooms, a long table, and a booking path that stays as calm as the house. Guests understand the stay before they ask for dates."
-              data-points="Rooms introduced before the calendar|Supper and the house rules in plain type|One booking action, repeated only where it helps"
-            >
-              <div class="shot shot-harbor" aria-hidden="true">
-                <span>Harbor</span>
-                <i></i>
-              </div>
-              <div class="project-meta">
-                <p>05 — Hospitality</p>
-                <h3>Harbor &amp; Co.</h3>
-              </div>
-            </button>
-          </article>
-
-          <article class="project">
-            <button
-              class="project-card"
-              type="button"
-              data-title="Kinfolk Press"
-              data-meta="Small publisher · 2024"
-              data-summary="Issues, authors, and a shop sharing one editorial page. The press wanted a site that felt printed, not pasted into a theme."
-              data-points="Issue covers as the navigation|Author notes set like a colophon|A shop that does not shout over the work"
-            >
-              <div class="shot shot-press" aria-hidden="true">
-                <span>Kinfolk Press</span>
-                <i></i>
-              </div>
-              <div class="project-meta">
-                <p>06 — Publishing</p>
-                <h3>Kinfolk Press</h3>
-              </div>
-            </button>
-          </article>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="services">
-        <div class="section-head">
-          <p class="eyebrow">Services</p>
-          <h2>What we make.</h2>
-        </div>
-        <ol class="service-list">
-          <li>
-            <span>01</span>
-            <div>
-              <h3>Website design</h3>
-              <p>
-                Structure, type, color, and layout for a specific business —
-                not a theme with the logo swapped.
-              </p>
+      <div class="intro-meta">
+        <span>[ Date to be confirmed ]</span>
+        <span>[ Venue to be confirmed ]</span>
+      </div>
+    </div>
+    <header id="site-header"></header>
+    <main id="content">
+      <section class="hero">
+        <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=2000&q=80')"></div>
+        <video class="hero-video" hidden autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=1600&q=70">
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-shade"></div>
+        <div class="hero-copy">
+          <div class="hero-lead">
+            <h1><span>HOHORIZON</span><span>GLOBAL</span><span>AFFAIRS</span></h1>
+            <div class="rule"></div>
+            <p class="striped">FORUM</p>
+            <div class="hero-actions">
+              <a class="btn" href="/become-a-partner.html">Become a partner</a>
+              <a class="btn" href="/invitation.html">Request an invite</a>
             </div>
-          </li>
-          <li>
-            <span>02</span>
-            <div>
-              <h3>One-page sites</h3>
-              <p>
-                A full story on a single scroll when that is the right shape:
-                offer, proof, and a way to begin.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span>03</span>
-            <div>
-              <h3>Redesigns</h3>
-              <p>
-                Keep the parts people already trust. Replace the parts that
-                make the site feel unfinished.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span>04</span>
-            <div>
-              <h3>Front-end build</h3>
-              <p>
-                The design, built in the browser, so what you approve is what
-                launches.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <section class="section" id="approach">
-        <div class="section-head">
-          <p class="eyebrow">Approach</p>
-          <h2>Four steps, in the open.</h2>
-        </div>
-        <ol class="steps">
-          <li>
-            <span>01</span>
-            <h3>Listen</h3>
-            <p>Goals, audience, and the pages you actually need.</p>
-          </li>
-          <li>
-            <span>02</span>
-            <h3>Shape</h3>
-            <p>Structure and a visual direction before decoration.</p>
-          </li>
-          <li>
-            <span>03</span>
-            <h3>Make</h3>
-            <p>Design and build together, with reviews you can click.</p>
-          </li>
-          <li>
-            <span>04</span>
-            <h3>Launch</h3>
-            <p>A site you can run locally, edit, and hand to someone else.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="section about" id="about">
-        <div>
-          <p class="eyebrow">About</p>
-          <h2>A small studio for finished websites.</h2>
-        </div>
-        <div class="about-copy">
-          <p>
-            We design websites the way a workshop finishes a piece of
-            furniture: measured, with visible joinery, and nothing extra. Most
-            clients are independent businesses that have outgrown a template
-            and want a site with a point of view.
-          </p>
-          <ul>
-            <li>Design and front-end in one place</li>
-            <li>One-page portfolios and multi-page sites</li>
-            <li>New projects open this season</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section contact" id="contact">
-        <div>
-          <p class="eyebrow">Contact</p>
-          <h2>Tell us about the site.</h2>
-          <p>
-            A few lines is enough: what you do, what the site needs to do, and
-            when you hope to launch.
-          </p>
-        </div>
-        <div class="contact-card">
-          <form id="contact-form" data-email="" novalidate>
-            <label>
-              Name
-              <input name="name" type="text" autocomplete="name" required />
-            </label>
-            <label>
-              Email
-              <input name="email" type="email" autocomplete="email" required />
-            </label>
-            <label>
-              Project
-              <textarea
-                name="message"
-                rows="5"
-                required
-                placeholder="A bookshop site, a redesign, a one-page portfolio…"
-              ></textarea>
-            </label>
-            <button class="button button-primary" type="submit">
-              Send a note
-            </button>
-            <p class="form-note" id="form-note">
-              This preview keeps your note in the browser. Add your email to
-              the form’s <code>data-email</code> attribute when you want it to
-              open your mail app.
-            </p>
-          </form>
-          <div class="form-success" hidden>
-            <h3>Note ready.</h3>
-            <p id="success-copy"></p>
-            <button class="button button-ghost" type="button" id="reset-form">
-              Write another note
-            </button>
+            <p class="hero-when">HOHORIZON Global Affairs<br />Date to be confirmed.<br />Venue to be confirmed.</p>
           </div>
+          <div class="hero-side">
+            <p class="hero-side-title">One focused day.<br />Five live streams.</p>
+            <ul class="streams">
+              <li>Finance</li>
+              <li>Risk</li>
+              <li>Trade</li>
+              <li>Technology</li>
+              <li>Leadership</li>
+            </ul>
+            <div class="clock" data-countdown="" aria-label="Countdown. The date is still to be confirmed.">
+              <div><b data-unit="days">--</b><span>Days</span></div>
+              <div><b data-unit="hours">--</b><span>Hours</span></div>
+              <div><b data-unit="minutes">--</b><span>Minutes</span></div>
+              <div><b data-unit="seconds">--</b><span>Seconds</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Finance</span><span>Risk</span><span>Trade</span><span>Technology</span><span>Leadership</span>
+          <span>Finance</span><span>Risk</span><span>Trade</span><span>Technology</span><span>Leadership</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap split">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80" alt="Delegates gathered in a conference hall" />
+          </div>
+          <div>
+            <p class="eyebrow">Welcome to HOHORIZON</p>
+            <h2>Where global leaders connect and opportunities begin.</h2>
+            <p class="lede" style="margin-top:22px">HOHORIZON GLOBAL AFFAIRS is a forum, not a trade-show floor. It is built for people who already carry responsibility: the executive opening a new market, the investor testing a thesis, the policymaker who needs the view from the operating table.</p>
+            <p class="lede">The purpose is simple. Put the right people in one place, give them a clear programme, and leave enough time for the conversation that does not fit on a panel.</p>
+            <div class="actions">
+              <a class="btn btn-ink" href="/about.html">Read more</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section band">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">The room, in numbers</p>
+              <h2>Figures will be published when they are real.</h2>
+            </div>
+          </div>
+          <div class="stats">
+            <article class="stat"><p class="stat-value">To be confirmed</p><p class="stat-label">International delegates</p><p class="note">Placeholder</p></article>
+            <article class="stat"><p class="stat-value">To be confirmed</p><p class="stat-label">Participating companies</p><p class="note">Placeholder</p></article>
+            <article class="stat"><p class="stat-value">To be confirmed</p><p class="stat-label">Countries represented</p><p class="note">Placeholder</p></article>
+            <article class="stat"><p class="stat-value">To be confirmed</p><p class="stat-label">Industry leaders</p><p class="note">Placeholder</p></article>
+            <article class="stat"><p class="stat-value">To be confirmed</p><p class="stat-label">Strategic partners</p><p class="note">Placeholder</p></article>
+            <article class="stat"><p class="stat-value">To be confirmed</p><p class="stat-label">Global reach</p><p class="note">Placeholder</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">What to expect</p>
+              <h2>A day built around the conversation.</h2>
+            </div>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80" alt="People meeting between conference sessions" />
+              <div><p class="eyebrow">01</p><h3>International networking</h3><p>Introductions with a reason, not a stack of badges at the door.</p></div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1400&q=80" alt="A speaker addressing a seated audience" />
+              <div><p class="eyebrow">02</p><h3>Executive conferences</h3><p>Short sessions for people who have already read the briefing.</p></div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" alt="A small working discussion around a table" />
+              <div><p class="eyebrow">03</p><h3>Industry discussions</h3><p>Finance, trade, technology, risk and leadership, kept specific.</p></div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80" alt="Two colleagues reviewing work together" />
+              <div><p class="eyebrow">04</p><h3>Strategic partnerships</h3><p>Time set aside for the meeting that should not happen in a corridor.</p></div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80" alt="A formally set dining room" />
+              <div><p class="eyebrow">05</p><h3>VIP hospitality</h3><p>A calm setting around the programme, with the schedule still in charge.</p></div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="A desk prepared for a business presentation" />
+              <div><p class="eyebrow">06</p><h3>Business showcases</h3><p>A short window for work that deserves a proper introduction.</p></div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80" alt="An executive speaking with a colleague" />
+              <div><p class="eyebrow">07</p><h3>Leadership conversations</h3><p>Chairs who have done the job, not a script read from the stage.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section paper">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Upcoming</p>
+              <h2>Gatherings on the calendar will appear here.</h2>
+            </div>
+            <a class="btn btn-ink" href="/events.html">All events</a>
+          </div>
+          <div class="events">
+            <article class="event-card">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="A bright executive meeting room" />
+              <div>
+                <p class="eyebrow">Flagship forum · Placeholder</p>
+                <h3>HOHORIZON flagship forum</h3>
+                <p class="lede" style="margin-top:12px">Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.</p>
+                <div class="actions">
+                  <a class="btn btn-ink" href="/event.html?event=flagship">View details</a>
+                  <a class="btn btn-ink" href="/invitation.html">Request invitation</a>
+                </div>
+              </div>
+            </article>
+            <article class="event-card">
+              <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80" alt="A boardroom prepared for a private meeting" />
+              <div>
+                <p class="eyebrow">Private briefing · Placeholder</p>
+                <h3>HOHORIZON private briefing</h3>
+                <p class="lede" style="margin-top:12px">Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.</p>
+                <div class="actions">
+                  <a class="btn btn-ink" href="/event.html?event=briefing">View details</a>
+                  <a class="btn btn-ink" href="/invitation.html">Request invitation</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Sample agenda</p>
+              <h2>The programme is not confirmed yet.</h2>
+            </div>
+            <a class="btn btn-ink" href="/programme.html">Full programme</a>
+          </div>
+          <p class="lede" style="margin-bottom:22px">The rows below show the layout. Times, speakers and titles are placeholders.</p>
+          <div class="filters" aria-label="Filter the sample agenda">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="finance">Finance</button>
+            <button type="button" data-filter="investment">Investment</button>
+            <button type="button" data-filter="trade">Global trade</button>
+            <button type="button" data-filter="technology">Technology</button>
+            <button type="button" data-filter="leadership">Leadership</button>
+            <button type="button" data-filter="risk">Risk management</button>
+          </div>
+          <article class="session" data-topic="leadership">
+            <p>Time to be confirmed<br />Duration to be confirmed</p>
+            <div><h3>Opening conversation</h3><p>How the day will be used, and what a useful disagreement looks like.</p></div>
+            <p>Speaker to be confirmed<br />Designation to be confirmed</p>
+          </article>
+          <article class="session" data-topic="finance">
+            <p>Time to be confirmed<br />Duration to be confirmed</p>
+            <div><h3>Capital across borders</h3><p>Where cross-border finance is slowing, and where it is still moving.</p></div>
+            <p>Speaker to be confirmed<br />Designation to be confirmed</p>
+          </article>
+          <article class="session" data-topic="investment">
+            <p>Time to be confirmed<br />Duration to be confirmed</p>
+            <div><h3>Mandates, not slogans</h3><p>What investors are actually willing to underwrite this year.</p></div>
+            <p>Speaker to be confirmed<br />Designation to be confirmed</p>
+          </article>
+          <article class="session" data-topic="trade">
+            <p>Time to be confirmed<br />Duration to be confirmed</p>
+            <div><h3>Routes and resilience</h3><p>Trade corridors, delays, and the contracts written around them.</p></div>
+            <p>Speaker to be confirmed<br />Designation to be confirmed</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section paper">
+        <div class="wrap topics">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Discussion areas</p>
+              <h2>Five subjects. No filler track.</h2>
+            </div>
+          </div>
+          <article class="topic">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="Glass towers in a financial district" />
+            <div>
+              <p class="eyebrow">01</p>
+              <h2>Global finance &amp; investment</h2>
+              <p class="lede" style="margin-top:14px">Capital allocation, cross-border mandates and the difference between a theme and a deal.</p>
+              <p class="lede">Related themes: private capital, sovereign balance sheets, credit, partnerships.</p>
+            </div>
+          </article>
+          <article class="topic">
+            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80" alt="Container ships at a commercial port" />
+            <div>
+              <p class="eyebrow">02</p>
+              <h2>International trade &amp; commerce</h2>
+              <p class="lede" style="margin-top:14px">How goods, contracts and corridors are being redrawn, and who is paying for the delay.</p>
+              <p class="lede">Related themes: logistics, supply contracts, market access, trade finance.</p>
+            </div>
+          </article>
+          <article class="topic">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Close view of a computer processor" />
+            <div>
+              <p class="eyebrow">03</p>
+              <h2>Technology &amp; artificial intelligence</h2>
+              <p class="lede" style="margin-top:14px">Tools that change a cost line, not a slide. The question is adoption with accountability.</p>
+              <p class="lede">Related themes: applied intelligence, infrastructure, data, operating models.</p>
+            </div>
+          </article>
+          <article class="topic">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Papers and a laptop on a working desk" />
+            <div>
+              <p class="eyebrow">04</p>
+              <h2>Risk management &amp; economic resilience</h2>
+              <p class="lede" style="margin-top:14px">What still works when a forecast does not: insurance, continuity, and the board conversation.</p>
+              <p class="lede">Related themes: credit risk, geopolitical exposure, continuity, governance.</p>
+            </div>
+          </article>
+          <article class="topic">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80" alt="A leadership team standing together in discussion" />
+            <div>
+              <p class="eyebrow">05</p>
+              <h2>Leadership &amp; innovation</h2>
+              <p class="lede" style="margin-top:14px">How operators keep a business moving while they change the way it works.</p>
+              <p class="lede">Related themes: succession, culture, new ventures, decision rights.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Speakers</p>
+              <h2>Names will be published when they are confirmed.</h2>
+            </div>
+            <a class="btn btn-ink" href="/speakers.html">All profiles</a>
+          </div>
+          <div class="speakers">
+            <article class="speaker"><div class="monogram" aria-hidden="true">01</div><h3>Name to be confirmed</h3><p>Title to be confirmed</p><p>Organisation to be confirmed</p><p class="note">Sample profile</p><a class="btn btn-ink" href="/speakers.html#seat-1">View profile</a></article>
+            <article class="speaker"><div class="monogram" aria-hidden="true">02</div><h3>Name to be confirmed</h3><p>Title to be confirmed</p><p>Organisation to be confirmed</p><p class="note">Sample profile</p><a class="btn btn-ink" href="/speakers.html#seat-2">View profile</a></article>
+            <article class="speaker"><div class="monogram" aria-hidden="true">03</div><h3>Name to be confirmed</h3><p>Title to be confirmed</p><p>Organisation to be confirmed</p><p class="note">Sample profile</p><a class="btn btn-ink" href="/speakers.html#seat-3">View profile</a></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section paper">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Partners</p>
+              <h2>Logo places, ready to be replaced.</h2>
+            </div>
+            <a class="btn btn-ink" href="/partners.html">Partner page</a>
+          </div>
+          <div class="logo-row">
+            <div class="logo-tile">Strategic<br />logo</div>
+            <div class="logo-tile">Platinum<br />logo</div>
+            <div class="logo-tile">Gold<br />logo</div>
+            <div class="logo-tile">Institutional<br />logo</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap split">
+          <div>
+            <p class="eyebrow">Membership &amp; partnership</p>
+            <h2>A seat, or a role in the room.</h2>
+            <p class="lede" style="margin-top:18px">Members come for the conversations and the introductions. Partners help shape the gathering and meet the people in it. Fees, if any, will be published when each opens. Nothing on this page is an offer.</p>
+            <ul class="lede" style="margin-top:16px;padding-left:18px">
+              <li>International networking with a host, not a directory.</li>
+              <li>A path to executive conversations around the programme.</li>
+              <li>Visibility only where it is agreed in advance.</li>
+            </ul>
+            <div class="actions">
+              <a class="btn btn-ink" href="/membership.html">Become a member</a>
+              <a class="btn btn-ink" href="/become-a-partner.html">Become a partner</a>
+            </div>
+          </div>
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=80" alt="Professionals talking in a modern office" />
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" style="background-image:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=80')">
+        <div class="wrap">
+          <p class="eyebrow">Invitation</p>
+          <h2>Your next global connection starts here.</h2>
+          <p class="lede" style="margin-top:16px;color:rgba(251,250,247,.86)">Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.</p>
+          <div class="actions"><a class="btn" href="/invitation.html">Request an invitation</a></div>
         </div>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <p>The Website Workshop</p>
-      <p>Website design portfolio · <span id="year">2026</span></p>
-    </footer>
-
-    <dialog id="case-study" aria-labelledby="case-title">
-      <div class="dialog-top">
-        <p class="eyebrow" id="case-meta"></p>
-        <button class="dialog-close" type="button" id="case-close">Close</button>
-      </div>
-      <h2 id="case-title"></h2>
-      <p id="case-summary"></p>
-      <ul id="case-points"></ul>
-    </dialog>
-
+    <footer id="site-footer"></footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

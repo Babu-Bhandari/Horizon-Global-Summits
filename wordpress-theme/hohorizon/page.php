@@ -14,7 +14,9 @@ get_header();
 while (have_posts()) :
 	the_post();
 	$slug = get_post_field('post_name', get_the_ID());
-	hohorizon_page_hero();
+	if ($slug !== 'speakers') {
+		hohorizon_page_hero();
+	}
 
 	if ($slug === 'about') {
 		$image = hohorizon_image_url(get_the_ID(), '_hohorizon_image');
@@ -64,9 +66,7 @@ while (have_posts()) :
 		wp_reset_postdata();
 		echo '</div></section>';
 	} elseif ($slug === 'speakers') {
-		echo '<section class="section"><div class="wrap">';
-		hohorizon_speaker_list();
-		echo '</div></section>';
+		hohorizon_speaker_stage();
 	} elseif ($slug === 'partners') {
 		echo '<section class="section"><div class="wrap logo-grid">';
 		foreach (hohorizon_tiers() as $key => $label) {

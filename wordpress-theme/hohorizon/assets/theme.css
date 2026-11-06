@@ -543,9 +543,43 @@ body.is-intro { overflow: hidden; }
 }
 .about-card h2 { font-size: clamp(2rem, 4vw, 3rem); }
 .about-card .lede { margin-top: 16px; }
-.about-stats { display: flex; flex-wrap: wrap; gap: 28px 48px; margin-top: 28px; }
-.about-stats strong { display: block; color: #8eb6ff; font-size: 1.8rem; font-weight: 500; }
-.about-stats span { color: var(--muted); }
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 20px;
+  margin-top: 32px;
+}
+.about-stats p { margin: 0; }
+.about-stats strong {
+  position: relative;
+  display: block;
+  padding-bottom: 12px;
+  color: #fff;
+  font-size: clamp(1.7rem, 2.4vw, 2.45rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.about-stats strong::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.55), rgba(255,255,255,.12));
+}
+.about-stats span {
+  display: block;
+  max-width: 16ch;
+  margin-top: 10px;
+  color: rgba(255,255,255,.68);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
 .company-section { padding-top: 36px; }
 .company-band { margin-bottom: 28px; text-align: center; }
 .company-band .eyebrow { margin-bottom: 10px; font-size: 0.78rem; }
@@ -690,6 +724,109 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .section { padding: 64px 0; }
   .frame { min-height: 240px; }
   .hero h1 { font-size: 3.58rem; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+}
+
+.speaker-stage {
+  position: relative;
+  padding: calc(var(--header) + 48px) 0 80px;
+}
+.speaker-stage.is-home { padding-top: 12px; }
+.speaker-intro { position: relative; z-index: 1; margin-bottom: 36px; text-align: center; }
+.meet {
+  margin: 0;
+  font-size: clamp(2.6rem, 4.2vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  background: linear-gradient(100deg, #d7e4ff 10%, #8eb6ff 42%, #ff8ab0 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.speaker-intro p { max-width: 34rem; margin: 16px auto 0; color: rgba(255,255,255,.78); font-size: 0.95rem; }
+.portrait-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 18px;
+  padding: 0 8px;
+}
+.portrait-window { overflow: hidden; width: min(1256px, calc(100% - 92px)); }
+.portrait-track {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 8px 4px 16px;
+}
+.portrait-track::-webkit-scrollbar { display: none; }
+.portrait {
+  position: relative;
+  flex: none;
+  width: 196px;
+  height: 268px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid rgba(120, 80, 255, 0.45);
+  border-radius: 18px;
+  background: #12082a;
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 46%, rgba(8, 6, 28, 0.92) 78%);
+  pointer-events: none;
+}
+.portrait-copy { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 14px; }
+.portrait-copy h3 { margin: 0; font-size: 1rem; font-weight: 500; }
+.portrait-copy p { margin: 4px 0 0; color: rgba(255,255,255,.72); font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.portrait-more, .portrait-arrow {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 50%;
+  background: rgba(8, 10, 28, 0.55);
+  color: #fff;
+  cursor: pointer;
+}
+.portrait-more {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.portrait.is-open .portrait-more { transform: rotate(45deg); }
+.portrait-bio {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  left: 12px;
+  right: 12px;
+  bottom: 72px;
+  margin: 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(7, 9, 26, 0.9);
+  font-size: 0.75rem;
+}
+.portrait.is-open .portrait-bio { display: block; }
+.portrait-arrow { width: 42px; height: 42px; margin: 0; font-size: 1.6rem; flex: none; }
+
+@media (max-width: 700px) {
+  .portrait { width: 160px; height: 230px; }
+  .portrait-arrow { width: 34px; height: 34px; margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

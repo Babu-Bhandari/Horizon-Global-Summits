@@ -112,6 +112,83 @@ function initClock() {
   window.setInterval(paint, 1000);
 }
 
+function initCounters() {
+  const nodes = [...document.querySelectorAll("[data-count]")];
+  if (!nodes.length) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const paint = (node, value) => {
+    node.textContent = `${value}${node.dataset.suffix || ""}`;
+  };
+  const run = (node) => {
+    const target = Number(node.dataset.count);
+    if (reduce || Number.isNaN(target)) {
+      paint(node, target);
+      return;
+    }
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min(1, (now - start) / 1100);
+      const eased = 1 - (1 - progress) ** 3;
+      paint(node, Math.round(target * eased));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        run(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.6 }
+  );
+  nodes.forEach((node) => observer.observe(node));
+}
+
+function initSpeakers() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".portrait-row").forEach((row) => {
+    const track = row.querySelector(".portrait-track");
+    if (!track) return;
+    const card = track.querySelector(".portrait");
+    const advance = (dir = 1) => {
+      const width = card ? card.getBoundingClientRect().width + 16 : 212;
+      const max = track.scrollWidth - track.clientWidth;
+      if (max <= 4) return;
+      if (dir > 0 && track.scrollLeft >= max - 4) track.scrollTo({ left: 0, behavior: "smooth" });
+      else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: max, behavior: "smooth" });
+      else track.scrollBy({ left: dir * width, behavior: "smooth" });
+    };
+    row.querySelectorAll(".portrait-arrow").forEach((button) => {
+      button.addEventListener("click", () => advance(Number(button.dataset.dir) || 1));
+    });
+    if (reduce) return;
+    let timer = 0;
+    const stop = () => window.clearInterval(timer);
+    const start = () => {
+      stop();
+      if (row.querySelector(".portrait.is-open")) return;
+      timer = window.setInterval(() => advance(1), 3200);
+    };
+    row.addEventListener("mouseenter", stop);
+    row.addEventListener("mouseleave", start);
+    row.addEventListener("focusin", stop);
+    row.addEventListener("focusout", (event) => {
+      if (!row.contains(event.relatedTarget)) start();
+    });
+    start();
+  });
+  document.querySelectorAll(".portrait-more").forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = button.closest(".portrait");
+      const open = card.classList.toggle("is-open");
+      button.setAttribute("aria-expanded", String(open));
+    });
+  });
+}
+
 function initIntro() {
   document.body.classList.add("is-ready");
 }
@@ -137,7 +214,9 @@ initHeader();
 initFilters();
 initVideo();
 initClock();
+initSpeakers();
 initIntro();
+initCounters();
 initReveal();
 initCookie();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();

@@ -49,13 +49,19 @@ $title     = hohorizon_hero_lines();
 				<h2>A forum for people who can speak for a decision.</h2>
 				<p class="lede">HOHORIZON GLOBAL AFFAIRS hosts international business conversations that stay specific, civil and useful. Executives, investors, policymakers and operators sit together with a clear programme and time left for the meeting that does not fit on a panel.</p>
 				<div class="about-stats">
-					<p><strong>To be confirmed</strong><span>Gatherings hosted</span></p>
-					<p><strong>To be confirmed</strong><span>Delegates in the room</span></p>
+					<p><strong data-count="750" data-suffix="+">750+</strong><span>Delegates</span></p>
+					<p><strong data-count="300" data-suffix="+">300+</strong><span>Companies represented</span></p>
+					<p><strong data-count="60" data-suffix="%">60%</strong><span>C-suite &amp; director-level attendees</span></p>
+					<p><strong data-count="25" data-suffix="+">25+</strong><span>Industry speakers</span></p>
+					<p><strong data-count="20" data-suffix="+">20+</strong><span>Partners</span></p>
+					<p><strong data-count="200" data-suffix="k+">200k+</strong><span>Digital reach</span></p>
 				</div>
 			</div>
 		</article>
 	</div>
 </section>
+
+<?php hohorizon_speaker_stage('h2', true); ?>
 
 <section class="section">
 	<div class="wrap split">
@@ -191,19 +197,6 @@ $title     = hohorizon_hero_lines();
 		</div>
 	</section>
 <?php endif; ?>
-
-<section class="section">
-	<div class="wrap">
-		<div class="section-head">
-			<div>
-				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('speakers_eyebrow')); ?></p>
-				<h2><?php echo esc_html(hohorizon_mod('speakers_title')); ?></h2>
-			</div>
-			<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('speakers')); ?>">All profiles</a>
-		</div>
-		<?php hohorizon_speaker_list(3, true); ?>
-	</div>
-</section>
 
 <section class="section paper">
 	<div class="wrap">

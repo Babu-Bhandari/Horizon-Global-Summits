@@ -58,7 +58,7 @@ function hohorizon_defaults() {
 		'cta_eyebrow'      => 'Invitation',
 		'cta_title'        => 'Your next global connection starts here.',
 		'cta_text'         => 'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
-		'cta_image'        => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=80',
+		'cta_image'        => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=80',
 		'footer_text'      => 'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
 		'public_email'     => 'Email to be confirmed',
 		'venue'            => 'Venue to be confirmed',

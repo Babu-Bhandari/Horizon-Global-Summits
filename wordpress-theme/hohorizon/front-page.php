@@ -61,32 +61,44 @@ $title     = hohorizon_hero_lines();
 	</div>
 </section>
 
-<?php hohorizon_speaker_stage('h2', true); ?>
-
-<section class="section paper">
-	<div class="wrap">
-		<p class="about-display">Media</p>
-		<div class="section-head">
-			<div>
-				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('events_eyebrow')); ?></p>
-				<h2><?php echo esc_html(hohorizon_mod('events_title')); ?></h2>
-			</div>
-			<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">All events</a>
+<section class="section next-meet" id="next-meet">
+	<div class="wrap next-meet-grid">
+		<div class="next-meet-copy">
+			<p class="eyebrow">Explore our upcoming events</p>
+			<h2>The next business meet.</h2>
+			<a class="next-meet-link" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">View all</a>
 		</div>
-		<?php hohorizon_event_list(2); ?>
+		<div class="next-meet-cards">
+			<?php
+			$meets = hohorizon_query('hoh_event', 2);
+			if ($meets->have_posts()) :
+				while ($meets->have_posts()) :
+					$meets->the_post();
+					$image = hohorizon_image_url(get_the_ID());
+					?>
+					<article class="meet-card">
+						<?php if ($image) : ?><img src="<?php echo esc_url($image); ?>" alt="" /><?php endif; ?>
+						<div>
+							<h3><?php the_title(); ?></h3>
+							<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
+							<a class="meet-visit" href="<?php the_permalink(); ?>">View details</a>
+						</div>
+					</article>
+					<?php
+				endwhile;
+				wp_reset_postdata();
+			endif;
+			?>
+		</div>
 	</div>
 </section>
 
-<section class="section">
+<?php hohorizon_speaker_stage('h2', true); ?>
+
+<section class="section home-panel" id="agenda">
 	<div class="wrap">
-		<div class="section-head">
-			<div>
-				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('programme_eyebrow')); ?></p>
-				<h2><?php echo esc_html(hohorizon_mod('programme_title')); ?></h2>
-			</div>
-			<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('programme')); ?>">Full programme</a>
-		</div>
-		<p class="lede" style="margin-bottom:22px"><?php echo esc_html(hohorizon_mod('programme_note')); ?></p>
+		<h2 class="about-display">Agenda</h2>
+		<p class="section-lead">A sample of the day. Times, speakers and titles stay as placeholders until the programme is confirmed.</p>
 		<?php hohorizon_filters(); ?>
 		<?php
 		$sessions = hohorizon_query('hoh_session', 4);
@@ -96,75 +108,55 @@ $title     = hohorizon_hero_lines();
 		}
 		wp_reset_postdata();
 		?>
+		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('programme')); ?>">Full programme</a></div>
 	</div>
 </section>
 
-<?php $topics = hohorizon_query('hoh_topic'); ?>
-<?php if ($topics->have_posts()) : ?>
-	<section class="section paper">
-		<div class="wrap topics">
-			<div class="section-head">
-				<div>
-					<p class="eyebrow"><?php echo esc_html(hohorizon_mod('topics_eyebrow')); ?></p>
-					<h2><?php echo esc_html(hohorizon_mod('topics_title')); ?></h2>
-				</div>
-			</div>
-			<?php $number = 1; ?>
-			<?php while ($topics->have_posts()) : $topics->the_post(); ?>
-				<article class="topic">
-					<?php $image = hohorizon_image_url(get_the_ID()); ?>
-					<?php if ($image) : ?><img src="<?php echo esc_url($image); ?>" alt="" /><?php endif; ?>
-					<div>
-						<p class="eyebrow"><?php echo esc_html(str_pad((string) $number, 2, '0', STR_PAD_LEFT)); ?></p>
-						<h2><?php the_title(); ?></h2>
-						<p class="lede" style="margin-top:14px"><?php echo esc_html(wp_strip_all_tags(get_the_content())); ?></p>
-						<?php $related = get_post_meta(get_the_ID(), '_hohorizon_related', true); ?>
-						<?php if ($related) : ?><p class="lede"><?php echo esc_html($related); ?></p><?php endif; ?>
-					</div>
-				</article>
-				<?php $number++; ?>
-			<?php endwhile; ?>
-			<?php wp_reset_postdata(); ?>
-		</div>
-	</section>
-<?php endif; ?>
-
-<section class="section paper">
+<section class="section home-panel" id="partners">
 	<div class="wrap">
-		<div class="section-head">
-			<div>
-				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('partners_eyebrow')); ?></p>
-				<h2><?php echo esc_html(hohorizon_mod('partners_title')); ?></h2>
-			</div>
-			<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('partners')); ?>">Partner page</a>
-		</div>
+		<h2 class="about-display">Partners</h2>
+		<p class="section-lead">Logo places for organisations that help shape the gathering. A name appears here only after the partnership is agreed.</p>
 		<?php hohorizon_partner_row(4); ?>
+		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('partners')); ?>">Partner page</a></div>
 	</div>
 </section>
 
-<section class="section">
-	<div class="wrap split">
-		<div>
-			<p class="eyebrow"><?php echo esc_html(hohorizon_mod('member_eyebrow')); ?></p>
-			<h2><?php echo esc_html(hohorizon_mod('member_title')); ?></h2>
-			<p class="lede" style="margin-top:18px"><?php echo esc_html(hohorizon_mod('member_text')); ?></p>
-			<ul class="lede" style="margin-top:16px;padding-left:18px">
-				<?php foreach (hohorizon_lines(hohorizon_mod('member_points')) as $point) : ?>
-					<li><?php echo esc_html($point); ?></li>
-				<?php endforeach; ?>
-			</ul>
-			<div class="actions">
-				<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('membership')); ?>">Become a member</a>
-				<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('become-a-partner')); ?>"><?php echo esc_html(hohorizon_mod('button_partner')); ?></a>
-			</div>
-		</div>
-		<div class="frame">
-			<img src="<?php echo esc_url(hohorizon_mod('member_image')); ?>" alt="" />
+<section class="section home-panel" id="media">
+	<div class="wrap">
+		<h2 class="about-display">Media</h2>
+		<p class="section-lead">Gatherings on the calendar. Dates, venues and coverage are published when they are fixed.</p>
+		<?php hohorizon_event_list(2); ?>
+		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">All events</a></div>
+	</div>
+</section>
+
+<section class="section home-panel" id="contact">
+	<div class="wrap">
+		<h2 class="about-display">Contact us</h2>
+		<p class="section-lead">Write to the forum. The public email address will be added when it is confirmed.</p>
+		<div style="display:grid;justify-items:center">
+			<?php
+			hohorizon_form(
+				'contact',
+				array(
+					array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
+					array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
+					array('name' => 'message', 'label' => 'Message', 'type' => 'textarea'),
+				),
+				'Send'
+			);
+			?>
 		</div>
 	</div>
 </section>
 
-<section class="cta" style="background-image:url('<?php echo esc_url(hohorizon_mod('cta_image')); ?>')">
+<?php
+$cta_image = hohorizon_mod('cta_image');
+if (strpos($cta_image, 'photo-1497366754035') !== false) {
+	$cta_image = hohorizon_defaults()['cta_image'];
+}
+?>
+<section class="cta" style="background-image:url('<?php echo esc_url($cta_image); ?>')">
 	<div class="wrap">
 		<p class="eyebrow"><?php echo esc_html(hohorizon_mod('cta_eyebrow')); ?></p>
 		<h2><?php echo esc_html(hohorizon_mod('cta_title')); ?></h2>

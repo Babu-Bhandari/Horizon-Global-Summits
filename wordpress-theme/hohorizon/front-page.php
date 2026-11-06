@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 get_header();
 
 $video_id  = absint(get_theme_mod('hohorizon_hero_video', 0));
-$video_url = $video_id ? wp_get_attachment_url($video_id) : '';
+$video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directory_uri() . '/assets/hero.mp4';
 $hero      = hohorizon_mod('hero_image');
 $streams   = array_map('trim', explode(',', hohorizon_mod('streams')));
 ?>

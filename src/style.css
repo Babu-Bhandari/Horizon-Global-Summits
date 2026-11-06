@@ -622,7 +622,6 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .wrap { width: min(var(--wrap), calc(100% - 32px)); }
   .section { padding: 64px 0; }
   .frame { min-height: 240px; }
-  .hero-video { display: none; }
   .hero h1 { font-size: 3.4rem; }
 }
 

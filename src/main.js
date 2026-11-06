@@ -203,12 +203,21 @@ function initForms() {
 
 function initVideo() {
   const video = document.querySelector(".hero-video");
-  if (!video || window.matchMedia("(max-width: 700px)").matches) return;
-  video.addEventListener("loadeddata", () => video.hidden = false);
+  if (!video) return;
+  const start = () => {
+    video.hidden = false;
+    const play = video.play();
+    if (play) play.catch(() => {});
+  };
+  video.addEventListener("loadeddata", start);
+  video.addEventListener("ended", () => {
+    video.currentTime = 0;
+    start();
+  });
   video.addEventListener("error", () => {
     video.hidden = true;
   });
-  video.hidden = true;
+  if (video.readyState >= 2) start();
 }
 
 function initCookie() {

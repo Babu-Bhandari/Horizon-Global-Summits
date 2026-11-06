@@ -38,7 +38,7 @@ $title     = hohorizon_hero_lines();
 
 <section class="section company-section">
 	<?php get_template_part('template-parts/companies'); ?>
-	<div class="wrap">
+	<div class="wrap" id="about">
 		<article class="about-card">
 			<div class="frame">
 				<img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80" alt="A small group in discussion" />

@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
 <header class="site-header">
 	<a class="logo" href="<?php echo esc_url(home_url('/')); ?>">
 		<strong>HORIZON<br />GLOBAL<br />AFFAIRS</strong>
-		<span><?php echo esc_html(hohorizon_mod('mark')); ?></span>
+		<span><?php echo esc_html(strtoupper(hohorizon_mod('mark'))); ?></span>
 	</a>
 	<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
 	<nav class="nav" id="site-nav" aria-label="Primary">

@@ -350,16 +350,26 @@ function hohorizon_filters() {
 function hohorizon_primary_fallback() {
 	$items = array(
 		array('Home', '', array()),
-		array('About', 'about', array(array('Our Mission', 'mission'))),
+		array('About', 'about', array()),
 		array('Agenda', 'programme', array()),
 		array('Speakers', 'speakers', array()),
-		array('Partners', 'partners', array(array('Membership', 'membership'), array('Become a Partner', 'become-a-partner'))),
+		array('Partners', 'partners', array()),
 		array('Media', 'events', array()),
 		array('Contact', 'contact', array()),
 	);
 	foreach ($items as $item) {
 		$url = $item[1] === '' ? home_url('/') : hohorizon_page_url($item[1]);
-		echo '<div class="menu-item"><a href="' . esc_url($url) . '">' . hohorizon_nav_icon($item[0]) . esc_html($item[0]) . '</a>';
+		$anchors = array(
+			'About'    => '#about',
+			'Agenda'   => '#agenda',
+			'Speakers' => '#speakers',
+			'Media'    => '#media',
+		);
+		if (isset($anchors[$item[0]])) {
+			$url = home_url('/') . $anchors[$item[0]];
+		}
+		$href = isset($anchors[$item[0]]) ? esc_url(home_url('/')) . $anchors[$item[0]] : esc_url($url);
+		echo '<div class="menu-item"><a href="' . $href . '">' . hohorizon_nav_icon($item[0]) . esc_html($item[0]) . '</a>';
 		if ($item[2]) {
 			echo '<div class="dropdown">';
 			foreach ($item[2] as $child) {
@@ -411,9 +421,32 @@ function hohorizon_footer_explore_fallback() {
 function hohorizon_link_list($links) {
 	echo '<ul>';
 	foreach ($links as $label => $slug) {
-		echo '<li><a href="' . esc_url(hohorizon_page_url($slug)) . '">' . esc_html($label) . '</a></li>';
+		echo '<li><a href="' . esc_url(hohorizon_page_url($slug)) . '">' . hohorizon_menu_icon($label) . esc_html($label) . '</a></li>';
 	}
 	echo '</ul>';
+}
+
+/**
+ * Menu URL. About, Agenda, Speakers and Media stay on the homepage.
+ *
+ * @param string $title Menu label.
+ * @param string $url Stored URL.
+ * @param int    $depth Depth.
+ * @return string
+ */
+function hohorizon_nav_href($title, $url, $depth = 0) {
+	$anchors = array(
+		'about'    => '#about',
+		'about us' => '#about',
+		'agenda'   => '#agenda',
+		'speakers' => '#speakers',
+		'media'    => '#media',
+	);
+	$key = strtolower(trim(wp_strip_all_tags($title)));
+	if ((int) $depth === 0 && isset($anchors[$key])) {
+		return esc_url(home_url('/')) . $anchors[$key];
+	}
+	return esc_url($url);
 }
 
 /**
@@ -428,7 +461,6 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
 	 * @param stdClass $args Args.
 	 */
 	public function start_lvl(&$output, $depth = 0, $args = null) {
-		$output .= '<div class="dropdown">';
 	}
 
 	/**
@@ -439,7 +471,6 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
 	 * @param stdClass $args Args.
 	 */
 	public function end_lvl(&$output, $depth = 0, $args = null) {
-		$output .= '</div>';
 	}
 
 	/**
@@ -452,12 +483,15 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
 	 * @param int      $id ID.
 	 */
 	public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+		if ($depth > 0) {
+			return;
+		}
 		$classes = empty($item->classes) ? array() : (array) $item->classes;
 		$active  = in_array('current-menu-item', $classes, true) || in_array('current-menu-ancestor', $classes, true);
 		if ($depth === 0) {
 			$output .= '<div class="menu-item">';
 		}
-		$output .= '<a href="' . esc_url($item->url) . '"' . ($active ? ' aria-current="page"' : '') . '>' . hohorizon_nav_icon($item->title) . esc_html($item->title) . '</a>';
+		$output .= '<a href="' . hohorizon_nav_href($item->title, $item->url, $depth) . '"' . ($active ? ' aria-current="page"' : '') . '>' . hohorizon_nav_icon($item->title) . esc_html($item->title) . '</a>';
 	}
 
 	/**
@@ -469,6 +503,9 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
 	 * @param stdClass $args Args.
 	 */
 	public function end_el(&$output, $item, $depth = 0, $args = null) {
+		if ($depth > 0) {
+			return;
+		}
 		if ($depth === 0) {
 			$output .= '</div>';
 		}
@@ -553,7 +590,7 @@ function hohorizon_speaker_stage($tag = 'h1', $home = false) {
 		$sample++;
 	}
 	$tag = $tag === 'h2' ? 'h2' : 'h1';
-	echo '<section class="speaker-stage' . ($home ? ' is-home' : '') . '">';
+	echo '<section class="speaker-stage' . ($home ? ' is-home' : '') . '"' . ($home ? ' id="speakers"' : '') . '>';
 	echo '<div class="wrap speaker-intro"><' . $tag . ' class="meet">Meet the Speakers</' . $tag . '>';
 	echo '<p>Senior executives and industry experts sharing firsthand perspectives on global trade, finance, AI, logistics, risk and technology.</p></div>';
 	if (!$cards) {
@@ -660,3 +697,86 @@ function hohorizon_partner_row($count = 0, $tier = '') {
 	}
 	echo '</div>';
 }
+
+/**
+ * Stroke icon markup for a menu label.
+ *
+ * @param string $label Link label.
+ * @return string
+ */
+function hohorizon_menu_icon($label) {
+	$key = strtolower(trim(wp_strip_all_tags($label)));
+	$map = array(
+		'home'                  => 'home',
+		'about'                 => 'about',
+		'about us'              => 'about',
+		'our mission'           => 'mission',
+		'agenda'                => 'programme',
+		'programme'             => 'programme',
+		'speakers'              => 'speakers',
+		'partners'              => 'partners',
+		'media'                 => 'events',
+		'events'                => 'events',
+		'contact'               => 'contact',
+		'contact us'            => 'contact',
+		'membership'            => 'membership',
+		'privacy policy'        => 'privacy',
+		'terms & conditions'    => 'terms',
+		'terms and conditions'  => 'terms',
+		'become a partner'      => 'partner',
+		'request an invitation' => 'contact',
+		'request an invite'     => 'contact',
+	);
+	$paths = array(
+		'home'       => '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
+		'about'      => '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
+		'programme'  => '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+		'speakers'   => '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
+		'partners'   => '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
+		'events'     => '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
+		'contact'    => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+		'mission'    => '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+		'membership' => '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
+		'partner'    => '<path d="M12 5v14M5 12h14"/>',
+		'privacy'    => '<path d="M12 3 5 6v6c0 4.2 2.8 7.2 7 8.5 4.2-1.3 7-4.3 7-8.5V6z"/>',
+		'terms'      => '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+	);
+	$id = isset($map[$key]) ? $map[$key] : 'home';
+	return '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' . $paths[$id] . '</svg>';
+}
+
+/**
+ * Social icon markup.
+ *
+ * @param string $id Icon id.
+ * @return string
+ */
+function hohorizon_social_icon($id) {
+	$paths = array(
+		'linkedin'  => '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7h.01M12 17v-4.2a2 2 0 0 1 4 0V17"/>',
+		'instagram' => '<rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><path d="M17.5 6.5h.01"/>',
+		'youtube'   => '<rect x="3" y="6" width="18" height="12" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+		'facebook'  => '<path d="M14 8h2V5h-2a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h2.2l.8-3H14V8a1 1 0 0 1 1-1z"/>',
+	);
+	$path = isset($paths[$id]) ? $paths[$id] : $paths['linkedin'];
+	return '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' . $path . '</svg>';
+}
+
+/**
+ * Add icons to the footer menus.
+ *
+ * @param string   $title Title.
+ * @param WP_Post  $item Item.
+ * @param stdClass $args Args.
+ * @param int      $depth Depth.
+ * @return string
+ */
+function hohorizon_footer_menu_icon($title, $item, $args, $depth) {
+	unset($item, $depth);
+	$location = isset($args->theme_location) ? $args->theme_location : '';
+	if (!in_array($location, array('footer_quick', 'footer_explore'), true)) {
+		return $title;
+	}
+	return hohorizon_menu_icon($title) . esc_html(wp_strip_all_tags($title));
+}
+add_filter('nav_menu_item_title', 'hohorizon_footer_menu_icon', 10, 4);

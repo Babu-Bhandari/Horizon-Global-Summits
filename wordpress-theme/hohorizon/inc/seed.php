@@ -405,11 +405,11 @@ function hohorizon_seed_menus($pages) {
 			'Primary',
 			array(
 				array('Home', 0, array(), home_url('/')),
-				array('About', $pages['about'], array(array('Our Mission', $pages['mission']))),
-				array('Agenda', $pages['programme'], array()),
-				array('Speakers', $pages['speakers'], array()),
-				array('Partners', $pages['partners'], array(array('Membership', $pages['membership']), array('Become a Partner', $pages['become-a-partner']))),
-				array('Media', $pages['events'], array()),
+				array('About', 0, array(), home_url('/') . '#about'),
+				array('Agenda', 0, array(), home_url('/') . '#agenda'),
+				array('Speakers', 0, array(), home_url('/') . '#speakers'),
+				array('Partners', $pages['partners'], array()),
+				array('Media', 0, array(), home_url('/') . '#media'),
 				array('Contact', $pages['contact'], array()),
 			)
 		);

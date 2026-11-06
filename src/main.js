@@ -1,23 +1,10 @@
 const NAV = [
   { href: "/", label: "Home", id: "home" },
-  {
-    href: "/about.html",
-    label: "About",
-    id: "about",
-    children: [{ href: "/mission.html", label: "Our Mission", id: "mission" }],
-  },
-  { href: "/programme.html", label: "Agenda", id: "programme" },
-  { href: "/speakers.html", label: "Speakers", id: "speakers" },
-  {
-    href: "/partners.html",
-    label: "Partners",
-    id: "partners",
-    children: [
-      { href: "/membership.html", label: "Membership", id: "membership" },
-      { href: "/become-a-partner.html", label: "Become a Partner", id: "partner" },
-    ],
-  },
-  { href: "/events.html", label: "Media", id: "events" },
+  { href: "/#about", label: "About", id: "about" },
+  { href: "/#agenda", label: "Agenda", id: "programme" },
+  { href: "/#speakers", label: "Speakers", id: "speakers" },
+  { href: "/partners.html", label: "Partners", id: "partners" },
+  { href: "/#media", label: "Media", id: "events" },
   { href: "/contact.html", label: "Contact", id: "contact" },
 ];
 
@@ -28,20 +15,31 @@ function current(id) {
   return "";
 }
 
+const ICON_PATHS = {
+  home: '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
+  about: '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
+  programme: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+  speakers: '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
+  partners: '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
+  events: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
+  contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+  mission: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+  membership: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
+  partner: '<path d="M12 5v14M5 12h14"/>',
+  privacy: '<path d="M12 3 5 6v6c0 4.2 2.8 7.2 7 8.5 4.2-1.3 7-4.3 7-8.5V6z"/>',
+  terms: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7h.01M12 17v-4.2a2 2 0 0 1 4 0V17"/>',
+  instagram: '<rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><path d="M17.5 6.5h.01"/>',
+  youtube: '<rect x="3" y="6" width="18" height="12" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+  facebook: '<path d="M14 8h2V5h-2a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h2.2l.8-3H14V8a1 1 0 0 1 1-1z"/>',
+};
+
 function icon(id) {
-  const paths = {
-    home: '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
-    about: '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
-    programme: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
-    speakers: '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
-    partners: '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
-    events: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
-    contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
-    mission: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
-    membership: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
-    partner: '<path d="M12 5v14M5 12h14"/>',
-  };
-  return `<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths[id] || paths.home}</svg>`;
+  return `<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[id] || ICON_PATHS.home}</svg>`;
+}
+
+function socialIcon(id, label) {
+  return `<span aria-label="${label}, to be added">${icon(id)}</span>`;
 }
 
 function link(item) {
@@ -61,7 +59,7 @@ function renderChrome() {
     header.innerHTML = `
       <a class="logo" href="/">
         <strong>HORIZON<br />GLOBAL<br />AFFAIRS</strong>
-        <span>Forum</span>
+        <span>FORUM</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Primary">
@@ -79,35 +77,35 @@ function renderChrome() {
     footer.className = "site-footer";
     footer.innerHTML = `
       <div>
-        <a class="logo" href="/"><strong>HOHORIZON<br />GLOBAL<br />AFFAIRS</strong><span>Forum</span></a>
+        <a class="logo" href="/"><strong>HOHORIZON<br />GLOBAL<br />AFFAIRS</strong><span>FORUM</span></a>
         <p style="margin-top:16px;max-width:28rem;color:rgba(251,250,247,.78)">An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.</p>
         <div class="socials" aria-label="Social media">
-          <span>LinkedIn — to be added</span>
-          <span>Instagram — to be added</span>
-          <span>YouTube — to be added</span>
-          <span>Facebook — to be added</span>
+          ${socialIcon("linkedin", "LinkedIn")}
+          ${socialIcon("instagram", "Instagram")}
+          ${socialIcon("youtube", "YouTube")}
+          ${socialIcon("facebook", "Facebook")}
         </div>
       </div>
       <div>
         <h2>Quick links</h2>
         <ul>
-          <li><a href="/about.html">About Us</a></li>
-          <li><a href="/mission.html">Our Mission</a></li>
-          <li><a href="/membership.html">Membership</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="/about.html">${icon("about")}About Us</a></li>
+          <li><a href="/mission.html">${icon("mission")}Our Mission</a></li>
+          <li><a href="/membership.html">${icon("membership")}Membership</a></li>
+          <li><a href="/contact.html">${icon("contact")}Contact</a></li>
+          <li><a href="/privacy.html">${icon("privacy")}Privacy Policy</a></li>
+          <li><a href="/terms.html">${icon("terms")}Terms &amp; Conditions</a></li>
         </ul>
       </div>
       <div>
         <h2>Explore</h2>
         <ul>
-          <li><a href="/events.html">Events</a></li>
-          <li><a href="/programme.html">Programme</a></li>
-          <li><a href="/speakers.html">Speakers</a></li>
-          <li><a href="/partners.html">Partners</a></li>
-          <li><a href="/become-a-partner.html">Become a Partner</a></li>
-          <li><a href="/invitation.html">Request an invitation</a></li>
+          <li><a href="/events.html">${icon("events")}Events</a></li>
+          <li><a href="/programme.html">${icon("programme")}Programme</a></li>
+          <li><a href="/speakers.html">${icon("speakers")}Speakers</a></li>
+          <li><a href="/partners.html">${icon("partners")}Partners</a></li>
+          <li><a href="/become-a-partner.html">${icon("partner")}Become a Partner</a></li>
+          <li><a href="/invitation.html">${icon("contact")}Request an invitation</a></li>
         </ul>
       </div>
       <div>
@@ -116,17 +114,9 @@ function renderChrome() {
           <li>Email to be confirmed</li>
           <li>Venue to be confirmed</li>
         </ul>
-        <form class="site-form" style="margin-top:18px" data-kind="newsletter">
-          <label>Newsletter<input type="email" name="email" required autocomplete="email" placeholder="Email address" /></label>
-          <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
-          <button class="btn" type="submit">Subscribe</button>
-          <p class="form-error" hidden></p>
-        </form>
-        <div class="thanks" hidden><p>Thank you. This preview has no mailing list connected yet.</p></div>
       </div>
       <div class="fineprint">
-        <span>© ${new Date().getFullYear()} HOHORIZON GLOBAL AFFAIRS</span>
-        <span>Placeholders are not confirmed facts.</span>
+        <span>© ${new Date().getFullYear()} Hohorizon Global Affairs. All Rights Reserved.</span>
       </div>
     `;
   }

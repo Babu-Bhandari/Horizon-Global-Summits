@@ -6,6 +6,9 @@
   initial-value: 0deg;
 }
 
+html { scroll-behavior: smooth; }
+#about, #agenda, #speakers, #media { scroll-margin-top: calc(var(--header) + 16px); }
+
 :root {
   --bg: #07091a;
   --navy: #0b1230;
@@ -78,7 +81,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   background: linear-gradient(#07091acc, #07091a00);
 }
 
-.logo { text-decoration: none; width: fit-content; }
+.logo { text-decoration: none; width: fit-content; text-transform: uppercase; }
 .logo strong {
   display: block;
   font-size: 0.78rem;
@@ -760,6 +763,18 @@ body.is-intro { overflow: hidden; }
   font-size: 0.88rem;
 }
 .socials { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.socials span, .socials a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-radius: 999px;
+}
+.socials svg { width: 18px; height: 18px; }
+.site-footer li a { display: inline-flex; align-items: center; gap: 8px; }
+.site-footer li .nav-icon { width: 15px; height: 15px; }
 
 form, .thanks { display: grid; gap: 14px; max-width: 560px; }
 label { display: grid; gap: 6px; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }

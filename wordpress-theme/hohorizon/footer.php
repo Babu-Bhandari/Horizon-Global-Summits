@@ -21,16 +21,16 @@ $socials = array(
 	<div>
 		<a class="logo" href="<?php echo esc_url(home_url('/')); ?>">
 			<strong><?php echo esc_html(hohorizon_mod('line1')); ?><br /><?php echo esc_html(hohorizon_mod('line2')); ?><br /><?php echo esc_html(hohorizon_mod('line3')); ?></strong>
-			<span><?php echo esc_html(hohorizon_mod('mark')); ?></span>
+			<span><?php echo esc_html(strtoupper(hohorizon_mod('mark'))); ?></span>
 		</a>
 		<p style="margin-top:16px;max-width:28rem;color:rgba(251,250,247,.78)"><?php echo esc_html(hohorizon_mod('footer_text')); ?></p>
 		<div class="socials" aria-label="Social media">
 			<?php foreach ($socials as $key => $label) : ?>
 				<?php $url = hohorizon_mod($key); ?>
 				<?php if ($url) : ?>
-					<a href="<?php echo esc_url($url); ?>"><?php echo esc_html($label); ?></a>
+					<a href="<?php echo esc_url($url); ?>" aria-label="<?php echo esc_attr($label); ?>"><?php echo hohorizon_social_icon($key); ?></a>
 				<?php else : ?>
-					<span><?php echo esc_html($label); ?> — to be added</span>
+					<span aria-label="<?php echo esc_attr($label); ?>, to be added"><?php echo hohorizon_social_icon($key); ?></span>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</div>
@@ -67,19 +67,9 @@ $socials = array(
 			<li><?php echo esc_html(hohorizon_mod('public_email')); ?></li>
 			<li><?php echo esc_html(hohorizon_mod('venue')); ?></li>
 		</ul>
-		<?php
-		hohorizon_form(
-			'newsletter',
-			array(
-				array('name' => 'email', 'label' => 'Newsletter', 'type' => 'email', 'placeholder' => 'Email address'),
-			),
-			'Subscribe'
-		);
-		?>
 	</div>
 	<div class="fineprint">
-		<span>© <?php echo esc_html(gmdate('Y')); ?> <?php echo esc_html(hohorizon_mod('line1')); ?> <?php echo esc_html(hohorizon_mod('line2')); ?> <?php echo esc_html(hohorizon_mod('line3')); ?></span>
-		<span>Placeholders are not confirmed facts.</span>
+		<span>© <?php echo esc_html(gmdate('Y')); ?> Hohorizon Global Affairs. All Rights Reserved.</span>
 	</div>
 </footer>
 <?php wp_footer(); ?>

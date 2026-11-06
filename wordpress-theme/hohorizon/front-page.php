@@ -134,18 +134,38 @@ $title     = hohorizon_hero_lines();
 	<div class="wrap">
 		<h2 class="about-display">Contact us</h2>
 		<p class="section-lead">Write to the forum. The public email address will be added when it is confirmed.</p>
-		<div style="display:grid;justify-items:center">
-			<?php
-			hohorizon_form(
-				'contact',
-				array(
-					array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-					array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
-					array('name' => 'message', 'label' => 'Message', 'type' => 'textarea'),
-				),
-				'Send'
-			);
-			?>
+		<div class="contact-split">
+			<div>
+				<?php
+				hohorizon_form(
+					'contact',
+					array(
+						array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
+						array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
+						array('name' => 'message', 'label' => 'Message', 'type' => 'textarea'),
+					),
+					'Send'
+				);
+				?>
+			</div>
+			<div class="contact-facts">
+				<article class="contact-fact">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M12 19v2"/></svg>
+					<p><small>Info line</small><strong>To be confirmed</strong></p>
+				</article>
+				<article class="contact-fact">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+					<p><small>Email address</small><strong><?php echo esc_html(hohorizon_mod('public_email')); ?></strong></p>
+				</article>
+				<article class="contact-fact">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/><path d="M9 10h.01M15 10h.01"/></svg>
+					<p><small>Head office</small><strong><?php echo esc_html(hohorizon_mod('venue')); ?></strong></p>
+				</article>
+				<article class="contact-fact">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
+					<p><small>Business hours</small><strong>To be confirmed</strong></p>
+				</article>
+			</div>
 		</div>
 	</div>
 </section>

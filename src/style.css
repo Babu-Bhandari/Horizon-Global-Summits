@@ -454,6 +454,40 @@ body.is-intro { overflow: hidden; }
   color: rgba(255,255,255,.78);
   font-size: 0.95rem;
 }
+.contact-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: stretch;
+  text-align: left;
+}
+.contact-split form,
+.contact-split .thanks { max-width: none; margin: 0; }
+.contact-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px;
+  background: #121833;
+}
+.contact-fact {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  min-height: 112px;
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,.1);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.contact-fact:nth-child(2n) { border-right: 0; }
+.contact-fact:nth-last-child(-n+2) { border-bottom: 0; }
+.contact-fact svg { width: 30px; height: 30px; color: #8eb6ff; }
+.contact-fact p { margin: 0; }
+.contact-fact small { display: block; color: rgba(255,255,255,.62); font-size: 0.78rem; }
+.contact-fact strong { display: block; margin-top: 4px; font-size: 1rem; font-weight: 500; }
 .section h2, .page-hero h1, .split h2, .topic h2, .cta h2, .event-card h3, .card h3, .speaker h3 {
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -775,7 +809,7 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .header-actions { display: none; }
   .nav-cta { display: inline-flex; justify-self: start; }
   .dropdown { position: static; display: grid; padding: 8px 0 0 12px; border: 0; background: transparent; }
-  .split, .about-card, .event-card, .topic, .session, .site-footer, .speakers, .benefits, .logo-row, .stats, .next-meet-grid, .next-meet-cards { grid-template-columns: 1fr; }
+  .split, .about-card, .event-card, .topic, .session, .site-footer, .speakers, .benefits, .logo-row, .stats, .next-meet-grid, .next-meet-cards, .contact-split { grid-template-columns: 1fr; }
   .card, .card:nth-child(1), .card:nth-child(2) { grid-column: span 12; }
   .site-header, .hero { padding-left: 20px; padding-right: 20px; }
   .hero-copy { grid-template-columns: 1fr; }
@@ -790,6 +824,10 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .frame { min-height: 240px; }
   .hero h1 { font-size: 3.58rem; }
   .about-stats { grid-template-columns: 1fr 1fr; }
+  .contact-facts { grid-template-columns: 1fr; }
+  .contact-fact { border-right: 0; }
+  .contact-fact:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
+  .contact-fact:last-child { border-bottom: 0; }
 }
 
 .speaker-stage {

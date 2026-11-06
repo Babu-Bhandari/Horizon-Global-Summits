@@ -63,78 +63,9 @@ $title     = hohorizon_hero_lines();
 
 <?php hohorizon_speaker_stage('h2', true); ?>
 
-<section class="section">
-	<div class="wrap split">
-		<div class="frame">
-			<img src="<?php echo esc_url(hohorizon_mod('welcome_image')); ?>" alt="" />
-		</div>
-		<div>
-			<p class="eyebrow"><?php echo esc_html(hohorizon_mod('welcome_eyebrow')); ?></p>
-			<h2><?php echo esc_html(hohorizon_mod('welcome_title')); ?></h2>
-			<?php foreach (preg_split("/\n\s*\n/", hohorizon_mod('welcome_text')) as $paragraph) : ?>
-				<?php if (trim($paragraph) !== '') : ?>
-					<p class="lede" style="margin-top:22px"><?php echo esc_html(trim($paragraph)); ?></p>
-				<?php endif; ?>
-			<?php endforeach; ?>
-			<div class="actions">
-				<a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('about')); ?>">Read more</a>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="section band">
-	<div class="wrap">
-		<div class="section-head">
-			<div>
-				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('stats_eyebrow')); ?></p>
-				<h2><?php echo esc_html(hohorizon_mod('stats_title')); ?></h2>
-			</div>
-		</div>
-		<div class="stats">
-			<?php foreach (hohorizon_stats() as $stat) : ?>
-				<article class="stat">
-					<p class="stat-value"><?php echo esc_html($stat[1]); ?></p>
-					<p class="stat-label"><?php echo esc_html($stat[0]); ?></p>
-					<?php if ($stat[2] !== '') : ?><p class="note"><?php echo esc_html($stat[2]); ?></p><?php endif; ?>
-				</article>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
-<?php $highlights = hohorizon_query('hoh_highlight'); ?>
-<?php if ($highlights->have_posts()) : ?>
-	<section class="section">
-		<div class="wrap">
-			<div class="section-head">
-				<div>
-					<p class="eyebrow"><?php echo esc_html(hohorizon_mod('expect_eyebrow')); ?></p>
-					<h2><?php echo esc_html(hohorizon_mod('expect_title')); ?></h2>
-				</div>
-			</div>
-			<div class="cards">
-				<?php $number = 1; ?>
-				<?php while ($highlights->have_posts()) : $highlights->the_post(); ?>
-					<article class="card">
-						<?php $image = hohorizon_image_url(get_the_ID()); ?>
-						<?php if ($image) : ?><img src="<?php echo esc_url($image); ?>" alt="" /><?php endif; ?>
-						<div>
-							<p class="eyebrow"><?php echo esc_html(str_pad((string) $number, 2, '0', STR_PAD_LEFT)); ?></p>
-							<h3><?php the_title(); ?></h3>
-							<p><?php echo esc_html(has_excerpt() ? get_the_excerpt() : wp_strip_all_tags(get_the_content())); ?></p>
-						</div>
-					</article>
-					<?php $number++; ?>
-				<?php endwhile; ?>
-				<?php wp_reset_postdata(); ?>
-			</div>
-		</div>
-	</section>
-<?php endif; ?>
-
 <section class="section paper">
 	<div class="wrap">
+		<p class="about-display">Media</p>
 		<div class="section-head">
 			<div>
 				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('events_eyebrow')); ?></p>

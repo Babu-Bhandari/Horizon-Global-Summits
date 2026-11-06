@@ -71,13 +71,28 @@ $title     = hohorizon_hero_lines();
 		<div class="next-meet-cards">
 			<?php
 			$meets = hohorizon_query('hoh_event', 2);
+			$fallbacks = array(
+				array(
+					'title' => 'HOHORIZON flagship forum',
+					'image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80',
+					'alt'   => 'Delegates seated at a conference',
+					'url'   => hohorizon_page_url('events'),
+				),
+				array(
+					'title' => 'HOHORIZON private briefing',
+					'image' => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
+					'alt'   => 'A conference hall prepared for a meeting',
+					'url'   => hohorizon_page_url('events'),
+				),
+			);
+			$shown = 0;
 			if ($meets->have_posts()) :
 				while ($meets->have_posts()) :
 					$meets->the_post();
-					$image = hohorizon_image_url(get_the_ID());
+					$image = hohorizon_image_url(get_the_ID(), '_hohorizon_image', $fallbacks[$shown]['image']);
 					?>
 					<article class="meet-card">
-						<?php if ($image) : ?><img src="<?php echo esc_url($image); ?>" alt="" /><?php endif; ?>
+						<img src="<?php echo esc_url($image); ?>" alt="" />
 						<div>
 							<h3><?php the_title(); ?></h3>
 							<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
@@ -85,9 +100,24 @@ $title     = hohorizon_hero_lines();
 						</div>
 					</article>
 					<?php
+					$shown++;
 				endwhile;
 				wp_reset_postdata();
 			endif;
+			while ($shown < 2) :
+				$card = $fallbacks[$shown];
+				?>
+				<article class="meet-card">
+					<img src="<?php echo esc_url($card['image']); ?>" alt="<?php echo esc_attr($card['alt']); ?>" />
+					<div>
+						<h3><?php echo esc_html($card['title']); ?></h3>
+						<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
+						<a class="meet-visit" href="<?php echo esc_url($card['url']); ?>">View details</a>
+					</div>
+				</article>
+				<?php
+				$shown++;
+			endwhile;
 			?>
 		</div>
 	</div>
@@ -102,11 +132,15 @@ $title     = hohorizon_hero_lines();
 		<?php hohorizon_filters(); ?>
 		<?php
 		$sessions = hohorizon_query('hoh_session', 4);
-		while ($sessions->have_posts()) {
-			$sessions->the_post();
-			hohorizon_session_row();
+		if ($sessions->have_posts()) {
+			while ($sessions->have_posts()) {
+				$sessions->the_post();
+				hohorizon_session_row();
+			}
+			wp_reset_postdata();
+		} else {
+			hohorizon_sample_sessions();
 		}
-		wp_reset_postdata();
 		?>
 		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('programme')); ?>">Full programme</a></div>
 	</div>

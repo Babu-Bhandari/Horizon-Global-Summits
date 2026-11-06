@@ -824,25 +824,56 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .header-actions { display: none; }
   .nav-cta { display: inline-flex; justify-self: start; }
   .dropdown { position: static; display: grid; padding: 8px 0 0 12px; border: 0; background: transparent; }
-  .split, .about-card, .event-card, .topic, .session, .site-footer, .speakers, .benefits, .logo-row, .stats, .next-meet-grid, .next-meet-cards, .contact-split { grid-template-columns: 1fr; }
+  .split, .about-card, .event-card, .topic, .session, .speakers, .benefits, .stats, .next-meet-grid, .contact-split { grid-template-columns: 1fr; }
+  .site-footer { grid-template-columns: 1fr 1fr; }
+  .site-footer > :first-child, .fineprint { grid-column: 1 / -1; }
+  .logo-row, .next-meet-cards { grid-template-columns: 1fr 1fr; }
+  .event-card, .topic { min-height: 0; }
+  .event-card img, .topic img { height: 220px; }
   .card, .card:nth-child(1), .card:nth-child(2) { grid-column: span 12; }
   .site-header, .hero { padding-left: 20px; padding-right: 20px; }
   .hero-copy { grid-template-columns: 1fr; }
+  .hero h1 { font-size: clamp(3.1rem, 10vw, 4.6rem); }
   .hero-actions .btn { min-width: 0; }
   .hero-side-title { font-size: 26px; line-height: 30px; }
   .section-head, .fineprint, .hero-meta { display: grid; }
+  .session { gap: 10px; }
+  .page-hero h1 { font-size: clamp(2.6rem, 8vw, 4rem); }
 }
 
 @media (max-width: 700px) {
+  :root { --header: 76px; }
   .wrap { width: min(var(--wrap), calc(100% - 32px)); }
-  .section { padding: 64px 0; }
-  .frame { min-height: 240px; }
-  .hero h1 { font-size: 3.58rem; }
-  .about-stats { grid-template-columns: 1fr 1fr; }
-  .contact-facts { grid-template-columns: 1fr; }
-  .contact-fact { border-right: 0; }
+  .section, .home-panel { padding: 48px 0; }
+  .frame { min-height: 200px; }
+  .site-header { gap: 12px; }
+  .site-header .logo strong { font-size: 0.72rem; }
+  .site-header .logo strong::after { margin-top: 4px; }
+  .site-header .logo span { margin-top: 4px; font-size: 0.68rem; }
+  .hero { min-height: 100dvh; padding: calc(var(--header) + 20px) 20px 36px; }
+  .hero h1, .page-hero h1 { font-size: clamp(2.5rem, 13vw, 3.3rem); }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn, .actions .btn { width: 100%; min-width: 0; }
+  .about-card { padding: 16px; gap: 18px; }
+  .about-stats { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
+  .home-panel h2.about-display, .about-display, .meet { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .next-meet-grid { gap: 24px; }
+  .next-meet-copy h2 { font-size: clamp(2.2rem, 10vw, 3rem); }
+  .next-meet-cards, .logo-row, .site-footer, .contact-facts { grid-template-columns: 1fr; }
+  .meet-card img, .event-card img, .topic img { height: 200px; }
+  .session { padding: 16px 0; }
+  .contact-split { gap: 24px; }
+  .contact-fact { border-right: 0; min-height: 0; }
   .contact-fact:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
   .contact-fact:last-child { border-bottom: 0; }
+  .site-footer { padding: 40px 20px 20px; }
+  .fineprint { font-size: 0.82rem; }
+  .cta { min-height: 0; }
+  .cta .wrap { padding: 48px 0; }
+  .page-hero { padding: calc(var(--header) + 28px) 0 32px; }
+  .company-section { padding-top: 24px; }
+  .portrait-window { width: calc(100% - 76px); }
+  .nav a { min-height: 44px; }
 }
 
 .speaker-stage {
@@ -950,6 +981,7 @@ body[data-page="event"] [data-event].is-on { display: block; }
 @media (max-width: 700px) {
   .portrait { width: 160px; height: 230px; }
   .portrait-arrow { width: 34px; height: 34px; margin: 0; }
+  .home-panel h2.about-display, .about-display, .meet { font-size: clamp(2rem, 9vw, 2.6rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {

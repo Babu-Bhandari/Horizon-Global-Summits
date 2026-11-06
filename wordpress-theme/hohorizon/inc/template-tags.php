@@ -317,8 +317,23 @@ function hohorizon_pairs($post_id) {
 }
 
 /**
- * Render a session row.
+ * Sample agenda rows used until sessions are published.
  */
+function hohorizon_sample_sessions() {
+	$rows = array(
+		array('leadership', 'Opening conversation', 'How the day will be used, and what a useful disagreement looks like.'),
+		array('finance', 'Capital across borders', 'Where cross-border finance is slowing, and where it is still moving.'),
+		array('investment', 'Mandates, not slogans', 'What investors are actually willing to underwrite this year.'),
+		array('trade', 'Routes and resilience', 'Trade corridors, delays, and the contracts written around them.'),
+	);
+	foreach ($rows as $row) {
+		echo '<article class="session" data-topic="' . esc_attr($row[0]) . '">';
+		echo '<p>Time to be confirmed<br />Duration to be confirmed</p>';
+		echo '<div><h3>' . esc_html($row[1]) . '</h3><p>' . esc_html($row[2]) . '</p></div>';
+		echo '<p>Speaker to be confirmed<br />Designation to be confirmed</p>';
+		echo '</article>';
+	}
+}
 function hohorizon_session_row() {
 	$topic = get_post_meta(get_the_ID(), '_hohorizon_topic', true);
 	$time  = get_post_meta(get_the_ID(), '_hohorizon_time', true);
@@ -519,28 +534,58 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
  */
 function hohorizon_event_list($count = -1) {
 	$events = hohorizon_query('hoh_event', $count);
-	if (!$events->have_posts()) {
-		echo '<p class="lede">No gatherings have been published yet.</p>';
-		return;
-	}
+	$samples = array(
+		array(
+			'Flagship forum · Placeholder',
+			'HOHORIZON flagship forum',
+			'Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.',
+			'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+			'A bright executive meeting room',
+		),
+		array(
+			'Private briefing · Placeholder',
+			'HOHORIZON private briefing',
+			'Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.',
+			'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80',
+			'A boardroom prepared for a private meeting',
+		),
+	);
 	echo '<div class="events">';
-	while ($events->have_posts()) {
-		$events->the_post();
-		$image = hohorizon_image_url(get_the_ID());
-		echo '<article class="event-card">';
-		if ($image) {
-			echo '<img src="' . esc_url($image) . '" alt="" />';
+	$shown = 0;
+	if ($events->have_posts()) {
+		while ($events->have_posts()) {
+			$events->the_post();
+			$image = hohorizon_image_url(get_the_ID(), '_hohorizon_image', isset($samples[$shown]) ? $samples[$shown][3] : '');
+			echo '<article class="event-card">';
+			if ($image) {
+				echo '<img src="' . esc_url($image) . '" alt="" />';
+			}
+			echo '<div><p class="eyebrow">' . esc_html((string) get_post_meta(get_the_ID(), '_hohorizon_kicker', true)) . '</p>';
+			echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+			echo '<p class="lede" style="margin-top:12px">' . esc_html(has_excerpt() ? get_the_excerpt() : '') . '</p>';
+			echo '<div class="actions">';
+			echo '<a class="btn btn-ink" href="' . esc_url(get_permalink()) . '">View details</a>';
+			echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('invitation')) . '">Request invitation</a>';
+			echo '</div></div></article>';
+			$shown++;
 		}
-		echo '<div><p class="eyebrow">' . esc_html((string) get_post_meta(get_the_ID(), '_hohorizon_kicker', true)) . '</p>';
-		echo '<h3>' . esc_html(get_the_title()) . '</h3>';
-		echo '<p class="lede" style="margin-top:12px">' . esc_html(has_excerpt() ? get_the_excerpt() : '') . '</p>';
+		wp_reset_postdata();
+	}
+	$limit = $count > 0 ? $count : count($samples);
+	while ($shown < $limit && $shown < count($samples)) {
+		$card = $samples[$shown];
+		echo '<article class="event-card">';
+		echo '<img src="' . esc_url($card[3]) . '" alt="' . esc_attr($card[4]) . '" />';
+		echo '<div><p class="eyebrow">' . esc_html($card[0]) . '</p>';
+		echo '<h3>' . esc_html($card[1]) . '</h3>';
+		echo '<p class="lede" style="margin-top:12px">' . esc_html($card[2]) . '</p>';
 		echo '<div class="actions">';
-		echo '<a class="btn btn-ink" href="' . esc_url(get_permalink()) . '">View details</a>';
+		echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('events')) . '">View details</a>';
 		echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('invitation')) . '">Request invitation</a>';
 		echo '</div></div></article>';
+		$shown++;
 	}
 	echo '</div>';
-	wp_reset_postdata();
 }
 
 /**

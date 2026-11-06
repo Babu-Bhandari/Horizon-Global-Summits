@@ -24,7 +24,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 		<div class="hero-shade"></div>
 		<div class="hero-copy">
 			<div class="hero-lead">
-				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('cta_eyebrow')); ?></p>
+				<p class="eyebrow">Horizon Global Summits</p>
 				<h1><?php echo esc_html(hohorizon_mod('cta_title')); ?></h1>
 				<div class="rule"></div>
 				<div class="hero-actions">

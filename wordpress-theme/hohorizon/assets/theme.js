@@ -106,6 +106,24 @@ function initToTop() {
   sync();
 }
 
+function initButtonIcons() {
+  const icons = {
+    "become a partner": '<circle cx="8" cy="8" r="2.4"/><circle cx="16" cy="8" r="2.4"/><path d="M3.8 18c.7-2.3 2.2-3.4 4.2-3.4s3.5 1.1 4.2 3.4M12 18c.6-2 2-3 3.8-3 1.5 0 2.8.7 3.5 2"/>',
+    "request an invite": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+    "request an invitation": '<path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z"/><path d="M12 9v6M9 12h6"/>',
+  };
+  document.querySelectorAll(".btn").forEach((button) => {
+    if (button.querySelector(".btn-icon")) return;
+    const label = button.textContent.replace(/\s+/g, " ").trim().toLowerCase();
+    const path = icons[label];
+    if (!path) return;
+    button.insertAdjacentHTML(
+      "afterbegin",
+      `<svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`
+    );
+  });
+}
+
 function initCookie() {
   if (localStorage.getItem("hohorizon-cookie")) return;
   const banner = document.createElement("div");
@@ -272,4 +290,5 @@ initCounters();
 initReveal();
 initToTop();
 initCookie();
+initButtonIcons();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();

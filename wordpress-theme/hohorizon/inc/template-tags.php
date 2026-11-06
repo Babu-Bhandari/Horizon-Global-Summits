@@ -647,7 +647,7 @@ function hohorizon_speaker_stage($tag = 'h1', $home = false) {
 		$rows[] = $rows[0];
 	}
 	foreach ($rows as $row) {
-		echo '<div class="portrait-row"><button class="portrait-arrow" type="button" data-dir="-1" aria-label="Previous speakers">‹</button><div class="portrait-window"><div class="portrait-track">';
+		echo '<div class="portrait-row"><button class="portrait-arrow" type="button" data-dir="-1" aria-label="Previous speakers"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6 8 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="portrait-window"><div class="portrait-track">';
 		foreach ($row as $card) {
 			echo '<article class="portrait" id="speaker-' . esc_attr((string) $card[0]) . '">';
 			echo '<img src="' . esc_url($card[3]) . '" alt="" />';
@@ -655,7 +655,7 @@ function hohorizon_speaker_stage($tag = 'h1', $home = false) {
 			echo '<div class="portrait-copy"><h3>' . esc_html($card[1]) . '</h3><p>' . esc_html($card[2]) . '</p></div>';
 			echo '<p class="portrait-bio">' . esc_html($card[4]) . '</p></article>';
 		}
-		echo '</div></div><button class="portrait-arrow" type="button" data-dir="1" aria-label="Next speakers">›</button></div>';
+		echo '</div></div><button class="portrait-arrow" type="button" data-dir="1" aria-label="Next speakers"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
 	}
 	echo '</section>';
 }

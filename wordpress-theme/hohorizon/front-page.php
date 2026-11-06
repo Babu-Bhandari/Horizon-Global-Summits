@@ -13,24 +13,23 @@ get_header();
 
 $video_id  = absint(get_theme_mod('hohorizon_hero_video', 0));
 $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directory_uri() . '/assets/hero.mp4';
-$hero      = hohorizon_hero_still();
-$title     = hohorizon_hero_lines();
 ?>
-<section class="hero">
-	<div class="hero-bg" style="background-image:url('<?php echo esc_url($hero); ?>')"></div>
-	<?php if ($video_url) : ?>
-		<video class="hero-video" hidden autoplay muted loop playsinline poster="<?php echo esc_url($hero); ?>">
-			<source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
-		</video>
-	<?php endif; ?>
-	<div class="hero-shade"></div>
-	<div class="hero-copy">
-		<div class="hero-lead">
-			<h1><span><?php echo esc_html($title[0]); ?></span><span><?php echo esc_html($title[1]); ?></span><span><?php echo esc_html($title[2]); ?></span></h1>
-			<div class="rule"></div>
-			<div class="hero-actions">
-				<a class="btn" href="<?php echo esc_url(hohorizon_page_url('become-a-partner')); ?>"><?php echo esc_html(hohorizon_mod('button_partner')); ?></a>
-				<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>"><?php echo esc_html(hohorizon_mod('button_invite')); ?></a>
+<section class="hero" data-hero>
+	<div class="hero-slide is-on">
+		<?php if ($video_url) : ?>
+			<video class="hero-video" autoplay muted loop playsinline>
+				<source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
+			</video>
+		<?php endif; ?>
+		<div class="hero-shade"></div>
+		<div class="hero-copy">
+			<div class="hero-lead">
+				<p class="eyebrow"><?php echo esc_html(hohorizon_mod('cta_eyebrow')); ?></p>
+				<h1><?php echo esc_html(hohorizon_mod('cta_title')); ?></h1>
+				<div class="rule"></div>
+				<div class="hero-actions">
+					<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a>
+				</div>
 			</div>
 		</div>
 	</div>

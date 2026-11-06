@@ -208,23 +208,75 @@ function initForms() {
   });
 }
 
-function initVideo() {
-  const video = document.querySelector(".hero-video");
-  if (!video) return;
-  const start = () => {
-    video.hidden = false;
-    const play = video.play();
-    if (play) play.catch(() => {});
+function initHero() {
+  const hero = document.querySelector("[data-hero]");
+  if (!hero) return;
+  const slides = [...hero.querySelectorAll(".hero-slide")];
+  const dots = [...hero.querySelectorAll(".hero-dots button")];
+  const video = hero.querySelector(".hero-video");
+  let index = 0;
+  let timer = 0;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const show = (next) => {
+    index = (next + slides.length) % slides.length;
+    slides.forEach((slide, i) => slide.classList.toggle("is-on", i === index));
+    dots.forEach((dot, i) => dot.setAttribute("aria-current", i === index ? "true" : "false"));
+    if (!video) return;
+    if (slides[index].contains(video)) {
+      video.hidden = false;
+      const play = video.play();
+      if (play) play.catch(() => {});
+    } else {
+      video.pause();
+    }
   };
-  video.addEventListener("loadeddata", start);
-  video.addEventListener("ended", () => {
-    video.currentTime = 0;
-    start();
+
+  const arm = () => {
+    window.clearInterval(timer);
+    if (reduced || slides.length < 2) return;
+    timer = window.setInterval(() => show(index + 1), 7000);
+  };
+
+  hero.querySelectorAll("[data-dir]").forEach((button) => {
+    button.addEventListener("click", () => {
+      show(index + Number(button.dataset.dir));
+      arm();
+    });
   });
-  video.addEventListener("error", () => {
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      show(i);
+      arm();
+    });
+  });
+  hero.addEventListener("mouseenter", () => window.clearInterval(timer));
+  hero.addEventListener("mouseleave", arm);
+  hero.addEventListener("focusin", () => window.clearInterval(timer));
+  hero.addEventListener("focusout", (event) => {
+    if (!hero.contains(event.relatedTarget)) arm();
+  });
+  video?.addEventListener("error", () => {
     video.hidden = true;
   });
-  if (video.readyState >= 2) start();
+  show(0);
+  arm();
+}
+
+function initToTop() {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "to-top";
+  button.setAttribute("aria-label", "Back to top");
+  button.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 14l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  button.addEventListener("click", () => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  });
+  const sync = () => button.classList.toggle("is-on", window.scrollY > 480);
+  window.addEventListener("scroll", sync, { passive: true });
+  document.body.append(button);
+  sync();
 }
 
 function initCookie() {
@@ -392,11 +444,12 @@ initHeader();
 initFilters();
 initEvents();
 initForms();
-initVideo();
+initHero();
 initClock();
 initSpeakers();
 initIntro();
 initCounters();
 initReveal();
+initToTop();
 initCookie();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();

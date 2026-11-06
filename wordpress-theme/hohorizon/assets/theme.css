@@ -224,13 +224,67 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 .hero {
   position: relative;
-  display: flex;
-  align-items: center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: calc(var(--header) + 28px) 64px 64px;
   background: #0b1230;
   overflow: hidden;
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--header) + 28px) 64px 96px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.85s ease, visibility 0.85s ease;
+}
+.hero-slide.is-on { opacity: 1; visibility: visible; z-index: 1; }
+.hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3.2rem, 6vw, 5.2rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  text-align: left;
+}
+.hero-slide .eyebrow { color: #ff8ab0; }
+.hero-controls {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transform: translateX(-50%);
+}
+.hero-arrow {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 50%;
+  background: rgba(8, 10, 28, 0.45);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.hero-dots { display: flex; align-items: center; gap: 8px; }
+.hero-dots button {
+  width: 28px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.38);
+  cursor: pointer;
+}
+.hero-dots button[aria-current="true"] {
+  width: 52px;
+  background: linear-gradient(90deg, #8eb6ff, #ff8ab0);
 }
 .hero-bg {
   position: absolute;
@@ -260,13 +314,6 @@ button, input, textarea, select { font: inherit; color: inherit; }
   margin: 0;
 }
 .hero-lead { text-align: left; }
-.hero h1 {
-  font-size: clamp(4.65rem, 7.4vw, 6.77rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.86;
-  text-align: left;
-}
 .hero h1 span, .intro-title span {
   display: block;
   overflow: hidden;
@@ -806,6 +853,29 @@ body[data-page="event"] [data-event].is-on { display: block; }
 }
 .cookie p { margin-bottom: 12px; }
 .cookie .actions { margin-top: 0; }
+.to-top {
+  position: fixed;
+  z-index: 35;
+  right: 20px;
+  bottom: 20px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 50%;
+  background: #121833;
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+.to-top.is-on { opacity: 1; visibility: visible; pointer-events: auto; }
+.to-top:hover { transform: translateY(-2px); }
+body:has(.cookie) .to-top { bottom: 168px; }
 .paper { background: transparent; }
 
 @media (max-width: 980px) {
@@ -831,7 +901,8 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .event-card, .topic { min-height: 0; }
   .event-card img, .topic img { height: 220px; }
   .card, .card:nth-child(1), .card:nth-child(2) { grid-column: span 12; }
-  .site-header, .hero { padding-left: 20px; padding-right: 20px; }
+  .site-header { padding-left: 20px; padding-right: 20px; }
+  .hero-slide { padding: calc(var(--header) + 28px) 20px 96px; }
   .hero-copy { grid-template-columns: 1fr; }
   .hero h1 { font-size: clamp(3.1rem, 10vw, 4.6rem); }
   .hero-actions .btn { min-width: 0; }
@@ -850,7 +921,9 @@ body[data-page="event"] [data-event].is-on { display: block; }
   .site-header .logo strong { font-size: 0.72rem; }
   .site-header .logo strong::after { margin-top: 4px; }
   .site-header .logo span { margin-top: 4px; font-size: 0.68rem; }
-  .hero { min-height: 100dvh; padding: calc(var(--header) + 20px) 20px 36px; }
+  .hero-slide { padding: calc(var(--header) + 20px) 20px 88px; }
+  .hero h1 { font-size: clamp(2.4rem, 11vw, 3.2rem); max-width: 12ch; }
+  .hero-controls { bottom: 16px; }
   .hero h1, .page-hero h1 { font-size: clamp(2.5rem, 13vw, 3.3rem); }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn, .actions .btn { width: 100%; min-width: 0; }

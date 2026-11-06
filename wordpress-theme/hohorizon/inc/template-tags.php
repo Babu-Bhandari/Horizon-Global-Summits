@@ -541,6 +541,17 @@ function hohorizon_speaker_stage($tag = 'h1', $home = false) {
 		}
 		wp_reset_postdata();
 	}
+	$sample = 0;
+	while (count($cards) < 14) {
+		$cards[] = array(
+			'sample-' . $sample,
+			'Name to be confirmed',
+			'Title to be confirmed',
+			$fallbacks[$sample % count($fallbacks)],
+			'A short biography will be published here after the speaker agrees to appear.',
+		);
+		$sample++;
+	}
 	$tag = $tag === 'h2' ? 'h2' : 'h1';
 	echo '<section class="speaker-stage' . ($home ? ' is-home' : '') . '">';
 	echo '<div class="wrap speaker-intro"><' . $tag . ' class="meet">Meet the Speakers</' . $tag . '>';

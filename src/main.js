@@ -1,4 +1,5 @@
 const NAV = [
+  { href: "/", label: "Home", id: "home" },
   {
     href: "/about.html",
     label: "About",
@@ -27,13 +28,29 @@ function current(id) {
   return "";
 }
 
+function icon(id) {
+  const paths = {
+    home: '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
+    about: '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
+    programme: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+    speakers: '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
+    partners: '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
+    events: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
+    contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+    mission: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+    membership: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
+    partner: '<path d="M12 5v14M5 12h14"/>',
+  };
+  return `<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths[id] || paths.home}</svg>`;
+}
+
 function link(item) {
   const child = (item.children || [])
-    .map((entry) => `<a href="${entry.href}"${current(entry.id)}>${entry.label}</a>`)
+    .map((entry) => `<a href="${entry.href}"${current(entry.id)}>${icon(entry.id)}${entry.label}</a>`)
     .join("");
   const menu = child ? `<div class="dropdown">${child}</div>` : "";
   const active = item.id === page || (item.children || []).some((entry) => entry.id === page);
-  return `<div class="menu-item"><a href="${item.href}"${active ? ' aria-current="page"' : ""}>${item.label}</a>${menu}</div>`;
+  return `<div class="menu-item"><a href="${item.href}"${active ? ' aria-current="page"' : ""}>${icon(item.id)}${item.label}</a>${menu}</div>`;
 }
 
 function renderChrome() {
@@ -43,7 +60,7 @@ function renderChrome() {
     header.className = "site-header";
     header.innerHTML = `
       <a class="logo" href="/">
-        <strong>HOHORIZON<br />GLOBAL<br />AFFAIRS</strong>
+        <strong>HORIZON<br />GLOBAL<br />AFFAIRS</strong>
         <span>Forum</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
@@ -283,32 +300,7 @@ function initClock() {
 }
 
 function initIntro() {
-  const intro = document.querySelector("#intro");
-  const count = document.querySelector("#intro-pct");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!intro) return;
-  if (reduce) {
-    intro.remove();
-    document.body.classList.add("is-ready");
-    return;
-  }
-  document.body.classList.add("is-intro");
-  const start = performance.now();
-  const duration = 2200;
-  const step = (now) => {
-    const progress = Math.min(1, (now - start) / duration);
-    const value = Math.round(progress * 100);
-    if (count) count.textContent = String(value).padStart(3, "0");
-    if (progress < 1) {
-      requestAnimationFrame(step);
-      return;
-    }
-    intro.classList.add("is-leaving");
-    document.body.classList.remove("is-intro");
-    window.setTimeout(() => document.body.classList.add("is-ready"), 420);
-    window.setTimeout(() => intro.remove(), 1100);
-  };
-  requestAnimationFrame(step);
+  document.body.classList.add("is-ready");
 }
 
 function initReveal() {

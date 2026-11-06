@@ -16,9 +16,9 @@ if (!defined('ABSPATH')) {
  */
 function hohorizon_defaults() {
 	return array(
-		'line1'            => 'HOHORIZON',
-		'line2'            => 'GLOBAL',
-		'line3'            => 'AFFAIRS',
+		'line1'            => 'Horizon',
+		'line2'            => 'Global',
+		'line3'            => 'Summits',
 		'mark'             => 'Forum',
 		'button_partner'   => 'Become a partner',
 		'button_invite'    => 'Request an invite',
@@ -28,7 +28,7 @@ function hohorizon_defaults() {
 		'hero_side'        => "One focused day.\nFive live streams.",
 		'streams'          => 'Finance, Risk, Trade, Technology, Leadership',
 		'countdown'        => '',
-		'hero_image'       => 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=2000&q=80',
+		'hero_image'       => '',
 		'intro_image'      => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=80',
 		'welcome_eyebrow'  => 'Welcome to HOHORIZON',
 		'welcome_title'    => 'Where global leaders connect and opportunities begin.',
@@ -82,6 +82,56 @@ function hohorizon_mod($key) {
 	$default  = isset($defaults[$key]) ? $defaults[$key] : '';
 	$value    = get_theme_mod('hohorizon_' . $key, $default);
 	return is_string($value) ? $value : $default;
+}
+
+/**
+ * Hero still shown before the film plays.
+ *
+ * @return string
+ */
+function hohorizon_hero_still() {
+	$image = hohorizon_mod('hero_image');
+	if ($image === '' || strpos($image, 'photo-1464037866556') !== false) {
+		return get_template_directory_uri() . '/assets/hero-still.jpg';
+	}
+	return $image;
+}
+
+/**
+ * The three hero title lines.
+ *
+ * @return array<int, string>
+ */
+function hohorizon_hero_lines() {
+	$lines = array(hohorizon_mod('line1'), hohorizon_mod('line2'), hohorizon_mod('line3'));
+	if ($lines === array('HOHORIZON', 'GLOBAL', 'AFFAIRS')) {
+		return array('Horizon', 'Global', 'Summits');
+	}
+	return $lines;
+}
+
+/**
+ * Menu icon for a label.
+ *
+ * @param string $label Menu label.
+ * @return string
+ */
+function hohorizon_nav_icon($label) {
+	$key   = strtolower(trim(wp_strip_all_tags($label)));
+	$paths = array(
+		'home'              => '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
+		'about'             => '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
+		'agenda'            => '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+		'speakers'          => '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
+		'partners'          => '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
+		'media'             => '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
+		'contact'           => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+		'our mission'       => '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+		'membership'        => '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
+		'become a partner'  => '<path d="M12 5v14M5 12h14"/>',
+	);
+	$path = isset($paths[$key]) ? $paths[$key] : $paths['home'];
+	return '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' . $path . '</svg>';
 }
 
 /**
@@ -299,6 +349,7 @@ function hohorizon_filters() {
  */
 function hohorizon_primary_fallback() {
 	$items = array(
+		array('Home', '', array()),
 		array('About', 'about', array(array('Our Mission', 'mission'))),
 		array('Agenda', 'programme', array()),
 		array('Speakers', 'speakers', array()),
@@ -307,11 +358,12 @@ function hohorizon_primary_fallback() {
 		array('Contact', 'contact', array()),
 	);
 	foreach ($items as $item) {
-		echo '<div class="menu-item"><a href="' . esc_url(hohorizon_page_url($item[1])) . '">' . esc_html($item[0]) . '</a>';
+		$url = $item[1] === '' ? home_url('/') : hohorizon_page_url($item[1]);
+		echo '<div class="menu-item"><a href="' . esc_url($url) . '">' . hohorizon_nav_icon($item[0]) . esc_html($item[0]) . '</a>';
 		if ($item[2]) {
 			echo '<div class="dropdown">';
 			foreach ($item[2] as $child) {
-				echo '<a href="' . esc_url(hohorizon_page_url($child[1])) . '">' . esc_html($child[0]) . '</a>';
+				echo '<a href="' . esc_url(hohorizon_page_url($child[1])) . '">' . hohorizon_nav_icon($child[0]) . esc_html($child[0]) . '</a>';
 			}
 			echo '</div>';
 		}
@@ -405,7 +457,7 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
 		if ($depth === 0) {
 			$output .= '<div class="menu-item">';
 		}
-		$output .= '<a href="' . esc_url($item->url) . '"' . ($active ? ' aria-current="page"' : '') . '>' . esc_html($item->title) . '</a>';
+		$output .= '<a href="' . esc_url($item->url) . '"' . ($active ? ' aria-current="page"' : '') . '>' . hohorizon_nav_icon($item->title) . esc_html($item->title) . '</a>';
 	}
 
 	/**

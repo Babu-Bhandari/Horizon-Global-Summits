@@ -404,6 +404,7 @@ function hohorizon_seed_menus($pages) {
 		$locations['primary'] = hohorizon_menu(
 			'Primary',
 			array(
+				array('Home', 0, array(), home_url('/')),
 				array('About', $pages['about'], array(array('Our Mission', $pages['mission']))),
 				array('Agenda', $pages['programme'], array()),
 				array('Speakers', $pages['speakers'], array()),
@@ -460,16 +461,24 @@ function hohorizon_menu($name, $items) {
 		return $id;
 	}
 	foreach ($items as $item) {
+		$custom = isset($item[3]) ? $item[3] : '';
 		$parent = wp_update_nav_menu_item(
 			$id,
 			0,
-			array(
-				'menu-item-title'     => $item[0],
-				'menu-item-object-id' => $item[1],
-				'menu-item-object'    => 'page',
-				'menu-item-type'      => 'post_type',
-				'menu-item-status'    => 'publish',
-			)
+			$custom !== ''
+				? array(
+					'menu-item-title'  => $item[0],
+					'menu-item-url'    => $custom,
+					'menu-item-type'   => 'custom',
+					'menu-item-status' => 'publish',
+				)
+				: array(
+					'menu-item-title'     => $item[0],
+					'menu-item-object-id' => $item[1],
+					'menu-item-object'    => 'page',
+					'menu-item-type'      => 'post_type',
+					'menu-item-status'    => 'publish',
+				)
 		);
 		foreach ($item[2] as $child) {
 			wp_update_nav_menu_item(

@@ -13,6 +13,7 @@ add_action('after_setup_theme', 'hohorizon_setup');
 add_action('init', 'hohorizon_register_content_types');
 add_action('wp_enqueue_scripts', 'hohorizon_assets');
 add_action('after_switch_theme', 'hohorizon_activate');
+add_action('init', 'hohorizon_ensure_home_link');
 
 /**
  * Theme supports.
@@ -156,6 +157,42 @@ function hohorizon_labels($single, $plural) {
 		'not_found'     => 'No ' . strtolower($plural) . ' yet',
 		'all_items'     => 'All ' . strtolower($plural),
 	);
+}
+
+/**
+ * Add a Home item to an existing primary menu that does not have one.
+ */
+function hohorizon_ensure_home_link() {
+	if (get_option('hohorizon_home_link') === '1') {
+		return;
+	}
+	$locations = get_nav_menu_locations();
+	if (empty($locations['primary'])) {
+		return;
+	}
+	$items = wp_get_nav_menu_items($locations['primary']);
+	if (!$items) {
+		return;
+	}
+	$home = untrailingslashit(home_url('/'));
+	foreach ($items as $item) {
+		if ($item->title === 'Home' || untrailingslashit($item->url) === $home) {
+			update_option('hohorizon_home_link', '1');
+			return;
+		}
+	}
+	wp_update_nav_menu_item(
+		$locations['primary'],
+		0,
+		array(
+			'menu-item-title'    => 'Home',
+			'menu-item-url'      => home_url('/'),
+			'menu-item-type'     => 'custom',
+			'menu-item-status'   => 'publish',
+			'menu-item-position' => 1,
+		)
+	);
+	update_option('hohorizon_home_link', '1');
 }
 
 /**

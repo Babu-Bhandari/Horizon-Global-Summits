@@ -13,8 +13,8 @@ get_header();
 
 $video_id  = absint(get_theme_mod('hohorizon_hero_video', 0));
 $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directory_uri() . '/assets/hero.mp4';
-$hero      = hohorizon_mod('hero_image');
-$streams   = array_map('trim', explode(',', hohorizon_mod('streams')));
+$hero      = hohorizon_hero_still();
+$title     = hohorizon_hero_lines();
 ?>
 <section class="hero">
 	<div class="hero-bg" style="background-image:url('<?php echo esc_url($hero); ?>')"></div>
@@ -26,43 +26,34 @@ $streams   = array_map('trim', explode(',', hohorizon_mod('streams')));
 	<div class="hero-shade"></div>
 	<div class="hero-copy">
 		<div class="hero-lead">
-			<h1><span><?php echo esc_html(hohorizon_mod('line1')); ?></span><span><?php echo esc_html(hohorizon_mod('line2')); ?></span><span><?php echo esc_html(hohorizon_mod('line3')); ?></span></h1>
+			<h1><span><?php echo esc_html($title[0]); ?></span><span><?php echo esc_html($title[1]); ?></span><span><?php echo esc_html($title[2]); ?></span></h1>
 			<div class="rule"></div>
-			<p class="striped"><?php echo esc_html(hohorizon_mod('mark')); ?></p>
 			<div class="hero-actions">
 				<a class="btn" href="<?php echo esc_url(hohorizon_page_url('become-a-partner')); ?>"><?php echo esc_html(hohorizon_mod('button_partner')); ?></a>
 				<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>"><?php echo esc_html(hohorizon_mod('button_invite')); ?></a>
-			</div>
-			<p class="hero-when"><?php echo esc_html(hohorizon_mod('hero_name')); ?><br /><?php echo esc_html(hohorizon_mod('hero_date')); ?><br /><?php echo esc_html(hohorizon_mod('hero_venue')); ?></p>
-		</div>
-		<div class="hero-side">
-			<p class="hero-side-title"><?php echo wp_kses(nl2br(esc_html(hohorizon_mod('hero_side'))), array('br' => array())); ?></p>
-			<ul class="streams">
-				<?php foreach ($streams as $stream) : ?>
-					<?php if ($stream !== '') : ?>
-						<li><?php echo esc_html($stream); ?></li>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			</ul>
-			<div class="clock" data-countdown="<?php echo esc_attr(hohorizon_mod('countdown')); ?>" aria-label="Countdown. The date is still to be confirmed until a date is saved.">
-				<div><b data-unit="days">--</b><span>Days</span></div>
-				<div><b data-unit="hours">--</b><span>Hours</span></div>
-				<div><b data-unit="minutes">--</b><span>Minutes</span></div>
-				<div><b data-unit="seconds">--</b><span>Seconds</span></div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="marquee" aria-hidden="true">
-	<div class="marquee-track">
-		<?php for ($copy = 0; $copy < 2; $copy++) : ?>
-			<?php foreach ($streams as $stream) : ?>
-				<?php if ($stream !== '') : ?>
-					<span><?php echo esc_html($stream); ?></span>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		<?php endfor; ?>
+<section class="section company-section">
+	<?php get_template_part('template-parts/companies'); ?>
+	<div class="wrap">
+		<article class="about-card">
+			<div class="frame">
+				<img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80" alt="A small group in discussion" />
+			</div>
+			<div>
+				<p class="about-display">About us</p>
+				<p class="eyebrow">Who we are</p>
+				<h2>A forum for people who can speak for a decision.</h2>
+				<p class="lede">HOHORIZON GLOBAL AFFAIRS hosts international business conversations that stay specific, civil and useful. Executives, investors, policymakers and operators sit together with a clear programme and time left for the meeting that does not fit on a panel.</p>
+				<div class="about-stats">
+					<p><strong>To be confirmed</strong><span>Gatherings hosted</span></p>
+					<p><strong>To be confirmed</strong><span>Delegates in the room</span></p>
+				</div>
+			</div>
+		</article>
 	</div>
 </section>
 

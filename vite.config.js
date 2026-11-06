@@ -22,7 +22,7 @@ export default defineConfig({
     port: 5173,
     strictPort: false,
     watch: {
-      ignored: ["**/*.mp4"],
+      ignored: ["**/*.mp4", "**/*.zip", "**/wordpress-theme/**"],
     },
   },
   build: {

@@ -113,35 +113,7 @@ function initClock() {
 }
 
 function initIntro() {
-  const intro = document.querySelector("#intro");
-  const count = document.querySelector("#intro-pct");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!intro) {
-    document.body.classList.add("is-ready");
-    return;
-  }
-  if (reduce) {
-    intro.remove();
-    document.body.classList.add("is-ready");
-    return;
-  }
-  document.body.classList.add("is-intro");
-  const start = performance.now();
-  const duration = 2200;
-  const step = (now) => {
-    const progress = Math.min(1, (now - start) / duration);
-    const value = Math.round(progress * 100);
-    if (count) count.textContent = String(value).padStart(3, "0");
-    if (progress < 1) {
-      requestAnimationFrame(step);
-      return;
-    }
-    intro.classList.add("is-leaving");
-    document.body.classList.remove("is-intro");
-    window.setTimeout(() => document.body.classList.add("is-ready"), 420);
-    window.setTimeout(() => intro.remove(), 1100);
-  };
-  requestAnimationFrame(step);
+  document.body.classList.add("is-ready");
 }
 
 function initReveal() {

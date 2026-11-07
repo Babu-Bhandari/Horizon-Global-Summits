@@ -58,7 +58,7 @@ function renderChrome() {
     header.className = "site-header";
     header.innerHTML = `
       <a class="logo" href="/">
-        <strong>HORIZON<br />GLOBAL<br />AFFAIRS</strong>
+        <strong>HORIZON<br />GLOBAL<br />SUMMITS</strong>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Primary">
@@ -77,7 +77,7 @@ function renderChrome() {
     footer.className = "site-footer";
     footer.innerHTML = `
       <div>
-        <a class="logo" href="/"><strong>HOHORIZON<br />GLOBAL<br />AFFAIRS</strong><span>FORUM</span></a>
+        <a class="logo" href="/"><strong>HORIZON<br />GLOBAL<br />SUMMITS</strong></a>
         <p class="footer-blurb">An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.</p>
         <div class="socials" aria-label="Social media">
           ${socialIcon("linkedin", "LinkedIn")}

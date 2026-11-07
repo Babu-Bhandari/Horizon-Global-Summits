@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
 	<a class="logo" href="<?php echo esc_url(home_url('/')); ?>">
-		<strong>HORIZON<br />GLOBAL<br />AFFAIRS</strong>
+		<strong>HORIZON<br />GLOBAL<br />SUMMITS</strong>
 	</a>
 	<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
 	<nav class="nav" id="site-nav" aria-label="Primary">

@@ -20,8 +20,7 @@ $socials = array(
 <footer class="site-footer">
 	<div>
 		<a class="logo" href="<?php echo esc_url(home_url('/')); ?>">
-			<strong><?php echo esc_html(hohorizon_mod('line1')); ?><br /><?php echo esc_html(hohorizon_mod('line2')); ?><br /><?php echo esc_html(hohorizon_mod('line3')); ?></strong>
-			<span><?php echo esc_html(strtoupper(hohorizon_mod('mark'))); ?></span>
+			<strong>HORIZON<br />GLOBAL<br />SUMMITS</strong>
 		</a>
 		<p class="footer-blurb"><?php echo esc_html(hohorizon_mod('footer_text')); ?></p>
 		<div class="socials" aria-label="Social media">

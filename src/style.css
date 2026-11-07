@@ -87,11 +87,13 @@ button, input, textarea, select { font: inherit; color: inherit; }
   letter-spacing: 0.04em;
   line-height: 1.05;
 }
-.site-header .logo strong {
+.site-header .logo strong,
+.site-footer .logo strong {
   width: fit-content;
   font-size: 0.936rem;
 }
-.site-header .logo strong::after {
+.site-header .logo strong::after,
+.site-footer .logo strong::after {
   content: "";
   display: block;
   width: 100%;
@@ -1096,10 +1098,13 @@ html[data-theme="light"] .site-header.is-solid {
   color: #1c2438;
 }
 html[data-theme="light"] .site-header .logo,
-html[data-theme="light"] .site-header .logo strong {
+html[data-theme="light"] .site-header .logo strong,
+html[data-theme="light"] .site-footer .logo,
+html[data-theme="light"] .site-footer .logo strong {
   color: #1c2438;
 }
-html[data-theme="light"] .site-header .logo strong::after {
+html[data-theme="light"] .site-header .logo strong::after,
+html[data-theme="light"] .site-footer .logo strong::after {
   background: linear-gradient(90deg, #1c2438, #d4af37);
 }
 html[data-theme="light"] .nav a,

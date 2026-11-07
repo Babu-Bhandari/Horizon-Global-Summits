@@ -124,6 +124,25 @@ function initButtonIcons() {
   });
 }
 
+function initTheme() {
+  const paint = (theme) => {
+    const light = theme === "light";
+    if (light) document.documentElement.dataset.theme = "light";
+    else delete document.documentElement.dataset.theme;
+    localStorage.setItem("hohorizon-theme", light ? "light" : "dark");
+    document.querySelectorAll(".theme-toggle").forEach((button) => {
+      button.setAttribute("aria-pressed", String(light));
+      button.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+    });
+  };
+  paint(localStorage.getItem("hohorizon-theme") === "light" ? "light" : "dark");
+  document.querySelectorAll(".theme-toggle").forEach((button) => {
+    button.addEventListener("click", () => {
+      paint(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+    });
+  });
+}
+
 function initCookie() {
   if (localStorage.getItem("hohorizon-cookie")) return;
   const banner = document.createElement("div");
@@ -289,6 +308,7 @@ initIntro();
 initCounters();
 initReveal();
 initToTop();
+initTheme();
 initCookie();
 initButtonIcons();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();

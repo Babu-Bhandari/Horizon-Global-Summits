@@ -23,7 +23,7 @@ $socials = array(
 			<strong><?php echo esc_html(hohorizon_mod('line1')); ?><br /><?php echo esc_html(hohorizon_mod('line2')); ?><br /><?php echo esc_html(hohorizon_mod('line3')); ?></strong>
 			<span><?php echo esc_html(strtoupper(hohorizon_mod('mark'))); ?></span>
 		</a>
-		<p style="margin-top:16px;max-width:28rem;color:rgba(251,250,247,.78)"><?php echo esc_html(hohorizon_mod('footer_text')); ?></p>
+		<p class="footer-blurb"><?php echo esc_html(hohorizon_mod('footer_text')); ?></p>
 		<div class="socials" aria-label="Social media">
 			<?php foreach ($socials as $key => $label) : ?>
 				<?php $url = hohorizon_mod($key); ?>

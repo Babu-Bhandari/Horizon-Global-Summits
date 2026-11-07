@@ -67,6 +67,7 @@ function renderChrome() {
         <a class="btn nav-cta" href="/invitation.html">Request an invite</a>
       </nav>
       <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></svg></button>
         <a class="btn" href="/become-a-partner.html">Become a partner</a>
         <a class="btn" href="/invitation.html">Request an invite</a>
       </div>
@@ -77,7 +78,7 @@ function renderChrome() {
     footer.innerHTML = `
       <div>
         <a class="logo" href="/"><strong>HOHORIZON<br />GLOBAL<br />AFFAIRS</strong><span>FORUM</span></a>
-        <p style="margin-top:16px;max-width:28rem;color:rgba(251,250,247,.78)">An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.</p>
+        <p class="footer-blurb">An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.</p>
         <div class="socials" aria-label="Social media">
           ${socialIcon("linkedin", "LinkedIn")}
           ${socialIcon("instagram", "Instagram")}
@@ -296,6 +297,25 @@ function initButtonIcons() {
   });
 }
 
+function initTheme() {
+  const paint = (theme) => {
+    const light = theme === "light";
+    if (light) document.documentElement.dataset.theme = "light";
+    else delete document.documentElement.dataset.theme;
+    localStorage.setItem("hohorizon-theme", light ? "light" : "dark");
+    document.querySelectorAll(".theme-toggle").forEach((button) => {
+      button.setAttribute("aria-pressed", String(light));
+      button.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+    });
+  };
+  paint(localStorage.getItem("hohorizon-theme") === "light" ? "light" : "dark");
+  document.querySelectorAll(".theme-toggle").forEach((button) => {
+    button.addEventListener("click", () => {
+      paint(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+    });
+  });
+}
+
 function initCookie() {
   if (localStorage.getItem("hohorizon-cookie")) return;
   const banner = document.createElement("div");
@@ -468,6 +488,7 @@ initIntro();
 initCounters();
 initReveal();
 initToTop();
+initTheme();
 initCookie();
 initButtonIcons();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();

@@ -21,6 +21,7 @@ add_action('init', 'hohorizon_ensure_home_link');
 function hohorizon_setup() {
 	load_theme_textdomain('hohorizon', get_template_directory() . '/languages');
 	add_theme_support('title-tag');
+	add_filter('document_title_parts', 'hohorizon_document_title_parts');
 	add_theme_support('post-thumbnails');
 	add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script'));
 	add_post_type_support('page', 'excerpt');
@@ -40,6 +41,17 @@ function hohorizon_setup() {
 			'footer_explore' => 'Footer explore links',
 		)
 	);
+}
+
+/**
+ * Browser tab name.
+ *
+ * @param array $parts Title parts.
+ * @return array
+ */
+function hohorizon_document_title_parts($parts) {
+	$parts['site'] = 'Horizon Global Summits';
+	return $parts;
 }
 
 /**

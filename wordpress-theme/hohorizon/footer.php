@@ -69,7 +69,7 @@ $socials = array(
 		</ul>
 	</div>
 	<div class="fineprint">
-		<span>© <?php echo esc_html(gmdate('Y')); ?> Hohorizon Global Affairs. All Rights Reserved.</span>
+		<span>© <?php echo esc_html(gmdate('Y')); ?> Hohorizon Global Summits. All Rights Reserved.</span>
 	</div>
 </footer>
 <?php wp_footer(); ?>

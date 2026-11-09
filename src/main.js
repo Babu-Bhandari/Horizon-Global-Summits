@@ -117,7 +117,7 @@ function renderChrome() {
         </ul>
       </div>
       <div class="fineprint">
-        <span>© ${new Date().getFullYear()} Hohorizon Global Affairs. All Rights Reserved.</span>
+        <span>© ${new Date().getFullYear()} Hohorizon Global Summits. All Rights Reserved.</span>
       </div>
     `;
   }

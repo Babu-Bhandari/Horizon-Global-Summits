@@ -19,8 +19,9 @@ $socials = array(
 </main>
 <footer class="site-footer">
 	<div>
-		<a class="logo" href="<?php echo esc_url(home_url('/')); ?>">
-			<strong>HORIZON<br />GLOBAL<br />SUMMITS</strong>
+		<a class="logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Horizon Global Summits">
+			<img class="logo-for-dark" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon.png'); ?>" alt="" />
+			<img class="logo-for-light" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon-dark.png'); ?>" alt="" />
 		</a>
 		<p class="footer-blurb"><?php echo esc_html(hohorizon_mod('footer_text')); ?></p>
 		<div class="socials" aria-label="Social media">

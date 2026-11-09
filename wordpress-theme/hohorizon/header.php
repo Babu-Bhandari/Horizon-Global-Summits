@@ -26,8 +26,9 @@ if (!defined('ABSPATH')) {
 <?php wp_body_open(); ?>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">
-	<a class="logo" href="<?php echo esc_url(home_url('/')); ?>">
-		<strong>HORIZON<br />GLOBAL<br />SUMMITS</strong>
+	<a class="logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Horizon Global Summits">
+		<img class="logo-for-dark" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon.png'); ?>" alt="" />
+		<img class="logo-for-light" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon-dark.png'); ?>" alt="" />
 	</a>
 	<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
 	<nav class="nav" id="site-nav" aria-label="Primary">

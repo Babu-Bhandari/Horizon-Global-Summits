@@ -57,8 +57,9 @@ function renderChrome() {
   if (header) {
     header.className = "site-header";
     header.innerHTML = `
-      <a class="logo" href="/">
-        <strong>HORIZON<br />GLOBAL<br />SUMMITS</strong>
+      <a class="logo" href="/" aria-label="Horizon Global Summits">
+        <img class="logo-for-dark" src="/logo-horizon.png" alt="" />
+        <img class="logo-for-light" src="/logo-horizon-dark.png" alt="" />
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Primary">
@@ -77,7 +78,7 @@ function renderChrome() {
     footer.className = "site-footer";
     footer.innerHTML = `
       <div>
-        <a class="logo" href="/"><strong>HORIZON<br />GLOBAL<br />SUMMITS</strong></a>
+        <a class="logo" href="/" aria-label="Horizon Global Summits"><img class="logo-for-dark" src="/logo-horizon.png" alt="" /><img class="logo-for-light" src="/logo-horizon-dark.png" alt="" /></a>
         <p class="footer-blurb">An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.</p>
         <div class="socials" aria-label="Social media">
           ${socialIcon("linkedin", "LinkedIn")}

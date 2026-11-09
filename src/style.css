@@ -80,6 +80,14 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 
 .logo { text-decoration: none; width: fit-content; text-transform: uppercase; }
+.logo img { height: 56px; width: auto; }
+.site-header .logo img { height: 70px; }
+html[data-theme="light"] .site-header .logo img { height: 78px; }
+html[data-theme="light"] .site-footer .logo img { height: 84px; }
+.logo-for-light { display: none; }
+html[data-theme="light"] .logo-for-dark { display: none; }
+html[data-theme="light"] .logo-for-light { display: block; }
+.site-footer .logo img { height: 68px; }
 .logo strong {
   display: block;
   font-size: 0.78rem;
@@ -901,6 +909,10 @@ body:has(.cookie) .to-top { bottom: 168px; }
   .frame { min-height: 200px; }
   .site-header { gap: 12px; }
   .site-header .logo strong { font-size: 0.72rem; }
+  .logo img, .site-footer .logo img { height: 44px; }
+  .site-header .logo img { height: 52px; }
+  html[data-theme="light"] .site-header .logo img,
+  html[data-theme="light"] .site-footer .logo img { height: 56px; }
   .site-header .logo strong::after { margin-top: 4px; }
   .site-header .logo span { margin-top: 4px; font-size: 0.68rem; }
   .hero-slide { padding: calc(var(--header) + 20px) 20px 88px; }

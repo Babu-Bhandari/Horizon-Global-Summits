@@ -442,6 +442,54 @@ function hohorizon_link_list($links) {
 }
 
 /**
+ * Point a saved menu link at the current site when it still uses the old domain.
+ *
+ * @param string $url Stored URL.
+ * @return string
+ */
+function hohorizon_rewrite_legacy_url($url) {
+	if (!is_string($url) || $url === '') {
+		return $url;
+	}
+	$host = wp_parse_url($url, PHP_URL_HOST);
+	if (!$host || strcasecmp($host, 'horizonglobalaffairs.com') !== 0) {
+		return $url;
+	}
+	$path     = wp_parse_url($url, PHP_URL_PATH);
+	$query    = wp_parse_url($url, PHP_URL_QUERY);
+	$fragment = wp_parse_url($url, PHP_URL_FRAGMENT);
+	$rebuilt  = untrailingslashit(home_url('/'));
+	if (is_string($path) && $path !== '' && $path !== '/') {
+		$rebuilt .= '/' . ltrim($path, '/');
+	} else {
+		$rebuilt .= '/';
+	}
+	if (is_string($query) && $query !== '') {
+		$rebuilt .= '?' . $query;
+	}
+	if (is_string($fragment) && $fragment !== '') {
+		$rebuilt .= '#' . $fragment;
+	}
+	return $rebuilt;
+}
+
+/**
+ * Rewrite old-domain links in every saved menu.
+ *
+ * @param array<int, WP_Post> $items Menu items.
+ * @return array<int, WP_Post>
+ */
+function hohorizon_rewrite_legacy_menu_urls($items) {
+	foreach ($items as $item) {
+		if (!empty($item->url)) {
+			$item->url = hohorizon_rewrite_legacy_url($item->url);
+		}
+	}
+	return $items;
+}
+add_filter('wp_nav_menu_objects', 'hohorizon_rewrite_legacy_menu_urls');
+
+/**
  * Menu URL. About, Agenda, Speakers and Media stay on the homepage.
  *
  * @param string $title Menu label.
@@ -458,10 +506,13 @@ function hohorizon_nav_href($title, $url, $depth = 0) {
 		'media'    => '#media',
 	);
 	$key = strtolower(trim(wp_strip_all_tags($title)));
+	if ((int) $depth === 0 && $key === 'home') {
+		return esc_url(home_url('/'));
+	}
 	if ((int) $depth === 0 && isset($anchors[$key])) {
 		return esc_url(home_url('/')) . $anchors[$key];
 	}
-	return esc_url($url);
+	return esc_url(hohorizon_rewrite_legacy_url($url));
 }
 
 /**

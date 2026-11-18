@@ -237,6 +237,13 @@ html[data-theme="light"] .logo-for-light { display: block; }
   line-height: 1.05;
   text-align: left;
 }
+.hero h1 span.tone,
+body.is-ready .hero h1 span.tone {
+  display: inline;
+  overflow: visible;
+  animation: none;
+  color: #c8960a;
+}
 .hero-slide .eyebrow { color: #ff8ab0; }
 .hero-controls {
   position: absolute;

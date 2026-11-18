@@ -25,7 +25,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 		<div class="hero-copy">
 			<div class="hero-lead">
 				<p class="eyebrow">Horizon Global Summits</p>
-				<h1><?php echo wp_kses(str_replace('global connection', '<span class="tone">global connection</span>', esc_html(hohorizon_mod('cta_title'))), array('span' => array('class' => array()))); ?></h1>
+				<h1><?php echo esc_html(hohorizon_mod('cta_title')); ?></h1>
 				<div class="rule"></div>
 				<div class="hero-actions">
 					<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a>

@@ -20,9 +20,9 @@ function hohorizon_defaults() {
 		'line2'            => 'Global',
 		'line3'            => 'Summits',
 		'mark'             => 'Forum',
-		'button_partner'   => 'Become a partner',
-		'button_invite'    => 'Request an invite',
-		'hero_name'        => 'HOHORIZON Global Affairs',
+		'button_partner'   => 'Partner With Us',
+		'button_invite'    => 'Explore Our Summits',
+		'hero_name'        => 'Horizon Global Affairs',
 		'hero_date'        => 'Date to be confirmed.',
 		'hero_venue'       => 'Venue to be confirmed.',
 		'hero_side'        => "One focused day.\nFive live streams.",
@@ -30,9 +30,9 @@ function hohorizon_defaults() {
 		'countdown'        => '',
 		'hero_image'       => '',
 		'intro_image'      => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=80',
-		'welcome_eyebrow'  => 'Welcome to HOHORIZON',
+		'welcome_eyebrow'  => 'Welcome to Horizon',
 		'welcome_title'    => 'Where global leaders connect and opportunities begin.',
-		'welcome_text'     => "HOHORIZON GLOBAL AFFAIRS is a forum, not a trade-show floor. It is built for people who already carry responsibility: the executive opening a new market, the investor testing a thesis, the policymaker who needs the view from the operating table.\n\nThe purpose is simple. Put the right people in one place, give them a clear programme, and leave enough time for the conversation that does not fit on a panel.",
+		'welcome_text'     => "Horizon GLOBAL AFFAIRS is a forum, not a trade-show floor. It is built for people who already carry responsibility: the executive opening a new market, the investor testing a thesis, the policymaker who needs the view from the operating table.\n\nThe purpose is simple. Put the right people in one place, give them a clear programme, and leave enough time for the conversation that does not fit on a panel.",
 		'welcome_image'    => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80',
 		'stats_eyebrow'    => 'The room, in numbers',
 		'stats_title'      => 'Figures will be published when they are real.',
@@ -59,10 +59,11 @@ function hohorizon_defaults() {
 		'cta_title'        => 'Your next global connection starts here.',
 		'cta_text'         => 'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
 		'cta_image'        => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=80',
-		'footer_text'      => 'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
-		'public_email'     => 'Email to be confirmed',
+		'footer_text'      => 'To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.',
+		'public_email'     => 'connect@horizonglobalsummits.com',
 		'venue'            => 'Venue to be confirmed',
-		'inbox'            => '',
+		'office'           => 'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
+		'inbox'            => 'connect@horizonglobalsummits.com',
 		'ga'               => '',
 		'linkedin'         => '',
 		'instagram'        => '',
@@ -81,8 +82,33 @@ function hohorizon_mod($key) {
 	$defaults = hohorizon_defaults();
 	$default  = isset($defaults[$key]) ? $defaults[$key] : '';
 	$value    = get_theme_mod('hohorizon_' . $key, $default);
-	return is_string($value) ? $value : $default;
+	$value    = is_string($value) ? $value : $default;
+	$retired  = array(
+		'Email to be confirmed',
+		'To be confirmed',
+		'Venue to be confirmed',
+		'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
+	);
+	if ($value === '' || in_array($value, $retired, true)) {
+		$value = $default;
+	}
+	return hohorizon_brand_name($value);
 }
+
+/**
+ * Show the public name as Horizon wherever older copy still says HOHORIZON.
+ *
+ * @param string $text Text.
+ * @return string
+ */
+function hohorizon_brand_name($text) {
+	if (!is_string($text)) {
+		return $text;
+	}
+	return str_replace(array('HOHORIZON', 'Hohorizon'), 'Horizon', $text);
+}
+add_filter('the_title', 'hohorizon_brand_name');
+add_filter('the_content', 'hohorizon_brand_name');
 
 /**
  * Hero still shown before the film plays.
@@ -103,11 +129,17 @@ function hohorizon_hero_still() {
  * @return array<int, string>
  */
 function hohorizon_hero_lines() {
-	$lines = array(hohorizon_mod('line1'), hohorizon_mod('line2'), hohorizon_mod('line3'));
-	if ($lines === array('HOHORIZON', 'GLOBAL', 'AFFAIRS')) {
+	$defaults = hohorizon_defaults();
+	$lines    = array();
+	foreach (array('line1', 'line2', 'line3') as $key) {
+		$default = isset($defaults[$key]) ? $defaults[$key] : '';
+		$value   = get_theme_mod('hohorizon_' . $key, $default);
+		$lines[] = is_string($value) ? $value : $default;
+	}
+	if ($lines === array('HOHORIZON', 'GLOBAL', 'AFFAIRS') || $lines === array('Horizon', 'GLOBAL', 'AFFAIRS')) {
 		return array('Horizon', 'Global', 'Summits');
 	}
-	return $lines;
+	return array_map('hohorizon_brand_name', $lines);
 }
 
 /**
@@ -588,14 +620,14 @@ function hohorizon_event_list($count = -1) {
 	$samples = array(
 		array(
 			'Flagship forum · Placeholder',
-			'HOHORIZON flagship forum',
+			'Horizon flagship forum',
 			'Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.',
 			'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
 			'A bright executive meeting room',
 		),
 		array(
 			'Private briefing · Placeholder',
-			'HOHORIZON private briefing',
+			'Horizon private briefing',
 			'Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.',
 			'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80',
 			'A boardroom prepared for a private meeting',

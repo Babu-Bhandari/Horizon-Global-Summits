@@ -1,4 +1,4 @@
-# HOHORIZON GLOBAL AFFAIRS
+# Horizon GLOBAL AFFAIRS
 
 A multi-page site for an international business forum. It runs locally with Vite.
 

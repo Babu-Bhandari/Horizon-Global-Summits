@@ -64,13 +64,13 @@ function renderChrome() {
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Primary">
         ${NAV.map(link).join("")}
-        <a class="btn nav-cta" href="/become-a-partner.html">Become a partner</a>
-        <a class="btn nav-cta" href="/invitation.html">Request an invite</a>
+        <a class="btn nav-cta" href="/events.html">Explore Our Summits</a>
+        <a class="btn nav-cta" href="/become-a-partner.html">Partner With Us</a>
       </nav>
       <div class="header-actions">
         <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></svg></button>
-        <a class="btn" href="/become-a-partner.html">Become a partner</a>
-        <a class="btn" href="/invitation.html">Request an invite</a>
+        <a class="btn" href="/events.html">Explore Our Summits</a>
+        <a class="btn" href="/become-a-partner.html">Partner With Us</a>
       </div>
     `;
   }
@@ -79,7 +79,7 @@ function renderChrome() {
     footer.innerHTML = `
       <div>
         <a class="logo" href="/" aria-label="Horizon Global Summits"><img class="logo-for-dark" src="/logo-horizon.png" alt="" /><img class="logo-for-light" src="/logo-horizon-dark.png" alt="" /></a>
-        <p class="footer-blurb">An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.</p>
+        <p class="footer-blurb">To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.</p>
         <div class="socials" aria-label="Social media">
           ${socialIcon("linkedin", "LinkedIn")}
           ${socialIcon("instagram", "Instagram")}
@@ -112,12 +112,12 @@ function renderChrome() {
       <div>
         <h2>Contact</h2>
         <ul>
-          <li>Email to be confirmed</li>
-          <li>Venue to be confirmed</li>
+          <li>connect@horizonglobalsummits.com</li>
+          <li>CWFZ0398, Compass Building, Ras Al Khaimah, United Arab Emirates</li>
         </ul>
       </div>
       <div class="fineprint">
-        <span>© ${new Date().getFullYear()} Hohorizon Global Summits. All Rights Reserved.</span>
+        <span>© ${new Date().getFullYear()} Horizon Global Summits. All Rights Reserved.</span>
       </div>
     `;
   }
@@ -193,7 +193,7 @@ function initForms() {
           .filter(([key]) => key !== "website")
           .map(([key, value]) => `${key}: ${value}`)
           .join("\n");
-        window.location.href = `mailto:${to}?subject=${encodeURIComponent(`HOHORIZON ${kind}`)}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:${to}?subject=${encodeURIComponent(`Horizon ${kind}`)}&body=${encodeURIComponent(body)}`;
       }
       const thanks = form.nextElementSibling;
       if (thanks?.classList.contains("thanks")) {
@@ -282,6 +282,8 @@ function initToTop() {
 
 function initButtonIcons() {
   const icons = {
+    "explore our summits": '<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.2 2.5 3.4 5.2 3.4 8s-1.2 5.5-3.4 8c-2.2-2.5-3.4-5.2-3.4-8s1.2-5.5 3.4-8z"/>',
+    "partner with us": '<circle cx="8" cy="8" r="2.4"/><circle cx="16" cy="8" r="2.4"/><path d="M3.8 18c.7-2.3 2.2-3.4 4.2-3.4s3.5 1.1 4.2 3.4M12 18c.6-2 2-3 3.8-3 1.5 0 2.8.7 3.5 2"/>',
     "become a partner": '<circle cx="8" cy="8" r="2.4"/><circle cx="16" cy="8" r="2.4"/><path d="M3.8 18c.7-2.3 2.2-3.4 4.2-3.4s3.5 1.1 4.2 3.4M12 18c.6-2 2-3 3.8-3 1.5 0 2.8.7 3.5 2"/>',
     "request an invite": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
     "request an invitation": '<path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z"/><path d="M12 9v6M9 12h6"/>',
@@ -492,4 +494,27 @@ initToTop();
 initTheme();
 initCookie();
 initButtonIcons();
+initHeroRule();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();
+
+function initHeroRule() {
+  const fit = () => {
+    const word = document.querySelector(".hero-here");
+    const rule = document.querySelector(".hero .rule");
+    const title = document.querySelector(".hero h1");
+    if (!word || !rule || !title) return;
+    if (window.innerWidth > 700) {
+      rule.style.width = "";
+      return;
+    }
+    const range = document.createRange();
+    range.selectNodeContents(word);
+    const rects = range.getClientRects();
+    const rect = rects.length ? rects[rects.length - 1] : range.getBoundingClientRect();
+    const width = rect.right - title.getBoundingClientRect().left;
+    if (width > 8) rule.style.width = `${Math.round(width)}px`;
+  };
+  fit();
+  window.addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+}

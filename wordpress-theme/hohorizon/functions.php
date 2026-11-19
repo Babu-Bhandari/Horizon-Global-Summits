@@ -1,6 +1,6 @@
 <?php
 /**
- * HOHORIZON theme.
+ * Horizon theme.
  *
  * @package Hohorizon
  */

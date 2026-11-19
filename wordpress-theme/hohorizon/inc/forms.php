@@ -122,7 +122,7 @@ function hohorizon_handle_form() {
 	if (is_email($reply)) {
 		$headers[] = 'Reply-To: ' . $reply;
 	}
-	$sent = wp_mail($to, 'HOHORIZON ' . $kind, implode("\n", $lines), $headers);
+	$sent = wp_mail($to, 'Horizon ' . $kind, implode("\n", $lines), $headers);
 	wp_safe_redirect(add_query_arg(array('sent' => $sent ? '1' : '0', 'form' => $kind), $back));
 	exit;
 }

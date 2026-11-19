@@ -99,7 +99,7 @@ function hohorizon_seed_pages() {
 		),
 		'about' => array(
 			'About Us',
-			'HOHORIZON GLOBAL AFFAIRS exists to host international business conversations that are specific, civil and useful.',
+			'Horizon GLOBAL AFFAIRS exists to host international business conversations that are specific, civil and useful.',
 			hohorizon_paragraphs(
 				array(
 					'Executives, investors, policymakers and operators. People who can speak for a decision, or who are close enough to one that the conversation changes the next meeting.',
@@ -148,7 +148,7 @@ function hohorizon_seed_pages() {
 		),
 		'contact' => array(
 			'Contact',
-			'Email address to be confirmed. There is no public telephone number on this site yet.',
+			'Write to connect@horizonglobalsummits.com. There is no public telephone number on this site yet.',
 			'',
 			array('_hohorizon_eyebrow' => 'Contact'),
 		),
@@ -215,7 +215,7 @@ function hohorizon_seed_pages() {
 			'',
 			hohorizon_paragraphs(
 				array(
-					'The site describes HOHORIZON GLOBAL AFFAIRS. Anything marked as a placeholder, sample, or “to be confirmed” is not a fact, a date, a price, or an offer.',
+					'The site describes Horizon GLOBAL AFFAIRS. Anything marked as a placeholder, sample, or “to be confirmed” is not a fact, a date, a price, or an offer.',
 					'Requesting an invitation does not create a place at a gathering. A partnership enquiry does not create a partnership. No fee can be paid through these pages.',
 					'You may not present sample profiles, empty logo tiles, or unpublished figures as confirmed information about the forum or about any person or company.',
 					'The site is provided as published. Have counsel review these terms before they are used as a binding notice.',
@@ -247,8 +247,8 @@ function hohorizon_seed_pages() {
  */
 function hohorizon_seed_events() {
 	$events = array(
-		array('flagship-forum', 'HOHORIZON flagship forum', 'Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.', 'Flagship forum · Placeholder', 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80', 1),
-		array('private-briefing', 'HOHORIZON private briefing', 'Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.', 'Private briefing · Placeholder', 'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80', 2),
+		array('flagship-forum', 'Horizon flagship forum', 'Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.', 'Flagship forum · Placeholder', 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80', 1),
+		array('private-briefing', 'Horizon private briefing', 'Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.', 'Private briefing · Placeholder', 'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80', 2),
 	);
 	$body = hohorizon_paragraphs(
 		array(

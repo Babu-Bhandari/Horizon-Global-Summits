@@ -25,7 +25,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 		<div class="hero-copy">
 			<div class="hero-lead">
 				<p class="eyebrow">Horizon Global Summits</p>
-				<h1><?php echo esc_html(hohorizon_mod('cta_title')); ?></h1>
+				<h1><?php echo preg_replace('/here\./', '<span class="hero-here">here.</span>', esc_html(hohorizon_mod('cta_title')), 1); ?></h1>
 				<div class="rule"></div>
 				<div class="hero-actions">
 					<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a>
@@ -45,8 +45,10 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 			<div>
 				<p class="about-display">About us</p>
 				<p class="eyebrow">Who we are</p>
-				<h2>A forum for people who can speak for a decision.</h2>
-				<p class="lede">HOHORIZON GLOBAL AFFAIRS hosts international business conversations that stay specific, civil and useful. Executives, investors, policymakers and operators sit together with a clear programme and time left for the meeting that does not fit on a panel.</p>
+				<h2>Expanding Horizons. Uniting global Minds</h2>
+				<p class="lede">Horizon Global Summits is a UAE-based international B2B conference and executive summit organisation dedicated to bringing together business leaders, senior executives, industry experts and key decision-makers from across the globe.</p>
+				<p class="lede">Through thoughtfully curated international conferences, executive leadership forums and industry-focused summits, we create distinguished platforms for meaningful dialogue, knowledge exchange, strategic networking and impactful business partnerships.</p>
+				<p class="lede">Driven by a global vision and an unwavering commitment to excellence, we strive to bridge industries, foster cross-border collaboration and unlock new opportunities for business growth. By connecting influential minds and organisations, Horizon Global Summits aims to transform meaningful conversations into strategic alliances, sustainable opportunities and lasting global impact.</p>
 				<div class="about-stats">
 					<p><strong data-count="750" data-suffix="+">750+</strong><span>Delegates</span></p>
 					<p><strong data-count="300" data-suffix="+">300+</strong><span>Companies represented</span></p>
@@ -72,13 +74,13 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 			$meets = hohorizon_query('hoh_event', 2);
 			$fallbacks = array(
 				array(
-					'title' => 'HOHORIZON flagship forum',
+					'title' => 'Horizon flagship forum',
 					'image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80',
 					'alt'   => 'Delegates seated at a conference',
 					'url'   => hohorizon_page_url('events'),
 				),
 				array(
-					'title' => 'HOHORIZON private briefing',
+					'title' => 'Horizon private briefing',
 					'image' => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
 					'alt'   => 'A conference hall prepared for a meeting',
 					'url'   => hohorizon_page_url('events'),
@@ -166,7 +168,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 <section class="section home-panel" id="contact">
 	<div class="wrap">
 		<h2 class="about-display">Contact us</h2>
-		<p class="section-lead">Write to the forum. The public email address will be added when it is confirmed.</p>
+		<p class="section-lead">Write to the forum at connect@horizonglobalsummits.com.</p>
 		<div class="contact-split">
 			<div>
 				<?php
@@ -188,11 +190,11 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 				</article>
 				<article class="contact-fact">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-					<p><small>Email address</small><strong><?php echo esc_html(hohorizon_mod('public_email')); ?></strong></p>
+					<p><small>Email address</small><strong><a href="mailto:<?php echo esc_attr(hohorizon_mod('public_email')); ?>"><?php echo esc_html(hohorizon_mod('public_email')); ?></a></strong></p>
 				</article>
 				<article class="contact-fact">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/><path d="M9 10h.01M15 10h.01"/></svg>
-					<p><small>Head office</small><strong><?php echo esc_html(hohorizon_mod('venue')); ?></strong></p>
+					<p><small>Head office</small><strong><?php echo esc_html(hohorizon_mod('office')); ?></strong></p>
 				</article>
 				<article class="contact-fact">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>

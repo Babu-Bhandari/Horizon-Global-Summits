@@ -108,6 +108,8 @@ function initToTop() {
 
 function initButtonIcons() {
   const icons = {
+    "explore our summits": '<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.2 2.5 3.4 5.2 3.4 8s-1.2 5.5-3.4 8c-2.2-2.5-3.4-5.2-3.4-8s1.2-5.5 3.4-8z"/>',
+    "partner with us": '<circle cx="8" cy="8" r="2.4"/><circle cx="16" cy="8" r="2.4"/><path d="M3.8 18c.7-2.3 2.2-3.4 4.2-3.4s3.5 1.1 4.2 3.4M12 18c.6-2 2-3 3.8-3 1.5 0 2.8.7 3.5 2"/>',
     "become a partner": '<circle cx="8" cy="8" r="2.4"/><circle cx="16" cy="8" r="2.4"/><path d="M3.8 18c.7-2.3 2.2-3.4 4.2-3.4s3.5 1.1 4.2 3.4M12 18c.6-2 2-3 3.8-3 1.5 0 2.8.7 3.5 2"/>',
     "request an invite": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
     "request an invitation": '<path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z"/><path d="M12 9v6M9 12h6"/>',
@@ -311,4 +313,27 @@ initToTop();
 initTheme();
 initCookie();
 initButtonIcons();
+initHeroRule();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();
+
+function initHeroRule() {
+  const fit = () => {
+    const word = document.querySelector(".hero-here");
+    const rule = document.querySelector(".hero .rule");
+    const title = document.querySelector(".hero h1");
+    if (!word || !rule || !title) return;
+    if (window.innerWidth > 700) {
+      rule.style.width = "";
+      return;
+    }
+    const range = document.createRange();
+    range.selectNodeContents(word);
+    const rects = range.getClientRects();
+    const rect = rects.length ? rects[rects.length - 1] : range.getBoundingClientRect();
+    const width = rect.right - title.getBoundingClientRect().left;
+    if (width > 8) rule.style.width = `${Math.round(width)}px`;
+  };
+  fit();
+  window.addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+}

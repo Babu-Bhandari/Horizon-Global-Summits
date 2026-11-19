@@ -65,11 +65,11 @@ $socials = array(
 		<h2>Contact</h2>
 		<ul>
 			<li><?php echo esc_html(hohorizon_mod('public_email')); ?></li>
-			<li><?php echo esc_html(hohorizon_mod('venue')); ?></li>
+			<li><?php echo esc_html(hohorizon_mod('office')); ?></li>
 		</ul>
 	</div>
 	<div class="fineprint">
-		<span>© <?php echo esc_html(gmdate('Y')); ?> Hohorizon Global Summits. All Rights Reserved.</span>
+		<span>© <?php echo esc_html(gmdate('Y')); ?> Horizon Global Summits. All Rights Reserved.</span>
 	</div>
 </footer>
 <?php wp_footer(); ?>

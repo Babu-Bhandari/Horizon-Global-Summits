@@ -398,19 +398,17 @@ function hohorizon_primary_fallback() {
 	$items = array(
 		array('Home', '', array()),
 		array('About', 'about', array()),
-		array('Agenda', 'programme', array()),
 		array('Speakers', 'speakers', array()),
 		array('Partners', 'partners', array()),
-		array('Media', 'events', array()),
 		array('Contact', 'contact', array()),
 	);
 	foreach ($items as $item) {
 		$url = $item[1] === '' ? home_url('/') : hohorizon_page_url($item[1]);
 		$anchors = array(
 			'About'    => '#about',
-			'Agenda'   => '#agenda',
 			'Speakers' => '#speakers',
-			'Media'    => '#media',
+			'Partners' => '#partners',
+			'Contact'  => '#contact',
 		);
 		if (isset($anchors[$item[0]])) {
 			$url = home_url('/') . $anchors[$item[0]];
@@ -437,7 +435,7 @@ function hohorizon_footer_quick_fallback() {
 			'About Us'             => 'about',
 			'Our Mission'          => 'mission',
 			'Membership'           => 'membership',
-			'Contact'              => 'contact',
+			'Contact'              => '#contact',
 			'Privacy Policy'       => 'privacy',
 			'Terms & Conditions'   => 'terms',
 		)
@@ -453,7 +451,7 @@ function hohorizon_footer_explore_fallback() {
 			'Events'                 => 'events',
 			'Programme'              => 'programme',
 			'Speakers'               => 'speakers',
-			'Partners'               => 'partners',
+			'Partners'               => '#partners',
 			'Become a Partner'       => 'become-a-partner',
 			'Request an invitation'  => 'invitation',
 		)
@@ -468,7 +466,8 @@ function hohorizon_footer_explore_fallback() {
 function hohorizon_link_list($links) {
 	echo '<ul>';
 	foreach ($links as $label => $slug) {
-		echo '<li><a href="' . esc_url(hohorizon_page_url($slug)) . '">' . hohorizon_menu_icon($label) . esc_html($label) . '</a></li>';
+		$href = (isset($slug[0]) && $slug[0] === '#') ? home_url('/') . $slug : hohorizon_page_url($slug);
+		echo '<li><a href="' . esc_url($href) . '">' . hohorizon_menu_icon($label) . esc_html($label) . '</a></li>';
 	}
 	echo '</ul>';
 }
@@ -512,12 +511,25 @@ function hohorizon_rewrite_legacy_url($url) {
  * @return array<int, WP_Post>
  */
 function hohorizon_rewrite_legacy_menu_urls($items) {
+	$kept = array();
 	foreach ($items as $item) {
-		if (!empty($item->url)) {
-			$item->url = hohorizon_rewrite_legacy_url($item->url);
+		$title = strtolower(trim(wp_strip_all_tags($item->title)));
+		$url = isset($item->url) ? $item->url : '';
+		if ($title === 'agenda' || $title === 'media' || strpos($url, '#agenda') !== false || strpos($url, '#media') !== false) {
+			continue;
 		}
+		$anchors = array(
+			'contact'  => '#contact',
+			'partners' => '#partners',
+		);
+		if (isset($anchors[$title])) {
+			$item->url = home_url('/') . $anchors[$title];
+		} elseif ($url !== '') {
+			$item->url = hohorizon_rewrite_legacy_url($url);
+		}
+		$kept[] = $item;
 	}
-	return $items;
+	return $kept;
 }
 add_filter('wp_nav_menu_objects', 'hohorizon_rewrite_legacy_menu_urls');
 
@@ -533,9 +545,9 @@ function hohorizon_nav_href($title, $url, $depth = 0) {
 	$anchors = array(
 		'about'    => '#about',
 		'about us' => '#about',
-		'agenda'   => '#agenda',
 		'speakers' => '#speakers',
-		'media'    => '#media',
+		'partners' => '#partners',
+		'contact'  => '#contact',
 	);
 	$key = strtolower(trim(wp_strip_all_tags($title)));
 	if ((int) $depth === 0 && $key === 'home') {

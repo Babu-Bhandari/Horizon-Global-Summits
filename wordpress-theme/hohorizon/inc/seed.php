@@ -406,11 +406,9 @@ function hohorizon_seed_menus($pages) {
 			array(
 				array('Home', 0, array(), home_url('/')),
 				array('About', 0, array(), home_url('/') . '#about'),
-				array('Agenda', 0, array(), home_url('/') . '#agenda'),
 				array('Speakers', 0, array(), home_url('/') . '#speakers'),
-				array('Partners', $pages['partners'], array()),
-				array('Media', 0, array(), home_url('/') . '#media'),
-				array('Contact', $pages['contact'], array()),
+				array('Partners', 0, array(), home_url('/') . '#partners'),
+				array('Contact', 0, array(), home_url('/') . '#contact'),
 			)
 		);
 	}
@@ -421,7 +419,7 @@ function hohorizon_seed_menus($pages) {
 				array('About Us', $pages['about'], array()),
 				array('Our Mission', $pages['mission'], array()),
 				array('Membership', $pages['membership'], array()),
-				array('Contact', $pages['contact'], array()),
+				array('Contact', 0, array(), home_url('/') . '#contact'),
 				array('Privacy Policy', $pages['privacy'], array()),
 				array('Terms & Conditions', $pages['terms'], array()),
 			)
@@ -434,7 +432,7 @@ function hohorizon_seed_menus($pages) {
 				array('Events', $pages['events'], array()),
 				array('Programme', $pages['programme'], array()),
 				array('Speakers', $pages['speakers'], array()),
-				array('Partners', $pages['partners'], array()),
+				array('Partners', 0, array(), home_url('/') . '#partners'),
 				array('Become a Partner', $pages['become-a-partner'], array()),
 				array('Request an invitation', $pages['invitation'], array()),
 			)

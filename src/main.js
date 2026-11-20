@@ -1,11 +1,9 @@
 const NAV = [
   { href: "/", label: "Home", id: "home" },
   { href: "/#about", label: "About", id: "about" },
-  { href: "/#agenda", label: "Agenda", id: "programme" },
   { href: "/#speakers", label: "Speakers", id: "speakers" },
-  { href: "/partners.html", label: "Partners", id: "partners" },
-  { href: "/#media", label: "Media", id: "events" },
-  { href: "/contact.html", label: "Contact", id: "contact" },
+  { href: "/#partners", label: "Partners", id: "partners" },
+  { href: "/#contact", label: "Contact", id: "contact" },
 ];
 
 const page = document.body.dataset.page || "home";
@@ -64,13 +62,9 @@ function renderChrome() {
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav class="nav" id="site-nav" aria-label="Primary">
         ${NAV.map(link).join("")}
-        <a class="btn nav-cta" href="/events.html">Explore Our Summits</a>
-        <a class="btn nav-cta" href="/become-a-partner.html">Partner With Us</a>
       </nav>
       <div class="header-actions">
         <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></svg></button>
-        <a class="btn" href="/events.html">Explore Our Summits</a>
-        <a class="btn" href="/become-a-partner.html">Partner With Us</a>
       </div>
     `;
   }
@@ -93,7 +87,7 @@ function renderChrome() {
           <li><a href="/about.html">${icon("about")}About Us</a></li>
           <li><a href="/mission.html">${icon("mission")}Our Mission</a></li>
           <li><a href="/membership.html">${icon("membership")}Membership</a></li>
-          <li><a href="/contact.html">${icon("contact")}Contact</a></li>
+          <li><a href="/#contact">${icon("contact")}Contact</a></li>
           <li><a href="/privacy.html">${icon("privacy")}Privacy Policy</a></li>
           <li><a href="/terms.html">${icon("terms")}Terms &amp; Conditions</a></li>
         </ul>
@@ -104,7 +98,7 @@ function renderChrome() {
           <li><a href="/events.html">${icon("events")}Events</a></li>
           <li><a href="/programme.html">${icon("programme")}Programme</a></li>
           <li><a href="/speakers.html">${icon("speakers")}Speakers</a></li>
-          <li><a href="/partners.html">${icon("partners")}Partners</a></li>
+          <li><a href="/#partners">${icon("partners")}Partners</a></li>
           <li><a href="/become-a-partner.html">${icon("partner")}Become a Partner</a></li>
           <li><a href="/invitation.html">${icon("contact")}Request an invitation</a></li>
         </ul>

@@ -126,27 +126,6 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 
 <?php hohorizon_speaker_stage('h2', true); ?>
 
-<section class="section home-panel" id="agenda">
-	<div class="wrap">
-		<h2 class="about-display">Agenda</h2>
-		<p class="section-lead">A sample of the day. Times, speakers and titles stay as placeholders until the programme is confirmed.</p>
-		<?php hohorizon_filters(); ?>
-		<?php
-		$sessions = hohorizon_query('hoh_session', 4);
-		if ($sessions->have_posts()) {
-			while ($sessions->have_posts()) {
-				$sessions->the_post();
-				hohorizon_session_row();
-			}
-			wp_reset_postdata();
-		} else {
-			hohorizon_sample_sessions();
-		}
-		?>
-		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('programme')); ?>">Full programme</a></div>
-	</div>
-</section>
-
 <section class="section home-panel" id="partners">
 	<div class="wrap">
 		<h2 class="about-display">Partners</h2>

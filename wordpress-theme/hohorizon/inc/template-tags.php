@@ -521,6 +521,8 @@ function hohorizon_rewrite_legacy_menu_urls($items) {
 		$anchors = array(
 			'contact'  => '#contact',
 			'partners' => '#partners',
+			'about'    => '#about',
+			'about us' => '#about',
 		);
 		if (isset($anchors[$title])) {
 			$item->url = home_url('/') . $anchors[$title];
@@ -528,6 +530,20 @@ function hohorizon_rewrite_legacy_menu_urls($items) {
 			$item->url = hohorizon_rewrite_legacy_url($url);
 		}
 		$kept[] = $item;
+	}
+	$has_about = false;
+	foreach ($kept as $item) {
+		$label = strtolower(trim(wp_strip_all_tags($item->title)));
+		if ($label === 'about' || $label === 'about us') {
+			$has_about = true;
+		}
+	}
+	if (!$has_about) {
+		$about          = new stdClass();
+		$about->title   = 'About';
+		$about->url     = home_url('/') . '#about';
+		$about->classes = array();
+		array_splice($kept, min(1, count($kept)), 0, array($about));
 	}
 	return $kept;
 }

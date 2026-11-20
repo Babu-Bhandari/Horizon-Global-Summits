@@ -37,7 +37,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 
 <section class="section company-section">
 	<?php get_template_part('template-parts/companies'); ?>
-	<?php get_template_part('template-parts/about'); ?>
+	<?php get_template_part('about'); ?>
 </section>
 
 <section class="section next-meet" id="next-meet">

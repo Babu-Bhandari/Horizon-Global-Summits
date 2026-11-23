@@ -145,8 +145,8 @@ function initTheme() {
   });
 }
 
-function initCookie() {
-  if (localStorage.getItem("hohorizon-cookie")) return;
+function showCookieBanner() {
+  if (document.querySelector(".cookie")) return;
   const banner = document.createElement("div");
   banner.className = "cookie";
   banner.innerHTML = `
@@ -164,6 +164,15 @@ function initCookie() {
     if (choice === "accept") loadAnalytics();
   });
   document.body.append(banner);
+}
+
+function initCookie() {
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".manage-cookies")) return;
+    localStorage.removeItem("hohorizon-cookie");
+    showCookieBanner();
+  });
+  if (!localStorage.getItem("hohorizon-cookie")) showCookieBanner();
 }
 
 function loadAnalytics() {
@@ -266,7 +275,113 @@ function initReveal() {
   nodes.forEach((node) => observer.observe(node));
 }
 
+function initFancySelects() {
+  const closeAll = (except) => {
+    document.querySelectorAll(".fancy-select.is-open").forEach((node) => {
+      if (node === except) return;
+      node.classList.remove("is-open");
+      const panel = node.querySelector(".fancy-select-panel");
+      if (panel) panel.hidden = true;
+    });
+  };
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".fancy-select")) closeAll();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAll();
+  });
+  document.querySelectorAll(".contact-form select").forEach((select) => {
+    if (select.closest(".fancy-select")) return;
+    const choices = [...select.options].filter((option) => option.value);
+    const wrap = document.createElement("div");
+    wrap.className = "fancy-select";
+    select.after(wrap);
+    wrap.append(select);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "fancy-select-button";
+    button.setAttribute("aria-haspopup", "listbox");
+    const panel = document.createElement("div");
+    panel.className = "fancy-select-panel";
+    panel.hidden = true;
+    const search = document.createElement("input");
+    search.type = "search";
+    search.className = "fancy-select-search";
+    search.placeholder = "Search";
+    search.setAttribute("aria-label", "Search");
+    if (choices.length <= 8) search.hidden = true;
+    const list = document.createElement("div");
+    list.className = "fancy-select-list";
+    list.setAttribute("role", "listbox");
+    panel.append(search, list);
+    const paint = () => {
+      const current = select.options[select.selectedIndex];
+      const empty = !select.value;
+      button.innerHTML = `<span class="${empty ? "is-placeholder" : ""}">${current ? current.textContent : "Select"}</span><i aria-hidden="true"></i>`;
+    };
+    const choose = (option) => {
+      select.value = option.value;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      paint();
+      wrap.classList.remove("is-open");
+      panel.hidden = true;
+      search.value = "";
+    };
+    const build = () => {
+      const needle = search.value.trim().toLowerCase();
+      const matches = choices.filter((option) => option.textContent.toLowerCase().includes(needle));
+      list.replaceChildren();
+      if (!matches.length) {
+        const empty = document.createElement("p");
+        empty.className = "fancy-select-empty";
+        empty.textContent = "No matches";
+        list.append(empty);
+        return;
+      }
+      matches.forEach((option) => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.setAttribute("role", "option");
+        const selected = option.value === select.value;
+        if (selected) item.setAttribute("aria-selected", "true");
+        item.innerHTML = `<span></span><i class="fancy-check" aria-hidden="true"></i>`;
+        item.querySelector("span").textContent = option.textContent;
+        item.addEventListener("click", () => choose(option));
+        list.append(item);
+      });
+      const current = list.querySelector('[aria-selected="true"]');
+      if (current) current.scrollIntoView({ block: "nearest" });
+    };
+    search.addEventListener("input", build);
+    search.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      const first = list.querySelector("button");
+      if (!first) return;
+      event.preventDefault();
+      first.click();
+    });
+    button.addEventListener("click", () => {
+      const willOpen = panel.hidden;
+      closeAll(wrap);
+      if (!willOpen) {
+        wrap.classList.remove("is-open");
+        panel.hidden = true;
+        return;
+      }
+      build();
+      panel.hidden = false;
+      wrap.classList.add("is-open");
+      const space = window.innerHeight - button.getBoundingClientRect().bottom;
+      panel.classList.toggle("is-up", space < 280 && button.getBoundingClientRect().top > space);
+      if (!search.hidden) search.focus({ preventScroll: true });
+    });
+    wrap.append(button, panel);
+    paint();
+  });
+}
+
 initHeader();
+initFancySelects();
 initFilters();
 initHero();
 initClock();

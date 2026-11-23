@@ -125,6 +125,12 @@ function renderChrome() {
       </div>
       <div class="fineprint">
         <span>© ${new Date().getFullYear()} Horizon Global Summits. All Rights Reserved.</span>
+        <nav class="legal" aria-label="Legal">
+          <a href="/terms.html">Terms and conditions</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/cookies.html">Cookie policy</a>
+          <button class="manage-cookies" type="button">Manage Cookies</button>
+        </nav>
       </div>
     `;
   }
@@ -177,6 +183,111 @@ function initEvents() {
 }
 
 const COUNTRIES = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
+function initFancySelects() {
+  const closeAll = (except) => {
+    document.querySelectorAll(".fancy-select.is-open").forEach((node) => {
+      if (node === except) return;
+      node.classList.remove("is-open");
+      const panel = node.querySelector(".fancy-select-panel");
+      if (panel) panel.hidden = true;
+    });
+  };
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".fancy-select")) closeAll();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAll();
+  });
+  document.querySelectorAll(".contact-form select").forEach((select) => {
+    if (select.closest(".fancy-select")) return;
+    const choices = [...select.options].filter((option) => option.value);
+    const wrap = document.createElement("div");
+    wrap.className = "fancy-select";
+    select.after(wrap);
+    wrap.append(select);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "fancy-select-button";
+    button.setAttribute("aria-haspopup", "listbox");
+    const panel = document.createElement("div");
+    panel.className = "fancy-select-panel";
+    panel.hidden = true;
+    const search = document.createElement("input");
+    search.type = "search";
+    search.className = "fancy-select-search";
+    search.placeholder = "Search";
+    search.setAttribute("aria-label", "Search");
+    if (choices.length <= 8) search.hidden = true;
+    const list = document.createElement("div");
+    list.className = "fancy-select-list";
+    list.setAttribute("role", "listbox");
+    panel.append(search, list);
+    const paint = () => {
+      const current = select.options[select.selectedIndex];
+      const empty = !select.value;
+      button.innerHTML = `<span class="${empty ? "is-placeholder" : ""}">${current ? current.textContent : "Select"}</span><i aria-hidden="true"></i>`;
+    };
+    const choose = (option) => {
+      select.value = option.value;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      paint();
+      wrap.classList.remove("is-open");
+      panel.hidden = true;
+      search.value = "";
+    };
+    const build = () => {
+      const needle = search.value.trim().toLowerCase();
+      const matches = choices.filter((option) => option.textContent.toLowerCase().includes(needle));
+      list.replaceChildren();
+      if (!matches.length) {
+        const empty = document.createElement("p");
+        empty.className = "fancy-select-empty";
+        empty.textContent = "No matches";
+        list.append(empty);
+        return;
+      }
+      matches.forEach((option) => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.setAttribute("role", "option");
+        const selected = option.value === select.value;
+        if (selected) item.setAttribute("aria-selected", "true");
+        item.innerHTML = `<span></span><i class="fancy-check" aria-hidden="true"></i>`;
+        item.querySelector("span").textContent = option.textContent;
+        item.addEventListener("click", () => choose(option));
+        list.append(item);
+      });
+      const current = list.querySelector('[aria-selected="true"]');
+      if (current) current.scrollIntoView({ block: "nearest" });
+    };
+    search.addEventListener("input", build);
+    search.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      const first = list.querySelector("button");
+      if (!first) return;
+      event.preventDefault();
+      first.click();
+    });
+    button.addEventListener("click", () => {
+      const willOpen = panel.hidden;
+      closeAll(wrap);
+      if (!willOpen) {
+        wrap.classList.remove("is-open");
+        panel.hidden = true;
+        return;
+      }
+      build();
+      panel.hidden = false;
+      wrap.classList.add("is-open");
+      const space = window.innerHeight - button.getBoundingClientRect().bottom;
+      panel.classList.toggle("is-up", space < 280 && button.getBoundingClientRect().top > space);
+      if (!search.hidden) search.focus({ preventScroll: true });
+    });
+    wrap.append(button, panel);
+    paint();
+  });
+}
 
 function initCountries() {
   document.querySelectorAll("select[data-countries]").forEach((select) => {
@@ -340,8 +451,8 @@ function initTheme() {
   });
 }
 
-function initCookie() {
-  if (localStorage.getItem("hohorizon-cookie")) return;
+function showCookieBanner() {
+  if (document.querySelector(".cookie")) return;
   const banner = document.createElement("div");
   banner.className = "cookie";
   banner.innerHTML = `
@@ -359,6 +470,15 @@ function initCookie() {
     if (choice === "accept") loadAnalytics();
   });
   document.body.append(banner);
+}
+
+function initCookie() {
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".manage-cookies")) return;
+    localStorage.removeItem("hohorizon-cookie");
+    showCookieBanner();
+  });
+  if (!localStorage.getItem("hohorizon-cookie")) showCookieBanner();
 }
 
 function loadAnalytics() {
@@ -470,6 +590,7 @@ initHeader();
 initFilters();
 initEvents();
 initCountries();
+initFancySelects();
 initForms();
 initHero();
 initClock();

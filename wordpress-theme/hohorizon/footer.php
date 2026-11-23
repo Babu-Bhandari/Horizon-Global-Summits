@@ -72,6 +72,12 @@ $socials = array(
 	</div>
 	<div class="fineprint">
 		<span>© <?php echo esc_html(gmdate('Y')); ?> Horizon Global Summits. All Rights Reserved.</span>
+		<nav class="legal" aria-label="Legal">
+			<a href="<?php echo esc_url(hohorizon_page_url('terms')); ?>">Terms and conditions</a>
+			<a href="<?php echo esc_url(hohorizon_page_url('privacy')); ?>">Privacy</a>
+			<a href="<?php echo esc_url(hohorizon_page_url('cookies')); ?>">Cookie policy</a>
+			<button class="manage-cookies" type="button">Manage Cookies</button>
+		</nav>
 	</div>
 </footer>
 <?php wp_footer(); ?>

@@ -223,6 +223,19 @@ function hohorizon_seed_pages() {
 			),
 			array('_hohorizon_eyebrow' => 'Terms'),
 		),
+		'cookies' => array(
+			'Cookie policy',
+			'How this website stores a cookie preference.',
+			hohorizon_paragraphs(
+				array(
+					'This notice describes the cookie preference on this website. It is not a substitute for advice from counsel.',
+					'If you accept or decline the notice, the choice is saved in local storage on your device under the key hohorizon-cookie. Declining stores that choice and does not load analytics.',
+					'Google Analytics is not loaded unless you accepted the notice and a measurement ID has been added. Until that ID is added, nothing is sent to Google.',
+					'Manage Cookies, in the footer, clears the saved choice and shows the notice again.',
+				)
+			),
+			array('_hohorizon_eyebrow' => 'Cookies'),
+		),
 	);
 
 	$ids = array();
@@ -495,3 +508,31 @@ function hohorizon_menu($name, $items) {
 	}
 	return $id;
 }
+
+/**
+ * Create the cookie policy page on an existing site.
+ */
+function hohorizon_ensure_cookie_page() {
+	if (get_page_by_path('cookies')) {
+		return;
+	}
+	hohorizon_ensure_post(
+		array(
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_name'    => 'cookies',
+			'post_title'   => 'Cookie policy',
+			'post_excerpt' => 'How this website stores a cookie preference.',
+			'post_content' => hohorizon_paragraphs(
+				array(
+					'This notice describes the cookie preference on this website. It is not a substitute for advice from counsel.',
+					'If you accept or decline the notice, the choice is saved in local storage on your device under the key hohorizon-cookie. Declining stores that choice and does not load analytics.',
+					'Google Analytics is not loaded unless you accepted the notice and a measurement ID has been added. Until that ID is added, nothing is sent to Google.',
+					'Manage Cookies, in the footer, clears the saved choice and shows the notice again.',
+				)
+			),
+		),
+		array('_hohorizon_eyebrow' => 'Cookies')
+	);
+}
+add_action('init', 'hohorizon_ensure_cookie_page');

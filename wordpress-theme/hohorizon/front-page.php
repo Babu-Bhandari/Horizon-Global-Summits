@@ -28,7 +28,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 				<h1><?php echo preg_replace('/here\./', '<span class="hero-here">here.</span>', esc_html(hohorizon_mod('cta_title')), 1); ?></h1>
 				<div class="rule"></div>
 				<div class="hero-actions">
-					<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a>
+					<span class="btn">Request an invitation</span>
 				</div>
 			</div>
 		</div>
@@ -72,7 +72,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 						<div>
 							<h3><?php the_title(); ?></h3>
 							<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
-							<a class="meet-visit" href="<?php the_permalink(); ?>">View details</a>
+							<span class="meet-visit">View details</span>
 						</div>
 					</article>
 					<?php
@@ -88,7 +88,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 					<div>
 						<h3><?php echo esc_html($card['title']); ?></h3>
 						<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
-						<a class="meet-visit" href="<?php echo esc_url($card['url']); ?>">View details</a>
+						<span class="meet-visit">View details</span>
 					</div>
 				</article>
 				<?php

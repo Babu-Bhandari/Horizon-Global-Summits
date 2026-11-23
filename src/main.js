@@ -88,8 +88,6 @@ function renderChrome() {
         <ul>
           <li><a href="/about.html">${icon("about")}About Us</a></li>
           <li><a href="/#next-meet">${icon("conference")}Conference</a></li>
-          <li><a href="/mission.html">${icon("mission")}Our Mission</a></li>
-          <li><a href="/membership.html">${icon("membership")}Membership</a></li>
           <li><a href="/#contact">${icon("contact")}Contact</a></li>
           <li><a href="/privacy.html">${icon("privacy")}Privacy Policy</a></li>
           <li><a href="/terms.html">${icon("terms")}Terms &amp; Conditions</a></li>
@@ -98,7 +96,6 @@ function renderChrome() {
       <div>
         <h2>Explore</h2>
         <ul>
-          <li><a href="/events.html">${icon("events")}Events</a></li>
           <li><a href="/#next-meet">${icon("conference")}Conference</a></li>
           <li><a href="/programme.html">${icon("programme")}Programme</a></li>
           <li><a href="/speakers.html">${icon("speakers")}Speakers</a></li>

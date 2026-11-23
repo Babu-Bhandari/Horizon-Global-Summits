@@ -182,7 +182,6 @@ if (strpos($cta_image, 'photo-1497366754035') !== false) {
 	<div class="wrap">
 		<p class="eyebrow"><?php echo esc_html(hohorizon_mod('cta_eyebrow')); ?></p>
 		<h2><?php echo esc_html(hohorizon_mod('cta_title')); ?></h2>
-		<p class="lede" style="margin-top:16px;color:rgba(251,250,247,.86)"><?php echo esc_html(hohorizon_mod('cta_text')); ?></p>
 		<div class="actions"><a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a></div>
 	</div>
 </section>

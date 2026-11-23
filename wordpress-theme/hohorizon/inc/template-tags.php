@@ -57,7 +57,7 @@ function hohorizon_defaults() {
 		'member_image'     => 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=80',
 		'cta_eyebrow'      => 'Invitation',
 		'cta_title'        => 'Your next global connection starts here.',
-		'cta_text'         => 'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
+		'cta_text'         => '',
 		'cta_image'        => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=80',
 		'footer_text'      => 'To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.',
 		'public_email'     => 'connect@horizonglobalsummits.com',
@@ -91,6 +91,7 @@ function hohorizon_mod($key) {
 		'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
 		'CWFZ0398, Compass Building, Ras Al Khaimah, United Arab Emirates',
 		'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
+		'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
 	);
 	if ($value === '' || in_array($value, $retired, true)) {
 		$value = $default;
@@ -440,8 +441,6 @@ function hohorizon_footer_quick_fallback() {
 		array(
 			'About Us'             => 'about',
 			'Conference'           => '#next-meet',
-			'Our Mission'          => 'mission',
-			'Membership'           => 'membership',
 			'Contact'              => '#contact',
 			'Privacy Policy'       => 'privacy',
 			'Terms & Conditions'   => 'terms',
@@ -455,7 +454,6 @@ function hohorizon_footer_quick_fallback() {
 function hohorizon_footer_explore_fallback() {
 	hohorizon_link_list(
 		array(
-			'Events'                 => 'events',
 			'Conference'             => '#next-meet',
 			'Programme'              => 'programme',
 			'Speakers'               => 'speakers',
@@ -523,7 +521,7 @@ function hohorizon_rewrite_legacy_menu_urls($items) {
 	foreach ($items as $item) {
 		$title = strtolower(trim(wp_strip_all_tags($item->title)));
 		$url = isset($item->url) ? $item->url : '';
-		if ($title === 'agenda' || $title === 'media' || strpos($url, '#agenda') !== false || strpos($url, '#media') !== false) {
+		if ($title === 'agenda' || $title === 'media' || $title === 'our mission' || $title === 'membership' || $title === 'events' || strpos($url, '#agenda') !== false || strpos($url, '#media') !== false) {
 			continue;
 		}
 		$anchors = array(

@@ -153,6 +153,7 @@ function hohorizon_nav_icon($label) {
 	$paths = array(
 		'home'              => '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
 		'about'             => '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
+		'conference'        => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 3v4M16 3v4M7 11h10M12 11v5"/>',
 		'agenda'            => '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
 		'speakers'          => '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
 		'partners'          => '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
@@ -398,6 +399,7 @@ function hohorizon_primary_fallback() {
 	$items = array(
 		array('Home', '', array()),
 		array('About', 'about', array()),
+		array('Conference', 'next-meet', array()),
 		array('Speakers', 'speakers', array()),
 		array('Partners', 'partners', array()),
 		array('Contact', 'contact', array()),
@@ -405,10 +407,11 @@ function hohorizon_primary_fallback() {
 	foreach ($items as $item) {
 		$url = $item[1] === '' ? home_url('/') : hohorizon_page_url($item[1]);
 		$anchors = array(
-			'About'    => '#about',
-			'Speakers' => '#speakers',
-			'Partners' => '#partners',
-			'Contact'  => '#contact',
+			'About'      => '#about',
+			'Conference' => '#next-meet',
+			'Speakers'   => '#speakers',
+			'Partners'   => '#partners',
+			'Contact'    => '#contact',
 		);
 		if (isset($anchors[$item[0]])) {
 			$url = home_url('/') . $anchors[$item[0]];
@@ -433,6 +436,7 @@ function hohorizon_footer_quick_fallback() {
 	hohorizon_link_list(
 		array(
 			'About Us'             => 'about',
+			'Conference'           => '#next-meet',
 			'Our Mission'          => 'mission',
 			'Membership'           => 'membership',
 			'Contact'              => '#contact',
@@ -449,6 +453,7 @@ function hohorizon_footer_explore_fallback() {
 	hohorizon_link_list(
 		array(
 			'Events'                 => 'events',
+			'Conference'             => '#next-meet',
 			'Programme'              => 'programme',
 			'Speakers'               => 'speakers',
 			'Partners'               => '#partners',
@@ -545,6 +550,34 @@ function hohorizon_rewrite_legacy_menu_urls($items) {
 		$about->classes = array();
 		array_splice($kept, min(1, count($kept)), 0, array($about));
 	}
+	$has_conference = false;
+	foreach ($kept as $item) {
+		$label = strtolower(trim(wp_strip_all_tags($item->title)));
+		if ($label === 'conference') {
+			$has_conference = true;
+			$item->url      = home_url('/') . '#next-meet';
+		}
+	}
+	if (!$has_conference) {
+		$conference             = new stdClass();
+		$conference->title      = 'Conference';
+		$conference->url        = home_url('/') . '#next-meet';
+		$conference->classes    = array();
+		$conference->ID         = 0;
+		$conference->attr_title = '';
+		$conference->target     = '';
+		$conference->xfn            = '';
+		$conference->menu_item_parent = 0;
+		$insert                 = 1;
+		foreach ($kept as $index => $item) {
+			$label = strtolower(trim(wp_strip_all_tags($item->title)));
+			if ($label === 'about' || $label === 'about us') {
+				$insert = $index + 1;
+				break;
+			}
+		}
+		array_splice($kept, min($insert, count($kept)), 0, array($conference));
+	}
 	return $kept;
 }
 add_filter('wp_nav_menu_objects', 'hohorizon_rewrite_legacy_menu_urls');
@@ -559,11 +592,12 @@ add_filter('wp_nav_menu_objects', 'hohorizon_rewrite_legacy_menu_urls');
  */
 function hohorizon_nav_href($title, $url, $depth = 0) {
 	$anchors = array(
-		'about'    => '#about',
-		'about us' => '#about',
-		'speakers' => '#speakers',
-		'partners' => '#partners',
-		'contact'  => '#contact',
+		'about'      => '#about',
+		'about us'   => '#about',
+		'conference' => '#next-meet',
+		'speakers'   => '#speakers',
+		'partners'   => '#partners',
+		'contact'    => '#contact',
 	);
 	$key = strtolower(trim(wp_strip_all_tags($title)));
 	if ((int) $depth === 0 && $key === 'home') {
@@ -866,6 +900,7 @@ function hohorizon_menu_icon($label) {
 		'home'                  => 'home',
 		'about'                 => 'about',
 		'about us'              => 'about',
+		'conference'            => 'conference',
 		'our mission'           => 'mission',
 		'agenda'                => 'programme',
 		'programme'             => 'programme',
@@ -886,6 +921,7 @@ function hohorizon_menu_icon($label) {
 	$paths = array(
 		'home'       => '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
 		'about'      => '<circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.4-4.5 7-4.5S17.8 16 19 19"/>',
+		'conference' => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 3v4M16 3v4M7 11h10M12 11v5"/>',
 		'programme'  => '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
 		'speakers'   => '<rect x="9" y="3" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>',
 		'partners'   => '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',

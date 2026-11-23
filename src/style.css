@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap");
 
 html { scroll-behavior: smooth; }
-#about, #agenda, #speakers, #media { scroll-margin-top: calc(var(--header) + 16px); }
+#about, #agenda, #speakers, #media, #next-meet { scroll-margin-top: calc(var(--header) + 16px); }
 #media { display: none; }
 
 :root {

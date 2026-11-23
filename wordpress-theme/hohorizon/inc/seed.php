@@ -406,6 +406,7 @@ function hohorizon_seed_menus($pages) {
 			array(
 				array('Home', 0, array(), home_url('/')),
 				array('About', 0, array(), home_url('/') . '#about'),
+				array('Conference', 0, array(), home_url('/') . '#next-meet'),
 				array('Speakers', 0, array(), home_url('/') . '#speakers'),
 				array('Partners', 0, array(), home_url('/') . '#partners'),
 				array('Contact', 0, array(), home_url('/') . '#contact'),
@@ -417,6 +418,7 @@ function hohorizon_seed_menus($pages) {
 			'Footer quick links',
 			array(
 				array('About Us', $pages['about'], array()),
+				array('Conference', 0, array(), home_url('/') . '#next-meet'),
 				array('Our Mission', $pages['mission'], array()),
 				array('Membership', $pages['membership'], array()),
 				array('Contact', 0, array(), home_url('/') . '#contact'),
@@ -430,6 +432,7 @@ function hohorizon_seed_menus($pages) {
 			'Footer explore',
 			array(
 				array('Events', $pages['events'], array()),
+				array('Conference', 0, array(), home_url('/') . '#next-meet'),
 				array('Programme', $pages['programme'], array()),
 				array('Speakers', $pages['speakers'], array()),
 				array('Partners', 0, array(), home_url('/') . '#partners'),

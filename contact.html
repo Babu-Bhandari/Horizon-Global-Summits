@@ -26,12 +26,33 @@
       </section>
       <section class="section">
         <div class="wrap">
-          <form class="site-form" data-kind="contact">
-            <label>Name<input name="name" required autocomplete="name" /></label>
-            <label>Email<input name="email" type="email" required autocomplete="email" /></label>
-            <label>Message<textarea name="message" rows="5" required></textarea></label>
+          <form class="site-form contact-form" data-kind="contact">
+            <div class="form-grid">
+              <label>Name<input name="name" required autocomplete="name" /></label>
+              <label>Work email<input name="email" type="email" required autocomplete="email" /></label>
+              <label>Organisation<input name="organisation" required autocomplete="organization" /></label>
+              <label>Job title<input name="role" required autocomplete="organization-title" /></label>
+              <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" /></label>
+              <label>Country
+                <select name="country" required data-countries autocomplete="country-name">
+                  <option value="">Select</option>
+                </select>
+              </label>
+              <label class="is-wide">How can we help
+                <select name="enquiry" required>
+                  <option value="">Select</option>
+                  <option>Request an invitation</option>
+                  <option>Become a partner</option>
+                  <option>Speaking opportunity</option>
+                  <option>Sponsorship</option>
+                  <option>Media enquiry</option>
+                  <option>General question</option>
+                </select>
+              </label>
+              <label class="is-wide">Message<textarea name="message" rows="5" required></textarea></label>
+            </div>
             <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
-            <button class="btn" type="submit">Send</button>
+            <button class="btn" type="submit">Send message</button>
             <p class="form-error" hidden></p>
           </form>
           <div class="thanks" hidden><p></p></div>

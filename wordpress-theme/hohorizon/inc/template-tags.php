@@ -62,7 +62,8 @@ function hohorizon_defaults() {
 		'footer_text'      => 'To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.',
 		'public_email'     => 'connect@horizonglobalsummits.com',
 		'venue'            => 'Venue to be confirmed',
-		'office'           => 'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
+		'office'           => 'Dubai, United Arab Emirates',
+		'hours'            => '10:00 AM to 6:30 PM',
 		'inbox'            => 'connect@horizonglobalsummits.com',
 		'ga'               => '',
 		'linkedin'         => '',
@@ -87,6 +88,8 @@ function hohorizon_mod($key) {
 		'Email to be confirmed',
 		'To be confirmed',
 		'Venue to be confirmed',
+		'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
+		'CWFZ0398, Compass Building, Ras Al Khaimah, United Arab Emirates',
 		'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
 	);
 	if ($value === '' || in_array($value, $retired, true)) {

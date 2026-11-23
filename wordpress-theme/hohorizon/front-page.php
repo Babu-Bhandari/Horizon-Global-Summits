@@ -130,14 +130,27 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 					'contact',
 					array(
 						array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-						array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
-						array('name' => 'message', 'label' => 'Message', 'type' => 'textarea'),
+						array('name' => 'email', 'label' => 'Work email', 'type' => 'email', 'autocomplete' => 'email'),
+						array('name' => 'organisation', 'label' => 'Organisation', 'autocomplete' => 'organization'),
+						array('name' => 'role', 'label' => 'Job title', 'autocomplete' => 'organization-title'),
+						array('name' => 'phone', 'label' => 'Phone (optional)', 'type' => 'tel', 'autocomplete' => 'tel', 'optional' => true),
+						array('name' => 'country', 'label' => 'Country', 'type' => 'select', 'autocomplete' => 'country-name', 'options' => hohorizon_countries()),
+						array(
+							'name'    => 'enquiry',
+							'label'   => 'How can we help',
+							'type'    => 'select',
+							'wide'    => true,
+							'options' => array('Request an invitation', 'Become a partner', 'Speaking opportunity', 'Sponsorship', 'Media enquiry', 'General question'),
+						),
+						array('name' => 'message', 'label' => 'Message', 'type' => 'textarea', 'wide' => true),
 					),
-					'Send'
+					'Send message'
 				);
 				?>
 			</div>
-			<div class="contact-facts">
+			<aside class="contact-facts">
+				<p class="eyebrow">Reach us</p>
+				<h3>The forum desk</h3>
 				<article class="contact-fact">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M12 19v2"/></svg>
 					<p><small>Info line</small><strong>To be confirmed</strong></p>
@@ -152,9 +165,9 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 				</article>
 				<article class="contact-fact">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-					<p><small>Business hours</small><strong>To be confirmed</strong></p>
+					<p><small>Business hours</small><strong><?php echo esc_html(hohorizon_mod('hours')); ?></strong></p>
 				</article>
-			</div>
+			</aside>
 		</div>
 	</div>
 </section>

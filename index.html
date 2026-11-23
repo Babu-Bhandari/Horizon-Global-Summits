@@ -193,17 +193,40 @@
           <p class="section-lead">Write to the forum at connect@horizonglobalsummits.com.</p>
           <div class="contact-split">
             <div>
-              <form class="site-form" data-kind="contact">
-                <label>Name<input name="name" required autocomplete="name" /></label>
-                <label>Email<input name="email" type="email" required autocomplete="email" /></label>
-                <label>Message<textarea name="message" rows="5" required></textarea></label>
+              <form class="site-form contact-form" data-kind="contact">
+                <div class="form-grid">
+                  <label>Name<input name="name" required autocomplete="name" /></label>
+                  <label>Work email<input name="email" type="email" required autocomplete="email" /></label>
+                  <label>Organisation<input name="organisation" required autocomplete="organization" /></label>
+                  <label>Job title<input name="role" required autocomplete="organization-title" /></label>
+                  <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" /></label>
+                  <label>Country
+                    <select name="country" required data-countries autocomplete="country-name">
+                      <option value="">Select</option>
+                    </select>
+                  </label>
+                  <label class="is-wide">How can we help
+                    <select name="enquiry" required>
+                      <option value="">Select</option>
+                      <option>Request an invitation</option>
+                      <option>Become a partner</option>
+                      <option>Speaking opportunity</option>
+                      <option>Sponsorship</option>
+                      <option>Media enquiry</option>
+                      <option>General question</option>
+                    </select>
+                  </label>
+                  <label class="is-wide">Message<textarea name="message" rows="5" required></textarea></label>
+                </div>
                 <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
-                <button class="btn" type="submit">Send</button>
+                <button class="btn" type="submit">Send message</button>
                 <p class="form-error" hidden></p>
               </form>
               <div class="thanks" hidden><p></p></div>
             </div>
-            <div class="contact-facts">
+            <aside class="contact-facts">
+              <p class="eyebrow">Reach us</p>
+              <h3>The forum desk</h3>
               <article class="contact-fact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M12 19v2"/></svg>
                 <p><small>Info line</small><strong>To be confirmed</strong></p>
@@ -214,13 +237,13 @@
               </article>
               <article class="contact-fact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/><path d="M9 10h.01M15 10h.01"/></svg>
-                <p><small>Head office</small><strong>CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates</strong></p>
+                <p><small>Head office</small><strong>Dubai, United Arab Emirates</strong></p>
               </article>
               <article class="contact-fact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-                <p><small>Business hours</small><strong>To be confirmed</strong></p>
+                <p><small>Business hours</small><strong>10:00 AM to 6:30 PM</strong></p>
               </article>
-            </div>
+            </aside>
           </div>
         </div>
       </section>

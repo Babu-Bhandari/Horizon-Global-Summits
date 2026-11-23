@@ -74,6 +74,8 @@ function hohorizon_customize($wp_customize) {
 		'cta_text'          => array('Closing text', 'hohorizon_home', 'textarea'),
 		'footer_text'       => array('Footer introduction', 'hohorizon_footer', 'textarea'),
 		'public_email'      => array('Email shown on the site', 'hohorizon_footer', 'text'),
+		'office'            => array('Head office', 'hohorizon_footer', 'text'),
+		'hours'             => array('Business hours', 'hohorizon_footer', 'text'),
 		'venue'             => array('Venue shown on the site', 'hohorizon_footer', 'text'),
 		'inbox'             => array('Inbox that receives forms', 'hohorizon_footer', 'email'),
 		'ga'                => array('Google Analytics measurement ID', 'hohorizon_footer', 'text'),

@@ -42,6 +42,13 @@ function icon(id) {
 }
 
 function socialIcon(id, label) {
+  const links = {
+    linkedin: "https://www.linkedin.com/company/horizon-global-summits/about/",
+  };
+  const href = links[id];
+  if (href) {
+    return `<a href="${href}" aria-label="${label}">${icon(id)}</a>`;
+  }
   return `<span aria-label="${label}, to be added">${icon(id)}</span>`;
 }
 

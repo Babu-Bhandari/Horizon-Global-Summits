@@ -1067,14 +1067,19 @@ body:has(.cookie) .to-top { bottom: 168px; }
   scroll-snap-align: start;
   border: 1px solid rgba(120, 80, 255, 0.45);
   border-radius: 18px;
-  background: #12082a;
+  background:
+    linear-gradient(160deg, rgba(80, 40, 180, 0.35), transparent 40%),
+    #12082a;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 16px 40px rgba(0,0,0,.35);
 }
 .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
 .portrait::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 46%, rgba(8, 6, 28, 0.92) 78%);
+  background:
+    linear-gradient(180deg, transparent 46%, rgba(8, 6, 28, 0.92) 78%),
+    repeating-linear-gradient(115deg, transparent 0 14px, rgba(120, 70, 255, 0.16) 14px 16px);
   pointer-events: none;
 }
 .portrait-copy { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 14px; }
@@ -1128,8 +1133,6 @@ body:has(.cookie) .to-top { bottom: 168px; }
   .hero-bg, .speaker::after, .hero h1 span, .intro-title span, .btn::before { animation: none; }
   .reveal { opacity: 1; transform: none; }
 }
-
-.logo-tile img { width: 70%; max-height: 64px; object-fit: contain; }
 
 .theme-toggle {
   display: grid;
@@ -1283,4 +1286,6 @@ html[data-theme="light"] .to-top {
   color: #161a28;
   border-color: rgba(22, 26, 40, 0.2);
 }
+
+.logo-tile img { width: 70%; max-height: 64px; object-fit: contain; }
 

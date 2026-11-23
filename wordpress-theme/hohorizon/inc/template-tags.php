@@ -67,7 +67,7 @@ function hohorizon_defaults() {
 		'phone'            => 'To be confirmed',
 		'inbox'            => 'connect@horizonglobalsummits.com',
 		'ga'               => '',
-		'linkedin'         => '',
+		'linkedin'         => 'https://www.linkedin.com/company/horizon-global-summits/about/',
 		'instagram'        => '',
 		'youtube'          => '',
 		'facebook'         => '',
@@ -86,7 +86,7 @@ function hohorizon_mod($key) {
 	$value    = get_theme_mod('hohorizon_' . $key, $default);
 	$value    = is_string($value) ? $value : $default;
 	$retired  = array(
-		'Email to be confirmed',
+		'xxxxx@horizonglobalsummits.com',
 		'To be confirmed',
 		'Venue to be confirmed',
 		'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
@@ -95,6 +95,9 @@ function hohorizon_mod($key) {
 		'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
 	);
 	if ($value === '' || in_array($value, $retired, true)) {
+		$value = $default;
+	}
+	if (in_array($key, array('public_email', 'inbox'), true) && preg_match('/^x+@/i', $value)) {
 		$value = $default;
 	}
 	return hohorizon_brand_name($value);

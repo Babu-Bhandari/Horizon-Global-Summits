@@ -100,20 +100,39 @@ while (have_posts()) :
 		);
 		echo '</div></section>';
 	} elseif ($slug === 'invitation') {
-		echo '<section class="section"><div class="wrap">';
+		echo '<section class="section"><div class="wrap"><div class="contact-split"><div>';
 		hohorizon_form(
 			'invitation',
 			array(
 				array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-				array('name' => 'organisation', 'label' => 'Organisation'),
-				array('name' => 'role', 'label' => 'Role'),
-				array('name' => 'country', 'label' => 'Country', 'autocomplete' => 'country-name'),
-				array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
-				array('name' => 'message', 'label' => 'Why this forum', 'type' => 'textarea'),
+				array('name' => 'email', 'label' => 'Work email', 'type' => 'email', 'autocomplete' => 'email'),
+				array('name' => 'organisation', 'label' => 'Organisation', 'autocomplete' => 'organization'),
+				array('name' => 'role', 'label' => 'Job title', 'autocomplete' => 'organization-title'),
+				array('name' => 'phone', 'label' => 'Phone (optional)', 'type' => 'tel', 'autocomplete' => 'tel', 'optional' => true),
+				array('name' => 'country', 'label' => 'Country', 'type' => 'select', 'autocomplete' => 'country-name', 'options' => hohorizon_countries()),
+				array(
+					'name'    => 'gathering',
+					'label'   => 'Gathering',
+					'type'    => 'select',
+					'options' => array('Horizon flagship forum', 'Horizon private briefing', 'Either gathering'),
+				),
+				array(
+					'name'    => 'industry',
+					'label'   => 'Industry',
+					'type'    => 'select',
+					'options' => array('Trade', 'Finance', 'Artificial intelligence', 'Logistics', 'Risk', 'Technology', 'Other'),
+				),
+				array('name' => 'message', 'label' => 'Why this forum', 'type' => 'textarea', 'wide' => true),
 			),
 			'Request an invitation'
 		);
-		echo '</div></section>';
+		echo '</div><aside class="contact-facts">';
+		echo '<p class="eyebrow">Reach us</p><h3>The forum desk</h3>';
+		echo '<article class="contact-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M12 19v2"/></svg><p><small>Info line</small><strong>To be confirmed</strong></p></article>';
+		echo '<article class="contact-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><p><small>Email address</small><strong><a href="mailto:' . esc_attr(hohorizon_mod('public_email')) . '">' . esc_html(hohorizon_mod('public_email')) . '</a></strong></p></article>';
+		echo '<article class="contact-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/><path d="M9 10h.01M15 10h.01"/></svg><p><small>Head office</small><strong>' . esc_html(hohorizon_mod('office')) . '</strong></p></article>';
+		echo '<article class="contact-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg><p><small>Business hours</small><strong>' . esc_html(hohorizon_mod('hours')) . '</strong></p></article>';
+		echo '</aside></div></div></section>';
 	} elseif ($slug === 'become-a-partner') {
 		echo '<section class="section"><div class="wrap split"><div class="prose">';
 		the_content();

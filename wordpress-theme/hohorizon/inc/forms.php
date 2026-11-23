@@ -64,9 +64,10 @@ function hohorizon_form($kind, $fields, $submit) {
 	if ($sent === '0') {
 		echo '<p class="form-error">The note could not be sent. Check the required fields and try again.</p>';
 	}
-	$form_class = 'site-form' . ($kind === 'contact' ? ' contact-form' : '');
+	$card       = in_array($kind, array('contact', 'invitation'), true);
+	$form_class = 'site-form' . ($card ? ' contact-form' : '');
 	echo '<form class="' . esc_attr($form_class) . '" method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
-	if ($kind === 'contact') {
+	if ($card) {
 		echo '<div class="form-grid">';
 	}
 	foreach ($fields as $field) {
@@ -93,7 +94,7 @@ function hohorizon_form($kind, $fields, $submit) {
 		}
 		echo '</label>';
 	}
-	if ($kind === 'contact') {
+	if ($card) {
 		echo '</div>';
 	}
 	echo '<label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>';
@@ -129,7 +130,7 @@ function hohorizon_handle_form() {
 
 	$allowed = array(
 		'contact'     => array('name', 'email', 'organisation', 'role', 'phone', 'country', 'enquiry', 'message'),
-		'invitation'  => array('name', 'organisation', 'role', 'country', 'email', 'message'),
+		'invitation'  => array('name', 'email', 'organisation', 'role', 'phone', 'country', 'gathering', 'industry', 'message'),
 		'partnership' => array('name', 'organisation', 'email', 'interest', 'message'),
 		'newsletter'  => array('email'),
 	);

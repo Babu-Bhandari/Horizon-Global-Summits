@@ -123,7 +123,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 	<div class="wrap">
 		<h2 class="about-display">Contact us</h2>
 		<p class="section-lead">Write to the forum at connect@horizonglobalsummits.com.</p>
-		<div class="contact-split">
+		<div class="contact-split has-map">
 			<div>
 				<?php
 				hohorizon_form(
@@ -167,6 +167,12 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
 					<p><small>Business hours</small><strong><?php echo esc_html(hohorizon_mod('hours')); ?></strong></p>
 				</article>
+			</aside>
+			<aside class="contact-map">
+				<p class="eyebrow">Location</p>
+				<h3>Dubai, United Arab Emirates</h3>
+				<iframe title="Map of Dubai, United Arab Emirates" src="https://maps.google.com/maps?q=Dubai%2C%20United%20Arab%20Emirates&amp;hl=en&amp;z=11&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				<a href="https://www.google.com/maps/search/?api=1&amp;query=Dubai%2C%20United%20Arab%20Emirates" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
 			</aside>
 		</div>
 	</div>

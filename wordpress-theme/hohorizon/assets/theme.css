@@ -731,13 +731,7 @@ body.is-intro { overflow: hidden; }
 }
 .company-section { padding-top: 36px; }
 .company-band { display: none; margin-bottom: 28px; text-align: center; }
-.about-section,
-#about {
-  display: block !important;
-  visibility: visible !important;
-  position: relative;
-  z-index: 1;
-}
+.about-section { padding-top: 28px; }
 .company-band .eyebrow { margin-bottom: 10px; font-size: 0.78rem; }
 .logo-marquee {
   width: 100%;

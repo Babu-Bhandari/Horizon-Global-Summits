@@ -2,7 +2,7 @@
 
 html { scroll-behavior: smooth; }
 #about, #agenda, #speakers, #media, #next-meet { scroll-margin-top: calc(var(--header) + 16px); }
-#media { display: none; }
+#media, #partners { display: none; }
 
 :root {
   --bg: #07091a;
@@ -692,43 +692,6 @@ body.is-intro { overflow: hidden; }
 .about-card h2 { font-size: clamp(2rem, 4vw, 3rem); }
 .about-card .lede { margin-top: 16px; }
 .about-card .lede + .lede { margin-top: 14px; }
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px 20px;
-  margin-top: 32px;
-}
-.about-stats p { margin: 0; }
-.about-stats strong {
-  position: relative;
-  display: block;
-  padding-bottom: 12px;
-  color: #fff;
-  font-size: clamp(1.7rem, 2.4vw, 2.45rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.about-stats strong::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,.55), rgba(255,255,255,.12));
-}
-.about-stats span {
-  display: block;
-  max-width: 16ch;
-  margin-top: 10px;
-  color: rgba(255,255,255,.68);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  line-height: 1.35;
-  text-transform: uppercase;
-}
 .company-section { padding-top: 36px; }
 .company-band { display: none; margin-bottom: 28px; text-align: center; }
 .about-section { padding-top: 28px; }
@@ -959,7 +922,6 @@ body:has(.cookie) .to-top { bottom: 168px; }
   .hero-actions .btn { width: auto; min-width: 0; min-height: 42px; padding: 0 16px; font-size: 0.72rem; }
   .actions .btn { width: 100%; min-width: 0; }
   .about-card { padding: 16px; gap: 18px; }
-  .about-stats { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
   .home-panel h2.about-display, .about-display, .meet { font-size: clamp(2rem, 9vw, 2.6rem); }
   .next-meet-grid { gap: 24px; }
   .next-meet-copy h2 { font-size: clamp(2.2rem, 10vw, 3rem); }
@@ -1126,7 +1088,7 @@ html[data-theme="light"] .theme-icon-moon { display: block; }
 }
 
 html[data-theme="light"] {
-  --bg: #f4f6fb;
+  --bg: #07172B;
   --navy: #e7ebf5;
   --panel: #ffffff;
   --ink: #161a28;
@@ -1186,26 +1148,15 @@ html[data-theme="light"] .company-band .eyebrow { color: #8f6a1c; }
 html[data-theme="light"] .hero .eyebrow,
 html[data-theme="light"] .hero-slide .eyebrow { color: var(--gold); }
 html[data-theme="light"] .site-footer h2 { color: #8f6a1c; }
-html[data-theme="light"] .home-panel .section-lead,
-html[data-theme="light"] .speaker-intro p,
-html[data-theme="light"] .next-meet-copy h2,
-html[data-theme="light"] .next-meet-link { color: #161a28; }
-html[data-theme="light"] .home-panel h2.about-display,
-html[data-theme="light"] .about-display,
-html[data-theme="light"] .meet {
+html[data-theme="light"] .about-card .about-display {
   background: linear-gradient(100deg, #1a2a6c 8%, #3d5fd0 46%, #a6842e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 html[data-theme="light"] body {
-  background-color: #d5deee;
-  background-image:
-    radial-gradient(circle at 12% 16%, rgba(176, 206, 255, 0.38) 0, transparent 34%),
-    radial-gradient(circle at 88% 10%, rgba(230, 184, 74, 0.42) 0, transparent 30%),
-    radial-gradient(circle at 76% 92%, rgba(255, 196, 214, 0.28) 0, transparent 36%),
-    radial-gradient(circle at 16% 88%, rgba(186, 206, 255, 0.32) 0, transparent 32%);
-  background-attachment: fixed;
+  background: #07172B;
+  color: #f4f6fb;
 }
 html[data-theme="light"] .about-card,
 html[data-theme="light"] .contact-facts,
@@ -1220,17 +1171,15 @@ html[data-theme="light"] .panel {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.42) 42%, rgba(255, 255, 255, 0.55) 100%);
   border: 1px solid rgba(255, 255, 255, 0.62);
   box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  color: #161a28;
   backdrop-filter: blur(40px) saturate(1.8);
   -webkit-backdrop-filter: blur(40px) saturate(1.8);
 }
 html[data-theme="light"] .contact-fact { border-color: rgba(255, 255, 255, 0.55); }
 html[data-theme="light"] .contact-fact small,
-html[data-theme="light"] .about-stats span,
 html[data-theme="light"] .meet-card .where { color: rgba(22, 26, 40, 0.68); }
-html[data-theme="light"] .about-stats strong,
 html[data-theme="light"] .meet-visit { color: #161a28; }
 html[data-theme="light"] .meet-visit { border-color: rgba(22, 26, 40, 0.28); }
-html[data-theme="light"] .about-stats strong::after { background: linear-gradient(90deg, rgba(22,26,40,.4), rgba(22,26,40,.08)); }
 html[data-theme="light"] .sample-logo { color: #1c2438; }
 html[data-theme="light"] .logo-tile:hover { border-color: rgba(230, 184, 74, 0.7); }
 html[data-theme="light"] .filters button,
@@ -1245,8 +1194,8 @@ html[data-theme="light"] .socials a {
 html[data-theme="light"] input,
 html[data-theme="light"] textarea,
 html[data-theme="light"] select {
-  color: #161a28;
-  border-bottom-color: rgba(22, 26, 40, 0.28);
+  color: #f4f6fb;
+  border-bottom-color: rgba(244, 246, 251, 0.35);
 }
 html[data-theme="light"] .site-footer {
   background: #eef1f8;

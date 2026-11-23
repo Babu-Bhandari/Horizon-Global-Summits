@@ -203,41 +203,6 @@ function initClock() {
   window.setInterval(paint, 1000);
 }
 
-function initCounters() {
-  const nodes = [...document.querySelectorAll("[data-count]")];
-  if (!nodes.length) return;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const paint = (node, value) => {
-    node.textContent = `${value}${node.dataset.suffix || ""}`;
-  };
-  const run = (node) => {
-    const target = Number(node.dataset.count);
-    if (reduce || Number.isNaN(target)) {
-      paint(node, target);
-      return;
-    }
-    const start = performance.now();
-    const step = (now) => {
-      const progress = Math.min(1, (now - start) / 1100);
-      const eased = 1 - (1 - progress) ** 3;
-      paint(node, Math.round(target * eased));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        run(entry.target);
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.6 }
-  );
-  nodes.forEach((node) => observer.observe(node));
-}
-
 function initSpeakers() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.querySelectorAll(".portrait-row").forEach((row) => {
@@ -307,7 +272,6 @@ initHero();
 initClock();
 initSpeakers();
 initIntro();
-initCounters();
 initReveal();
 initToTop();
 initTheme();

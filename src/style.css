@@ -814,8 +814,9 @@ body.is-intro { overflow: hidden; }
   border-radius: 999px;
 }
 .socials svg { width: 18px; height: 18px; }
-.site-footer li a { display: inline-flex; align-items: center; gap: 8px; }
-.site-footer li .nav-icon { width: 15px; height: 15px; }
+.site-footer li a { display: inline-flex; align-items: flex-start; gap: 8px; }
+.site-footer .contact-line { display: inline-flex; align-items: flex-start; gap: 8px; }
+.site-footer li .nav-icon { width: 15px; height: 15px; margin-top: 2px; flex: none; }
 
 form, .thanks { display: grid; gap: 14px; max-width: 560px; }
 label { display: grid; gap: 6px; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }

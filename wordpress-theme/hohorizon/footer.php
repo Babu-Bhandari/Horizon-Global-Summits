@@ -64,8 +64,10 @@ $socials = array(
 	<div>
 		<h2>Contact</h2>
 		<ul>
-			<li><?php echo esc_html(hohorizon_mod('public_email')); ?></li>
-			<li><?php echo esc_html(hohorizon_mod('office')); ?></li>
+			<li><a href="mailto:<?php echo esc_attr(hohorizon_mod('public_email')); ?>"><?php echo hohorizon_menu_icon('email'); ?><?php echo esc_html(hohorizon_mod('public_email')); ?></a></li>
+			<li><span class="contact-line"><?php echo hohorizon_menu_icon('address'); ?><?php echo esc_html(hohorizon_mod('office')); ?></span></li>
+			<li><span class="contact-line"><?php echo hohorizon_menu_icon('business hours'); ?><?php echo esc_html(hohorizon_mod('hours')); ?></span></li>
+			<li><span class="contact-line"><?php echo hohorizon_menu_icon('mobile'); ?>Mobile: <?php echo esc_html(hohorizon_mod('phone')); ?></span></li>
 		</ul>
 	</div>
 	<div class="fineprint">

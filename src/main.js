@@ -23,6 +23,9 @@ const ICON_PATHS = {
   partners: '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
   events: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
   contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+  pin: '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock: '<circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/>',
+  phone: '<path d="M8 4h3l1.4 3.4-1.8 1.1a11 11 0 0 0 4.9 4.9l1.1-1.8L21 13v3a2 2 0 0 1-2.2 2A16 16 0 0 1 6 5.2 2 2 0 0 1 8 4z"/>',
   mission: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
   membership: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
   partner: '<path d="M12 5v14M5 12h14"/>',
@@ -107,8 +110,10 @@ function renderChrome() {
       <div>
         <h2>Contact</h2>
         <ul>
-          <li>connect@horizonglobalsummits.com</li>
-          <li>Dubai, United Arab Emirates</li>
+          <li><a href="mailto:connect@horizonglobalsummits.com">${icon("contact")}connect@horizonglobalsummits.com</a></li>
+          <li><span class="contact-line">${icon("pin")}Dubai, United Arab Emirates</span></li>
+          <li><span class="contact-line">${icon("clock")}10:00 AM to 6:30 PM</span></li>
+          <li><span class="contact-line">${icon("phone")}Mobile: To be confirmed</span></li>
         </ul>
       </div>
       <div class="fineprint">

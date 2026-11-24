@@ -38,56 +38,122 @@ function initFilters() {
 function initHero() {
   const hero = document.querySelector("[data-hero]");
   if (!hero) return;
-  const slides = [...hero.querySelectorAll(".hero-slide")];
-  const dots = [...hero.querySelectorAll(".hero-dots button")];
-  const video = hero.querySelector(".hero-video");
-  let index = 0;
-  let timer = 0;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const show = (next) => {
-    index = (next + slides.length) % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle("is-on", i === index));
-    dots.forEach((dot, i) => dot.setAttribute("aria-current", i === index ? "true" : "false"));
-    if (!video) return;
-    if (slides[index].contains(video)) {
-      video.hidden = false;
-      const play = video.play();
-      if (play) play.catch(() => {});
-    } else {
-      video.pause();
+  // Photo slider inside the blob: crossfade with a slow zoom.
+  const photos = [...hero.querySelectorAll(".hero-blob img")];
+  if (photos.length > 1 && !reduced) {
+    let index = 0;
+    window.setInterval(() => {
+      photos[index].classList.remove("is-on");
+      index = (index + 1) % photos.length;
+      photos[index].classList.add("is-on");
+    }, 5000);
+  }
+
+  // Particle network behind the hero.
+  const canvas = hero.querySelector(".hero-net-canvas");
+  const ctx = canvas?.getContext("2d");
+  if (!ctx) return;
+  const LINK = 140;
+  let width = 0;
+  let height = 0;
+  let points = [];
+  let frame = 0;
+  let visible = true;
+  const mouse = { x: -9999, y: -9999 };
+
+  const resize = () => {
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    width = hero.clientWidth;
+    height = hero.clientHeight;
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = Math.max(28, Math.min(110, Math.round((width * height) / 15000)));
+    points = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      r: Math.random() * 1.6 + 1,
+      gold: Math.random() < 0.45,
+    }));
+  };
+
+  const draw = () => {
+    ctx.clearRect(0, 0, width, height);
+    for (let i = 0; i < points.length; i += 1) {
+      const a = points[i];
+      for (let j = i + 1; j < points.length; j += 1) {
+        const b = points[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < LINK) {
+          ctx.strokeStyle = `rgba(230, 184, 74, ${(1 - d / LINK) * 0.28})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+      const m = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (m < LINK * 1.3) {
+        ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - m / (LINK * 1.3)) * 0.45})`;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
     }
+    points.forEach((p) => {
+      ctx.fillStyle = p.gold ? "rgba(230, 184, 74, 0.85)" : "rgba(255, 255, 255, 0.7)";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
   };
 
-  const arm = () => {
-    window.clearInterval(timer);
-    if (reduced || slides.length < 2) return;
-    timer = window.setInterval(() => show(index + 1), 7000);
+  const step = () => {
+    points.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+    });
+    draw();
+    frame = visible && !document.hidden ? window.requestAnimationFrame(step) : 0;
   };
 
-  hero.querySelectorAll("[data-dir]").forEach((button) => {
-    button.addEventListener("click", () => {
-      show(index + Number(button.dataset.dir));
-      arm();
-    });
+  const start = () => {
+    if (!frame && !reduced) frame = window.requestAnimationFrame(step);
+  };
+
+  resize();
+  draw();
+  window.addEventListener("resize", () => {
+    resize();
+    draw();
   });
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      show(i);
-      arm();
-    });
+  hero.addEventListener("pointermove", (event) => {
+    const box = hero.getBoundingClientRect();
+    mouse.x = event.clientX - box.left;
+    mouse.y = event.clientY - box.top;
   });
-  hero.addEventListener("mouseenter", () => window.clearInterval(timer));
-  hero.addEventListener("mouseleave", arm);
-  hero.addEventListener("focusin", () => window.clearInterval(timer));
-  hero.addEventListener("focusout", (event) => {
-    if (!hero.contains(event.relatedTarget)) arm();
+  hero.addEventListener("pointerleave", () => {
+    mouse.x = -9999;
+    mouse.y = -9999;
   });
-  video?.addEventListener("error", () => {
-    video.hidden = true;
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+    }).observe(hero);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) start();
   });
-  show(0);
-  arm();
+  start();
 }
 
 function initToTop() {

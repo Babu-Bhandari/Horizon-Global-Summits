@@ -134,25 +134,6 @@ function hohorizon_customize($wp_customize) {
 			)
 		);
 	}
-
-	$wp_customize->add_setting(
-		'hohorizon_hero_video',
-		array(
-			'default'           => 0,
-			'sanitize_callback' => 'absint',
-		)
-	);
-	$wp_customize->add_control(
-		new WP_Customize_Media_Control(
-			$wp_customize,
-			'hohorizon_hero_video',
-			array(
-				'label'     => 'Hero video',
-				'section'   => 'hohorizon_hero',
-				'mime_type' => 'video',
-			)
-		)
-	);
 }
 
 /**

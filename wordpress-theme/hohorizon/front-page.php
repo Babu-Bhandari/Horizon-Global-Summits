@@ -11,28 +11,34 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-$video_id  = absint(get_theme_mod('hohorizon_hero_video', 0));
-$video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directory_uri() . '/assets/hero.mp4';
 ?>
-<section class="hero" data-hero>
-	<div class="hero-slide is-on">
-		<?php if ($video_url) : ?>
-			<video class="hero-video" autoplay muted loop playsinline>
-				<source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
-			</video>
-		<?php endif; ?>
-		<div class="hero-shade"></div>
-		<div class="hero-copy">
-			<div class="hero-lead">
-				<p class="eyebrow">Horizon Global Summits</p>
-				<h1><?php echo esc_html(hohorizon_mod('hero_title')); ?></h1>
-				<div class="rule"></div>
-				<div class="hero-actions">
-					<span class="btn">Request an invitation</span>
+<section class="hero hero-net" data-hero>
+	<canvas class="hero-net-canvas" aria-hidden="true"></canvas>
+	<div class="hero-inner">
+		<div class="hero-lead">
+			<p class="eyebrow">Horizon Global Summits</p>
+			<h1><?php echo esc_html(hohorizon_mod('hero_title')); ?></h1>
+			<div class="rule"></div>
+			<div class="hero-actions">
+				<span class="btn">Request an invitation</span>
+			</div>
+		</div>
+		<div class="hero-visual" aria-hidden="true">
+			<div class="hero-orbit">
+				<div class="hero-blob">
+					<img class="is-on" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" />
+					<img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
+					<img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
+					<img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
 				</div>
 			</div>
 		</div>
 	</div>
+	<svg class="hero-fan" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+		<path opacity="0.25" d="M0 90V30C240 70 480 10 720 40s480 40 720-10v60z" />
+		<path opacity="0.45" d="M0 90V50C260 80 500 30 760 55s440 25 680-5v40z" />
+		<path d="M0 90V70C300 92 560 58 820 72s420 12 620-4v22z" />
+	</svg>
 </section>
 
 <?php get_template_part('about'); ?>

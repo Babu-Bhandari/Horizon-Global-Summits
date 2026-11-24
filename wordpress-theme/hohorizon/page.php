@@ -82,19 +82,16 @@ while (have_posts()) :
 			'contact',
 			array(
 				array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-				array('name' => 'email', 'label' => 'Work email', 'type' => 'email', 'autocomplete' => 'email'),
-				array('name' => 'organisation', 'label' => 'Organisation', 'autocomplete' => 'organization'),
-				array('name' => 'role', 'label' => 'Job title', 'autocomplete' => 'organization-title'),
-				array('name' => 'phone', 'label' => 'Phone (optional)', 'type' => 'tel', 'autocomplete' => 'tel', 'optional' => true),
-				array('name' => 'country', 'label' => 'Country', 'type' => 'select', 'autocomplete' => 'country-name', 'options' => hohorizon_countries()),
+				array('name' => 'organisation', 'label' => 'Company or organisation name', 'autocomplete' => 'organization'),
+				array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
+				array('name' => 'phone', 'label' => 'Contact number', 'type' => 'tel', 'autocomplete' => 'tel'),
 				array(
 					'name'    => 'enquiry',
-					'label'   => 'How can we help',
+					'label'   => 'I want to',
 					'type'    => 'select',
 					'wide'    => true,
-					'options' => array('Request an invitation', 'Become a partner', 'Speaking opportunity', 'Sponsorship', 'Media enquiry', 'General question'),
+					'options' => array('Request an invitation', 'Be a Partner'),
 				),
-				array('name' => 'message', 'label' => 'Message', 'type' => 'textarea', 'wide' => true),
 			),
 			'Send message'
 		);

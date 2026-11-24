@@ -129,7 +129,7 @@ function hohorizon_handle_form() {
 	}
 
 	$allowed = array(
-		'contact'     => array('name', 'email', 'organisation', 'role', 'phone', 'country', 'enquiry', 'message'),
+		'contact'     => array('name', 'organisation', 'email', 'phone', 'enquiry'),
 		'invitation'  => array('name', 'email', 'organisation', 'role', 'phone', 'country', 'gathering', 'industry', 'message'),
 		'partnership' => array('name', 'organisation', 'email', 'interest', 'message'),
 		'newsletter'  => array('email'),

@@ -3,7 +3,6 @@ const NAV = [
   { href: "/#about", label: "About", id: "about" },
   { href: "/#next-meet", label: "Conference", id: "conference" },
   { href: "/#speakers", label: "Speakers", id: "speakers" },
-  { href: "/#partners", label: "Partners", id: "partners" },
   { href: "/#contact", label: "Contact", id: "contact" },
 ];
 
@@ -85,7 +84,6 @@ function renderChrome() {
     footer.innerHTML = `
       <div>
         <a class="logo" href="/" aria-label="Horizon Global Summits"><img class="logo-for-dark" src="/logo-horizon.png" alt="" /><img class="logo-for-light" src="/logo-horizon-dark.png" alt="" /></a>
-        <p class="footer-blurb">To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.</p>
         <div class="socials" aria-label="Social media">
           ${socialIcon("linkedin", "LinkedIn")}
           ${socialIcon("instagram", "Instagram")}
@@ -104,23 +102,11 @@ function renderChrome() {
         </ul>
       </div>
       <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="/#next-meet">${icon("conference")}Conference</a></li>
-          <li><a href="/programme.html">${icon("programme")}Programme</a></li>
-          <li><a href="/speakers.html">${icon("speakers")}Speakers</a></li>
-          <li><a href="/#partners">${icon("partners")}Partners</a></li>
-          <li><a href="/become-a-partner.html">${icon("partner")}Become a Partner</a></li>
-          <li><a href="/invitation.html">${icon("contact")}Request an invitation</a></li>
-        </ul>
-      </div>
-      <div>
         <h2>Contact</h2>
         <ul>
           <li><a href="mailto:connect@horizonglobalsummits.com">${icon("contact")}connect@horizonglobalsummits.com</a></li>
           <li><span class="contact-line">${icon("pin")}Dubai, United Arab Emirates</span></li>
           <li><span class="contact-line">${icon("clock")}10:00 AM to 6:30 PM</span></li>
-          <li><span class="contact-line">${icon("phone")}Mobile: To be confirmed</span></li>
         </ul>
       </div>
       <div class="fineprint">

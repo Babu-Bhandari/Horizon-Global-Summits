@@ -25,7 +25,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 		<div class="hero-copy">
 			<div class="hero-lead">
 				<p class="eyebrow">Horizon Global Summits</p>
-				<h1><?php echo preg_replace('/here\./', '<span class="hero-here">here.</span>', esc_html(hohorizon_mod('cta_title')), 1); ?></h1>
+				<h1><?php echo esc_html(hohorizon_mod('hero_title')); ?></h1>
 				<div class="rule"></div>
 				<div class="hero-actions">
 					<span class="btn">Request an invitation</span>
@@ -40,8 +40,8 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 <section class="section next-meet" id="next-meet">
 	<div class="wrap next-meet-grid">
 		<div class="next-meet-copy">
-			<p class="eyebrow">Explore our upcoming events</p>
-			<h2>The next business meet.</h2>
+			<p class="eyebrow">Explore our upcoming conferences</p>
+			<h2>Your next global connection starts here.</h2>
 			<a class="next-meet-link" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">View all</a>
 		</div>
 		<div class="next-meet-cards">
@@ -123,73 +123,31 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 	<div class="wrap">
 		<h2 class="about-display">Contact us</h2>
 		<p class="section-lead">Write to the forum at connect@horizonglobalsummits.com.</p>
-		<div class="contact-split has-map">
+		<div class="contact-split is-solo">
 			<div>
 				<?php
 				hohorizon_form(
 					'contact',
 					array(
 						array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-						array('name' => 'email', 'label' => 'Work email', 'type' => 'email', 'autocomplete' => 'email'),
-						array('name' => 'organisation', 'label' => 'Organisation', 'autocomplete' => 'organization'),
-						array('name' => 'role', 'label' => 'Job title', 'autocomplete' => 'organization-title'),
-						array('name' => 'phone', 'label' => 'Phone (optional)', 'type' => 'tel', 'autocomplete' => 'tel', 'optional' => true),
-						array('name' => 'country', 'label' => 'Country', 'type' => 'select', 'autocomplete' => 'country-name', 'options' => hohorizon_countries()),
+						array('name' => 'organisation', 'label' => 'Company or organisation name', 'autocomplete' => 'organization'),
+						array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
+						array('name' => 'phone', 'label' => 'Contact number', 'type' => 'tel', 'autocomplete' => 'tel'),
 						array(
 							'name'    => 'enquiry',
-							'label'   => 'How can we help',
+							'label'   => 'I want to',
 							'type'    => 'select',
 							'wide'    => true,
-							'options' => array('Request an invitation', 'Become a partner', 'Speaking opportunity', 'Sponsorship', 'Media enquiry', 'General question'),
+							'options' => array('Request an invitation', 'Be a Partner'),
 						),
-						array('name' => 'message', 'label' => 'Message', 'type' => 'textarea', 'wide' => true),
 					),
 					'Send message'
 				);
 				?>
 			</div>
-			<aside class="contact-facts">
-				<p class="eyebrow">Reach us</p>
-				<h3>The forum desk</h3>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M12 19v2"/></svg>
-					<p><small>Info line</small><strong>To be confirmed</strong></p>
-				</article>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-					<p><small>Email address</small><strong><a href="mailto:<?php echo esc_attr(hohorizon_mod('public_email')); ?>"><?php echo esc_html(hohorizon_mod('public_email')); ?></a></strong></p>
-				</article>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/><path d="M9 10h.01M15 10h.01"/></svg>
-					<p><small>Head office</small><strong><?php echo esc_html(hohorizon_mod('office')); ?></strong></p>
-				</article>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-					<p><small>Business hours</small><strong><?php echo esc_html(hohorizon_mod('hours')); ?></strong></p>
-				</article>
-			</aside>
-			<aside class="contact-map">
-				<p class="eyebrow">Location</p>
-				<h3>Dubai, United Arab Emirates</h3>
-				<iframe title="Map of Dubai, United Arab Emirates" src="https://maps.google.com/maps?q=Dubai%2C%20United%20Arab%20Emirates&amp;hl=en&amp;z=11&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-				<a href="https://www.google.com/maps/search/?api=1&amp;query=Dubai%2C%20United%20Arab%20Emirates" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-			</aside>
 		</div>
 	</div>
 </section>
 
-<?php
-$cta_image = hohorizon_mod('cta_image');
-if (strpos($cta_image, 'photo-1497366754035') !== false) {
-	$cta_image = hohorizon_defaults()['cta_image'];
-}
-?>
-<section class="cta" style="background-image:url('<?php echo esc_url($cta_image); ?>')">
-	<div class="wrap">
-		<p class="eyebrow"><?php echo esc_html(hohorizon_mod('cta_eyebrow')); ?></p>
-		<h2><?php echo esc_html(hohorizon_mod('cta_title')); ?></h2>
-		<div class="actions"><a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a></div>
-	</div>
-</section>
 <?php
 get_footer();

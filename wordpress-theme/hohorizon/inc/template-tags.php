@@ -22,6 +22,7 @@ function hohorizon_defaults() {
 		'mark'             => 'Forum',
 		'button_partner'   => 'Partner With Us',
 		'button_invite'    => 'Explore Our Summits',
+		'hero_title'       => 'Expanding Horizons. Uniting Global Minds',
 		'hero_name'        => 'Horizon Global Affairs',
 		'hero_date'        => 'Date to be confirmed.',
 		'hero_venue'       => 'Venue to be confirmed.',
@@ -409,7 +410,6 @@ function hohorizon_primary_fallback() {
 		array('About', 'about', array()),
 		array('Conference', 'next-meet', array()),
 		array('Speakers', 'speakers', array()),
-		array('Partners', 'partners', array()),
 		array('Contact', 'contact', array()),
 	);
 	foreach ($items as $item) {

@@ -421,7 +421,6 @@ function hohorizon_seed_menus($pages) {
 				array('About', 0, array(), home_url('/') . '#about'),
 				array('Conference', 0, array(), home_url('/') . '#next-meet'),
 				array('Speakers', 0, array(), home_url('/') . '#speakers'),
-				array('Partners', 0, array(), home_url('/') . '#partners'),
 				array('Contact', 0, array(), home_url('/') . '#contact'),
 			)
 		);

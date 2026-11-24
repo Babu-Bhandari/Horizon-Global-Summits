@@ -37,6 +37,7 @@ function hohorizon_customize($wp_customize) {
 		'line1'             => array('Hero line 1', 'hohorizon_hero', 'text'),
 		'line2'             => array('Hero line 2', 'hohorizon_hero', 'text'),
 		'line3'             => array('Hero line 3', 'hohorizon_hero', 'text'),
+		'hero_title'        => array('Main heading', 'hohorizon_hero', 'text'),
 		'mark'              => array('Word under the line', 'hohorizon_hero', 'text'),
 		'button_partner'    => array('Partner button', 'hohorizon_hero', 'text'),
 		'button_invite'     => array('Invitation button', 'hohorizon_hero', 'text'),

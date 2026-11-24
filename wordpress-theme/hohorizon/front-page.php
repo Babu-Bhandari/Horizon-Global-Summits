@@ -20,7 +20,7 @@ get_header();
 			<h1><?php echo esc_html(hohorizon_mod('hero_title')); ?></h1>
 			<div class="rule"></div>
 			<div class="hero-actions">
-				<span class="btn">Request an invitation</span>
+				<a class="btn" href="#contact">Request an invitation</a>
 			</div>
 		</div>
 		<div class="hero-visual" aria-hidden="true">

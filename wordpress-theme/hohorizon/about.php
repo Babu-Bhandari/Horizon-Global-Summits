@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 	<div class="wrap">
 		<article class="about-card">
 			<div class="frame">
-				<img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80" alt="A small group in discussion" />
+				<img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1000&q=80" alt="Executives in a boardroom meeting during a presentation" />
 			</div>
 			<div>
 				<p class="about-display">About us</p>

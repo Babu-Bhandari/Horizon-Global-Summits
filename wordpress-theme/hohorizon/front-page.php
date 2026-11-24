@@ -129,7 +129,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 					'contact',
 					array(
 						array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-						array('name' => 'organisation', 'label' => 'Company or organisation name', 'autocomplete' => 'organization'),
+						array('name' => 'organisation', 'label' => 'Company / Organisation', 'autocomplete' => 'organization'),
 						array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
 						array('name' => 'phone', 'label' => 'Contact number', 'type' => 'tel', 'autocomplete' => 'tel'),
 						array(
@@ -137,7 +137,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 							'label'   => 'I want to',
 							'type'    => 'select',
 							'wide'    => true,
-							'options' => array('Request an invitation', 'Be a Partner'),
+							'options' => array('Become a Partner', 'Explore Speaking Opportunity'),
 						),
 					),
 					'Send message'

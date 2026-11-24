@@ -42,7 +42,7 @@ function icon(id) {
 
 function socialIcon(id, label) {
   const links = {
-    linkedin: "https://www.linkedin.com/company/horizon-global-summits/about/",
+    linkedin: "https://www.linkedin.com/company/horizon-global-summits/",
   };
   const href = links[id];
   if (href) {
@@ -106,7 +106,7 @@ function renderChrome() {
         <ul>
           <li><a href="mailto:connect@horizonglobalsummits.com">${icon("contact")}connect@horizonglobalsummits.com</a></li>
           <li><span class="contact-line">${icon("pin")}Dubai, United Arab Emirates</span></li>
-          <li><span class="contact-line">${icon("clock")}10:00 AM to 6:30 PM</span></li>
+          <li><span class="contact-line">${icon("clock")}09:30 AM to 5:30 PM GST (UTC+4)</span></li>
         </ul>
       </div>
       <div class="fineprint">

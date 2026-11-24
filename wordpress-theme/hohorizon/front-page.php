@@ -122,7 +122,6 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 <section class="section home-panel" id="contact">
 	<div class="wrap">
 		<h2 class="about-display">Contact us</h2>
-		<p class="section-lead">Write to the forum at connect@horizonglobalsummits.com.</p>
 		<div class="contact-split is-solo">
 			<div>
 				<?php

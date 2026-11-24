@@ -98,6 +98,9 @@ function hohorizon_mod($key) {
 	if ($value === '' || in_array($value, $retired, true)) {
 		$value = $default;
 	}
+	if ($key === 'linkedin') {
+		return $default;
+	}
 	if (in_array($key, array('public_email', 'inbox'), true) && preg_match('/^x+@/i', $value)) {
 		$value = $default;
 	}

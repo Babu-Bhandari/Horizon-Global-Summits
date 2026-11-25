@@ -293,15 +293,33 @@ function initCountries() {
   });
 }
 
+const INBOX = "connect@horizonglobalsummits.com";
+
+const FIELD_LABELS = {
+  name: "Name",
+  organisation: "Company / Organisation",
+  email: "Email",
+  phone: "Contact number",
+  enquiry: "I want to",
+  role: "Job title",
+  country: "Country",
+  message: "Message",
+  gathering: "Gathering",
+  industry: "Industry",
+  interest: "Interest",
+};
+
 function initForms() {
   document.querySelectorAll(".site-form").forEach((form) => {
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const error = form.querySelector(".form-error");
+      const button = form.querySelector('[type="submit"]');
+      if (error) error.hidden = true;
       if (form.website?.value) {
         if (error) {
           error.hidden = false;
-          error.textContent = "The note could not be sent.";
+          error.textContent = "The message could not be sent.";
         }
         return;
       }
@@ -309,25 +327,49 @@ function initForms() {
         form.reportValidity();
         return;
       }
-      const to = (document.body.dataset.email || "").trim();
       const data = new FormData(form);
-      const kind = form.dataset.kind || "note";
-      if (to) {
-        const body = [...data.entries()]
-          .filter(([key]) => key !== "website")
-          .map(([key, value]) => `${key}: ${value}`)
-          .join("\n");
-        window.location.href = `mailto:${to}?subject=${encodeURIComponent(`Horizon ${kind}`)}&body=${encodeURIComponent(body)}`;
+      const kind = form.dataset.kind || "contact";
+      const payload = {
+        _subject: `Horizon Global Summits ${kind}`,
+        _template: "table",
+        _captcha: "false",
+      };
+      for (const [key, value] of data.entries()) {
+        if (key === "website" || String(value).trim() === "") continue;
+        const label = FIELD_LABELS[key] || key;
+        payload[label] = value;
+        if (key === "email") payload._replyto = value;
       }
-      const thanks = form.nextElementSibling;
-      if (thanks?.classList.contains("thanks")) {
-        const copy = thanks.querySelector("p");
-        if (copy && to) copy.textContent = "Your mail app should open with this note.";
-        if (copy && !to) {
-          copy.textContent = "This preview has no inbox connected yet. Add an address to data-email on the page and the form will open a mail draft.";
+      if (button) button.disabled = true;
+      try {
+        const response = await fetch(`https://formsubmit.co/ajax/${INBOX}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || (result.success !== true && result.success !== "true")) {
+          const detail = String(result.message || "");
+          if (/activat/i.test(detail)) {
+            throw new Error(`A confirmation email was sent to ${INBOX}. Open it, activate the form, then send this message again.`);
+          }
+          throw new Error("send failed");
         }
-        form.hidden = true;
-        thanks.hidden = false;
+        const thanks = form.nextElementSibling;
+        if (thanks?.classList.contains("thanks")) {
+          const copy = thanks.querySelector("p");
+          if (copy) copy.textContent = `Your message was sent to ${INBOX}.`;
+          form.hidden = true;
+          thanks.hidden = false;
+        }
+      } catch (err) {
+        if (error) {
+          error.hidden = false;
+          error.textContent = /activat/i.test(err?.message || "")
+            ? err.message
+            : `The message could not be sent. Please email ${INBOX} directly.`;
+        }
+        if (button) button.disabled = false;
       }
     });
   });

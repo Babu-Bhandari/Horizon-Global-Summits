@@ -30,7 +30,7 @@ if (!defined('ABSPATH')) {
 		<img class="logo-for-dark" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon.png'); ?>" alt="" />
 		<img class="logo-for-light" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon-dark.png'); ?>" alt="" />
 	</a>
-	<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+	<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="nav-toggle-mark" aria-hidden="true"><span class="nav-toggle-box"></span></span><span class="nav-toggle-label">MENU</span></button>
 	<nav class="nav" id="site-nav" aria-label="Primary">
 		<?php hohorizon_primary_fallback(); ?>
 	</nav>

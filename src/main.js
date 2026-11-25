@@ -70,7 +70,7 @@ function renderChrome() {
         <img class="logo-for-dark" src="/logo-horizon.png" alt="" />
         <img class="logo-for-light" src="/logo-horizon-dark.png" alt="" />
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="nav-toggle-mark" aria-hidden="true"><span class="nav-toggle-box"></span></span><span class="nav-toggle-label">MENU</span></button>
       <nav class="nav" id="site-nav" aria-label="Primary">
         ${NAV.map(link).join("")}
       </nav>
@@ -129,15 +129,21 @@ function initHeader() {
   const onScroll = () => header.classList.toggle("is-solid", window.scrollY > 20);
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
-  toggle?.addEventListener("click", () => {
-    const open = header.classList.toggle("is-open");
-    toggle.setAttribute("aria-expanded", String(open));
-  });
+  const setOpen = (open) => {
+    header.classList.toggle("is-open", open);
+    document.body.classList.toggle("nav-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+  toggle?.addEventListener("click", () => setOpen(!header.classList.contains("is-open")));
   header.querySelectorAll("a").forEach((anchor) => {
-    anchor.addEventListener("click", () => {
-      header.classList.remove("is-open");
-      toggle?.setAttribute("aria-expanded", "false");
-    });
+    anchor.addEventListener("click", () => setOpen(false));
+  });
+  document.addEventListener("click", (event) => {
+    if (!header.classList.contains("is-open")) return;
+    const nav = header.querySelector(".nav");
+    if (toggle?.contains(event.target) || nav?.contains(event.target)) return;
+    setOpen(false);
   });
 }
 

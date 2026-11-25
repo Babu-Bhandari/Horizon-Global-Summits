@@ -186,9 +186,27 @@ function hohorizon_nav_icon($label) {
  * @return string
  */
 function hohorizon_page_url($slug) {
-	$page = get_page_by_path($slug);
-	if ($page) {
-		return get_permalink($page);
+	$aliases = array(
+		'terms'          => array('terms', 'terms-and-conditions', 'terms-conditions'),
+		'privacy'        => array('privacy', 'privacy-policy'),
+		'cookies'        => array('cookies', 'cookie-policy'),
+		'manage-cookies' => array('manage-cookies'),
+	);
+	$names = isset($aliases[$slug]) ? $aliases[$slug] : array($slug);
+	foreach ($names as $name) {
+		$page = get_page_by_path($name);
+		if ($page) {
+			return get_permalink($page);
+		}
+	}
+	if (function_exists('hohorizon_legal_page_targets')) {
+		$targets = hohorizon_legal_page_targets();
+		if (isset($targets[$slug])) {
+			$pages = hohorizon_find_legal_pages($targets[$slug]);
+			if ($pages) {
+				return get_permalink($pages[0]);
+			}
+		}
 	}
 	return home_url('/' . trim($slug, '/') . '/');
 }

@@ -197,59 +197,27 @@ function hohorizon_seed_pages() {
 			array('_hohorizon_eyebrow' => 'Partners & sponsors'),
 		),
 		'privacy' => array(
-			'Privacy Policy',
+			'Privacy',
 			'How Horizon Global Summits handles enquiries, a cookie preference, and analytics on this website.',
-			hohorizon_pair_blocks(
-				array(
-					array('Who we are', 'Horizon Global Summits is based in Dubai, United Arab Emirates. For privacy questions, email connect@horizonglobalsummits.com.'),
-					array('Information you give us', 'Forms can include your name, organisation, email, phone number, enquiry type, and message. Invitation requests may also include your job title, country, gathering, and industry. We use these details to reply and keep a record of the enquiry. We do not sell personal information.'),
-					array('Preferences on your device', 'Accept or Decline is saved in local storage under hohorizon-cookie. The light or dark theme is saved under hohorizon-theme. Declining keeps analytics off.'),
-					array('Analytics', 'Google Analytics loads only after you accept and a measurement ID is saved in Appearance, Customize. Until that ID is saved, nothing is sent to Google.'),
-					array('Fonts and images', 'Fonts are loaded from Google Fonts. Some photographs are loaded from Unsplash until they are replaced. Those services receive the ordinary technical request your browser makes.'),
-					array('Your choices', 'Change the cookie choice on the Manage Cookies page, or email connect@horizonglobalsummits.com about an enquiry you sent.'),
-				)
-			),
+			hohorizon_legal_document('privacy'),
 			array('_hohorizon_eyebrow' => 'Privacy'),
 		),
 		'terms' => array(
-			'Terms & Conditions',
+			'Terms and conditions',
 			'Terms for using the Horizon Global Summits website.',
-			hohorizon_pair_blocks(
-				array(
-					array('Who we are', 'Horizon Global Summits hosts international B2B conferences, executive forums, and industry summits from Dubai, United Arab Emirates. Questions about these terms can be sent to connect@horizonglobalsummits.com.'),
-					array('Using the website', 'You may browse the site and send an enquiry. Use it only for lawful purposes. The site is provided as published and pages may change when a programme, date, or venue is still being confirmed.'),
-					array('Invitations, speaking and partnerships', 'A request does not reserve a place, confirm a speaking role, or create a partnership. No fee can be paid through these pages. Commercial terms are agreed separately in writing.'),
-					array('What the website says', 'Details marked to be confirmed, shown as samples, or left unpublished are not confirmed facts. Do not present them as confirmed information about a gathering, a person, or a company.'),
-					array('Intellectual property', 'You may share a link to a page. You may not reproduce the site, our name, or our logo for your own event or promotion without written consent.'),
-					array('Liability and law', 'To the extent the law allows, we are not liable for loss from using the site or relying on a page that is still being updated. These terms are governed by the laws of the United Arab Emirates.'),
-				)
-			),
+			hohorizon_legal_document('terms'),
 			array('_hohorizon_eyebrow' => 'Terms'),
 		),
 		'cookies' => array(
 			'Cookie policy',
 			'How this website stores a cookie preference.',
-			hohorizon_pair_blocks(
-				array(
-					array('Cookie preference', 'Accept or Decline is saved in local storage in this browser under hohorizon-cookie. Decline keeps analytics off and stops the notice from returning.'),
-					array('Appearance', 'The light or dark theme is saved separately under hohorizon-theme. It is used only to display the site.'),
-					array('Analytics', 'Google Analytics loads only after you accept and a measurement ID has been added. You can stop it by choosing Decline on the Manage Cookies page.'),
-					array('Fonts and images', 'Pages request fonts from Google Fonts and some photographs from Unsplash. Those requests can include your IP address and are used to display the page.'),
-					array('How to change your choice', 'Open Manage Cookies and choose Accept or Decline. You can also clear this site’s data in your browser. The notice appears again when no choice is stored.'),
-				)
-			),
+			hohorizon_legal_document('cookies'),
 			array('_hohorizon_eyebrow' => 'Cookies'),
 		),
 		'manage-cookies' => array(
 			'Manage Cookies',
 			'Choose what this browser may store for Horizon Global Summits.',
-			hohorizon_paragraphs(
-				array(
-					'This page saves one preference on this device. It does not create an account, and the choice is not emailed to us.',
-					'Accept stores the choice and allows analytics when a measurement ID is configured. Decline stores the choice and keeps analytics off.',
-					'The light or dark theme is a separate display preference. Read the Cookie policy for the full notice.',
-				)
-			),
+			hohorizon_legal_document('manage-cookies'),
 			array('_hohorizon_eyebrow' => 'Cookies'),
 		),
 	);
@@ -525,46 +493,192 @@ function hohorizon_menu($name, $items) {
 }
 
 /**
- * Create the cookie policy page on an existing site.
+ * Full copy for the four legal pages.
+ *
+ * @param string $key Page key.
+ * @return string
  */
-function hohorizon_ensure_cookie_page() {
-	if (!get_page_by_path('cookies')) {
-		hohorizon_ensure_post(
-			array(
-				'post_type'    => 'page',
-				'post_status'  => 'publish',
-				'post_name'    => 'cookies',
-				'post_title'   => 'Cookie policy',
-				'post_excerpt' => 'How this website stores a cookie preference.',
-				'post_content' => hohorizon_pair_blocks(
-					array(
-						array('Cookie preference', 'Accept or Decline is saved in local storage in this browser under hohorizon-cookie. Decline keeps analytics off and stops the notice from returning.'),
-						array('Appearance', 'The light or dark theme is saved separately under hohorizon-theme. It is used only to display the site.'),
-						array('Analytics', 'Google Analytics loads only after you accept and a measurement ID has been added. You can stop it by choosing Decline on the Manage Cookies page.'),
-						array('How to change your choice', 'Open Manage Cookies and choose Accept or Decline. The notice appears again when no choice is stored.'),
-					)
-				),
-			),
-			array('_hohorizon_eyebrow' => 'Cookies')
-		);
+function hohorizon_legal_document($key) {
+	$pages = array(
+		'terms' => array(
+			array('These terms explain how you may use the Horizon Global Summits website. By using the site, you agree to them. If you do not agree, please leave the site.'),
+			array('Who we are', array('Horizon Global Summits is a UAE-based organisation that hosts international B2B conferences, executive forums and industry summits. The website is operated from Dubai, United Arab Emirates. Questions about these terms can be sent to connect@horizonglobalsummits.com.')),
+			array('Using the website', array(
+				'You may browse the site, read about upcoming gatherings, and send an enquiry. You must be able to form a contract in your place of residence. Use the site only for lawful purposes and do not attempt to disrupt it, probe it, or send automated submissions.',
+				'The site is provided as it is published. We may change, suspend, or withdraw pages without notice, including when a programme, date, or venue is still being confirmed.',
+			)),
+			array('Invitations, speaking and partnerships', array(
+				'Requesting an invitation does not reserve a place. A speaking enquiry does not confirm a role on the programme. A partnership enquiry does not create a partnership. We review each request and reply if we can take it forward.',
+				'No fee can be paid through these pages. Any commercial terms, including sponsorship or attendance, are agreed separately in writing. Nothing on the site is an offer capable of acceptance.',
+			)),
+			array('What the website says', array(
+				'We aim to keep the site accurate. Dates, venues, speakers, partners and programme details that are marked to be confirmed, shown as samples, or left unpublished are not confirmed facts. Do not present them as confirmed information about Horizon Global Summits, a gathering, a person, or a company.',
+				'Company names and logos appear only when a relationship is agreed. Empty or sample marks are not partners.',
+			)),
+			array('Acceptable use', array('Do not copy the site in a way that suggests you are Horizon Global Summits. Do not post unlawful, misleading, or infringing material through a form. Do not attempt to access another person’s enquiry or any non-public part of the site.')),
+			array('Intellectual property', array('The site design, text, logos and other materials we publish are owned by Horizon Global Summits or used with permission. You may share a link to a page. You may not reproduce the site, our name, or our logo for your own event, product, or promotion without written consent.')),
+			array('Other websites', array('Links and embedded services, including fonts and photographs loaded from other providers, are outside our control. Their terms and privacy notices apply once you leave this site or your browser contacts them.')),
+			array('Liability', array('To the extent the law allows, we are not liable for loss that arises from using the site, relying on a page that is still being updated, or a failure of email delivery. Nothing in these terms limits liability that cannot legally be limited.')),
+			array('Changes and law', array('We may update these terms by publishing a new version on this page. The date at the top shows when they were last updated. These terms are governed by the laws of the United Arab Emirates.')),
+		),
+		'privacy' => array(
+			array('This policy explains what Horizon Global Summits collects through this website and how that information is used. It covers the public site only.'),
+			array('Who we are', array('Horizon Global Summits is based in Dubai, United Arab Emirates. For privacy questions, email connect@horizonglobalsummits.com. Business hours are 09:30 AM to 5:30 PM GST (UTC+4).')),
+			array('Information you give us', array(
+				'If you use a form, we receive the details you type. Depending on the form, that can include your name, company or organisation, email address, contact number, the kind of enquiry, and your message. Invitation requests may also include your job title, country, and the gathering or industry you are asking about.',
+				'The form sends those details to connect@horizonglobalsummits.com. We use them to read your request, reply, and keep a record of the conversation. We do not sell personal information and we do not use enquiry forms for an unrelated mailing list.',
+				'A hidden field on each form is there to ignore automated submissions. Please leave it empty.',
+			)),
+			array('Preferences on your device', array(
+				'If you accept or decline the cookie notice, that choice is saved in local storage on your device under the name hohorizon-cookie. It stays in this browser until you change it or clear the site data. Declining keeps analytics off.',
+				'If you switch between light and dark mode, that choice is saved in local storage under the name hohorizon-theme so the site can open in the same appearance next time.',
+			)),
+			array('Analytics', array('Google Analytics is not loaded unless you have accepted the cookie notice and a measurement ID has been configured for the site. Until that ID is added, nothing is sent to Google Analytics. If both are in place, Google may receive technical information such as pages viewed and a general location derived from your connection. You can refuse this on the Manage Cookies page.')),
+			array('Fonts and images', array('Typefaces are loaded from Google Fonts. Some photographs are loaded from Unsplash until they are replaced with our own images. Those services receive the ordinary technical request your browser makes, which can include your IP address.')),
+			array('How long we keep enquiries', array('We keep enquiry correspondence for as long as we need it to respond, plan a gathering, or meet a legal or accounting duty. You can ask us what we still hold from an email you sent, and you can ask us to delete it where we are not required to keep it.')),
+			array('Your choices', array('You can change the cookie choice at any time on the Manage Cookies page. You can also clear this site’s data in your browser settings. To ask about an enquiry you sent, email connect@horizonglobalsummits.com.')),
+		),
+		'cookies' => array(
+			array('This notice describes what Horizon Global Summits stores on your device when you use this website, and how you can change it.'),
+			array('Cookie preference', array(
+				'When you choose Accept or Decline, the choice is saved in local storage in this browser under the name hohorizon-cookie. The value is either accept or decline. It is not sent to us as a form. It tells this site whether analytics may load on later visits.',
+				'Decline still saves the choice, so the notice does not keep returning, and analytics stays off.',
+			)),
+			array('Appearance', array('The light or dark theme is saved separately in local storage under the name hohorizon-theme. That preference is only used to display the site. It is not used for advertising.')),
+			array('Analytics', array('Google Analytics loads only after you accept and only when a measurement ID has been added to the site. Until that ID exists, accepting does not send anything to Google. If analytics is running, Google may set its own cookies to recognise a browser across pages. You can stop that by choosing Decline.')),
+			array('Fonts and images', array('Pages request fonts from Google Fonts and some photographs from Unsplash. Those requests can include your IP address. They are needed to display the page and are not used by us to build a profile.')),
+			array('How to change your choice', array(
+				'Open Manage Cookies and choose Accept or Decline. You can also remove the saved preference by clearing this site’s data in your browser. The notice appears again when no choice is stored.',
+				'More about enquiries and contact details is in the Privacy page.',
+			)),
+		),
+		'manage-cookies' => array(
+			array('This page saves one preference on this device. It does not create an account, and the choice is not emailed to us. You can change it whenever you return.'),
+			array('What Accept does', array('Accept stores the choice in local storage under the name hohorizon-cookie. If a Google Analytics measurement ID has been configured, analytics may then load. Until that ID is added, accepting does not send data to Google.')),
+			array('What Decline does', array('Decline stores the choice in the same place and keeps analytics off. The cookie notice stays dismissed on this browser until you choose again.')),
+			array('A separate preference', array('The light or dark theme is a separate display preference. Changing it does not change this cookie choice. Read the Cookie policy for the full notice and the Privacy page for how enquiries are handled.')),
+		),
+	);
+	if (!isset($pages[$key])) {
+		return '';
 	}
-	if (!get_page_by_path('manage-cookies')) {
-		hohorizon_ensure_post(
-			array(
-				'post_type'    => 'page',
-				'post_status'  => 'publish',
-				'post_name'    => 'manage-cookies',
-				'post_title'   => 'Manage Cookies',
-				'post_excerpt' => 'Choose what this browser may store for Horizon Global Summits.',
-				'post_content' => hohorizon_paragraphs(
-					array(
-						'This page saves one preference on this device. It does not create an account, and the choice is not emailed to us.',
-						'Accept stores the choice and allows analytics when a measurement ID is configured. Decline stores the choice and keeps analytics off.',
-					)
+	$html = "<!-- wp:paragraph -->\n<p>Last updated 25 November 2026.</p>\n<!-- /wp:paragraph -->\n";
+	foreach ($pages[$key] as $block) {
+		if (count($block) === 1) {
+			$html .= hohorizon_paragraphs($block);
+			continue;
+		}
+		$html .= "<!-- wp:heading {\"level\":2} -->\n<h2>" . esc_html($block[0]) . "</h2>\n<!-- /wp:heading -->\n";
+		$html .= hohorizon_paragraphs($block[1]);
+	}
+	return $html;
+}
+
+/**
+ * Pages that should receive the legal copy, including titles already created in WordPress.
+ *
+ * @return array<string, array<string, mixed>>
+ */
+function hohorizon_legal_page_targets() {
+	return array(
+		'terms' => array(
+			'slug'    => 'terms',
+			'title'   => 'Terms and conditions',
+			'excerpt' => 'Terms for using the Horizon Global Summits website.',
+			'eyebrow' => 'Terms',
+			'slugs'   => array('terms', 'terms-and-conditions', 'terms-conditions'),
+			'titles'  => array('Terms and conditions', 'Terms and Conditions', 'Terms & Conditions'),
+		),
+		'privacy' => array(
+			'slug'    => 'privacy',
+			'title'   => 'Privacy',
+			'excerpt' => 'How Horizon Global Summits handles enquiries, a cookie preference, and analytics on this website.',
+			'eyebrow' => 'Privacy',
+			'slugs'   => array('privacy', 'privacy-policy'),
+			'titles'  => array('Privacy', 'Privacy Policy', 'Privacy policy'),
+		),
+		'cookies' => array(
+			'slug'    => 'cookies',
+			'title'   => 'Cookie policy',
+			'excerpt' => 'How this website stores a cookie preference.',
+			'eyebrow' => 'Cookies',
+			'slugs'   => array('cookies', 'cookie-policy'),
+			'titles'  => array('Cookie policy', 'Cookie Policy', 'Cookies'),
+		),
+		'manage-cookies' => array(
+			'slug'    => 'manage-cookies',
+			'title'   => 'Manage Cookies',
+			'excerpt' => 'Choose what this browser may store for Horizon Global Summits.',
+			'eyebrow' => 'Cookies',
+			'slugs'   => array('manage-cookies'),
+			'titles'  => array('Manage Cookies'),
+		),
+	);
+}
+
+/**
+ * Find an existing legal page by its slug or title.
+ *
+ * @param array<string, mixed> $target Page target.
+ * @return WP_Post[]
+ */
+function hohorizon_find_legal_pages($target) {
+	$found = array();
+	foreach ($target['slugs'] as $slug) {
+		$page = get_page_by_path($slug);
+		if ($page) {
+			$found[$page->ID] = $page;
+		}
+	}
+	global $wpdb;
+	foreach ($target['titles'] as $title) {
+		$ids = $wpdb->get_col($wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status NOT IN ('trash','auto-draft') AND post_title = %s",
+			$title
+		));
+		foreach ($ids as $id) {
+			$page = get_post((int) $id);
+			if ($page) {
+				$found[$page->ID] = $page;
+			}
+		}
+	}
+	return array_values($found);
+}
+
+/**
+ * Write the legal copy into existing Pages, and create any page that is missing.
+ */
+function hohorizon_fill_legal_pages() {
+	foreach (hohorizon_legal_page_targets() as $key => $target) {
+		$content = hohorizon_legal_document($key);
+		$pages = hohorizon_find_legal_pages($target);
+		if (!$pages) {
+			hohorizon_ensure_post(
+				array(
+					'post_type'    => 'page',
+					'post_status'  => 'publish',
+					'post_name'    => $target['slug'],
+					'post_title'   => $target['title'],
+					'post_excerpt' => $target['excerpt'],
+					'post_content' => $content,
 				),
-			),
-			array('_hohorizon_eyebrow' => 'Cookies')
-		);
+				array('_hohorizon_eyebrow' => $target['eyebrow'])
+			);
+			continue;
+		}
+		foreach ($pages as $page) {
+			if (strpos($page->post_content, 'Last updated 25 November 2026') !== false) {
+				continue;
+			}
+			wp_update_post(wp_slash(array(
+				'ID'           => $page->ID,
+				'post_content' => $content,
+				'post_excerpt' => $target['excerpt'],
+				'post_status'  => 'publish',
+			)));
+			update_post_meta($page->ID, '_hohorizon_eyebrow', $target['eyebrow']);
+		}
 	}
 }
-add_action('init', 'hohorizon_ensure_cookie_page');
+add_action('init', 'hohorizon_fill_legal_pages');

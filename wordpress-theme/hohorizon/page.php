@@ -151,7 +151,7 @@ while (have_posts()) :
 			'Become a partner'
 		);
 		echo '</div></section>';
-	} elseif ($slug === 'manage-cookies') {
+	} elseif ($slug === 'manage-cookies' || get_the_title() === 'Manage Cookies') {
 		echo '<section class="section"><div class="wrap prose">';
 		the_content();
 		echo '<h2>Your choice on this device</h2>';

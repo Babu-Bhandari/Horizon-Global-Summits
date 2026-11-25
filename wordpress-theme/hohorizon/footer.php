@@ -61,7 +61,7 @@ $socials = array(
 			<a href="<?php echo esc_url(hohorizon_page_url('terms')); ?>">Terms and conditions</a>
 			<a href="<?php echo esc_url(hohorizon_page_url('privacy')); ?>">Privacy</a>
 			<a href="<?php echo esc_url(hohorizon_page_url('cookies')); ?>">Cookie policy</a>
-			<button class="manage-cookies" type="button">Manage Cookies</button>
+			<a href="<?php echo esc_url(hohorizon_page_url('manage-cookies')); ?>">Manage Cookies</a>
 		</nav>
 	</div>
 </footer>

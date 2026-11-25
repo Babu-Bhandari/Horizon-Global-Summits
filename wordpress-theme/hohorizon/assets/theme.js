@@ -238,11 +238,25 @@ function showCookieBanner() {
   document.body.append(banner);
 }
 
+function cookieStatusText(choice) {
+  if (choice === "accept") return "This device is set to accept. Analytics can load when a measurement ID is configured.";
+  if (choice === "decline") return "This device is set to decline. Analytics stays off.";
+  return "No choice is saved on this device yet.";
+}
+
 function initCookie() {
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".manage-cookies")) return;
-    localStorage.removeItem("hohorizon-cookie");
-    showCookieBanner();
+  const status = document.querySelector("[data-cookie-status]");
+  const paint = () => {
+    if (status) status.textContent = cookieStatusText(localStorage.getItem("hohorizon-cookie"));
+  };
+  paint();
+  document.querySelector(".cookie-manage")?.addEventListener("click", (event) => {
+    const choice = event.target.closest("button")?.dataset.cookie;
+    if (!choice) return;
+    localStorage.setItem("hohorizon-cookie", choice);
+    document.querySelector(".cookie")?.remove();
+    if (choice === "accept") loadAnalytics();
+    paint();
   });
   if (!localStorage.getItem("hohorizon-cookie")) showCookieBanner();
 }

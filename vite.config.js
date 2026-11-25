@@ -15,6 +15,8 @@ const pages = [
   "contact",
   "privacy",
   "terms",
+  "cookies",
+  "manage-cookies",
 ];
 
 export default defineConfig({

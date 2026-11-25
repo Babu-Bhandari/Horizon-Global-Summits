@@ -151,6 +151,15 @@ while (have_posts()) :
 			'Become a partner'
 		);
 		echo '</div></section>';
+	} elseif ($slug === 'manage-cookies') {
+		echo '<section class="section"><div class="wrap prose">';
+		the_content();
+		echo '<h2>Your choice on this device</h2>';
+		echo '<p data-cookie-status>No choice is saved on this device yet.</p>';
+		echo '<div class="actions cookie-manage">';
+		echo '<button class="btn" type="button" data-cookie="accept">Accept</button>';
+		echo '<button class="btn btn-ink" type="button" data-cookie="decline">Decline</button>';
+		echo '</div></div></section>';
 	} else {
 		echo '<section class="section"><div class="wrap prose">';
 		the_content();

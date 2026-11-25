@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>try{if(localStorage.getItem('hohorizon-theme')==='light')document.documentElement.dataset.theme='light';}catch(e){}</script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Cookies — Horizon Global Summits</title>
+    <meta name="description" content="Accept or decline the cookie preference stored by the Horizon Global Summits website on this device." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body data-page="cookies" data-email="" data-ga="">
+    <a class="skip" href="#content">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="content">
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="eyebrow">Cookies</p>
+          <h1>Manage cookies.</h1>
+          <p>Choose what this browser may store for Horizon Global Summits.</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap prose">
+          <p>This page saves one preference on this device. It does not create an account, and the choice is not emailed to us. You can change it whenever you return.</p>
+          <h2>Your choice on this device</h2>
+          <p data-cookie-status>No choice is saved on this device yet.</p>
+          <div class="actions cookie-manage">
+            <button class="btn" type="button" data-cookie="accept">Accept</button>
+            <button class="btn btn-ink" type="button" data-cookie="decline">Decline</button>
+          </div>
+          <h2>What Accept does</h2>
+          <p>Accept stores “accept” in local storage under the name hohorizon-cookie. If a Google Analytics measurement ID has been configured, analytics may then load. Until that ID is added, accepting does not send data to Google.</p>
+          <h2>What Decline does</h2>
+          <p>Decline stores “decline” in the same place and keeps analytics off. The cookie notice stays dismissed on this browser until you choose again.</p>
+          <p>The light or dark theme is a separate display preference. Changing it does not change this cookie choice. Read the full notice in the <a href="/cookies.html">Cookie policy</a> and how enquiries are handled in the <a href="/privacy.html">Privacy policy</a>.</p>
+        </div>
+      </section>
+    </main>
+    <footer id="site-footer"></footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

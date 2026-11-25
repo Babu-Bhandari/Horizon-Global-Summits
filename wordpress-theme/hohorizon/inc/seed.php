@@ -223,6 +223,19 @@ function hohorizon_seed_pages() {
 			),
 			array('_hohorizon_eyebrow' => 'Terms'),
 		),
+		'cookies' => array(
+			'Cookie policy',
+			'How this website stores a cookie preference.',
+			hohorizon_paragraphs(
+				array(
+					'This notice describes the cookie preference on this website. It is not a substitute for advice from counsel.',
+					'If you accept or decline the notice, the choice is saved in local storage on your device under the key hohorizon-cookie. Declining stores that choice and does not load analytics.',
+					'Google Analytics is not loaded unless you accepted the notice and a measurement ID has been added. Until that ID is added, nothing is sent to Google.',
+					'Manage Cookies, in the footer, clears the saved choice and shows the notice again.',
+				)
+			),
+			array('_hohorizon_eyebrow' => 'Cookies'),
+		),
 	);
 
 	$ids = array();
@@ -408,7 +421,6 @@ function hohorizon_seed_menus($pages) {
 				array('About', 0, array(), home_url('/') . '#about'),
 				array('Conference', 0, array(), home_url('/') . '#next-meet'),
 				array('Speakers', 0, array(), home_url('/') . '#speakers'),
-				array('Partners', 0, array(), home_url('/') . '#partners'),
 				array('Contact', 0, array(), home_url('/') . '#contact'),
 			)
 		);
@@ -419,8 +431,6 @@ function hohorizon_seed_menus($pages) {
 			array(
 				array('About Us', $pages['about'], array()),
 				array('Conference', 0, array(), home_url('/') . '#next-meet'),
-				array('Our Mission', $pages['mission'], array()),
-				array('Membership', $pages['membership'], array()),
 				array('Contact', 0, array(), home_url('/') . '#contact'),
 				array('Privacy Policy', $pages['privacy'], array()),
 				array('Terms & Conditions', $pages['terms'], array()),
@@ -431,7 +441,6 @@ function hohorizon_seed_menus($pages) {
 		$locations['footer_explore'] = hohorizon_menu(
 			'Footer explore',
 			array(
-				array('Events', $pages['events'], array()),
 				array('Conference', 0, array(), home_url('/') . '#next-meet'),
 				array('Programme', $pages['programme'], array()),
 				array('Speakers', $pages['speakers'], array()),
@@ -498,3 +507,31 @@ function hohorizon_menu($name, $items) {
 	}
 	return $id;
 }
+
+/**
+ * Create the cookie policy page on an existing site.
+ */
+function hohorizon_ensure_cookie_page() {
+	if (get_page_by_path('cookies')) {
+		return;
+	}
+	hohorizon_ensure_post(
+		array(
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_name'    => 'cookies',
+			'post_title'   => 'Cookie policy',
+			'post_excerpt' => 'How this website stores a cookie preference.',
+			'post_content' => hohorizon_paragraphs(
+				array(
+					'This notice describes the cookie preference on this website. It is not a substitute for advice from counsel.',
+					'If you accept or decline the notice, the choice is saved in local storage on your device under the key hohorizon-cookie. Declining stores that choice and does not load analytics.',
+					'Google Analytics is not loaded unless you accepted the notice and a measurement ID has been added. Until that ID is added, nothing is sent to Google.',
+					'Manage Cookies, in the footer, clears the saved choice and shows the notice again.',
+				)
+			),
+		),
+		array('_hohorizon_eyebrow' => 'Cookies')
+	);
+}
+add_action('init', 'hohorizon_ensure_cookie_page');

@@ -9,6 +9,40 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+/**
+ * Country names for the contact form.
+ *
+ * @return string[]
+ */
+function hohorizon_countries() {
+	return array(
+		'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan',
+		'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi',
+		'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czechia',
+		'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic',
+		'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia',
+		'Fiji', 'Finland', 'France',
+		'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana',
+		'Haiti', 'Honduras', 'Hungary',
+		'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy',
+		'Jamaica', 'Japan', 'Jordan',
+		'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan',
+		'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg',
+		'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar',
+		'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Korea', 'North Macedonia', 'Norway',
+		'Oman',
+		'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal',
+		'Qatar',
+		'Romania', 'Russia', 'Rwanda',
+		'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria',
+		'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu',
+		'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan',
+		'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam',
+		'Yemen',
+		'Zambia', 'Zimbabwe',
+	);
+}
+
 add_action('admin_post_nopriv_hohorizon_form', 'hohorizon_handle_form');
 add_action('admin_post_hohorizon_form', 'hohorizon_handle_form');
 
@@ -30,26 +64,38 @@ function hohorizon_form($kind, $fields, $submit) {
 	if ($sent === '0') {
 		echo '<p class="form-error">The note could not be sent. Check the required fields and try again.</p>';
 	}
-	echo '<form class="site-form" method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+	$card       = in_array($kind, array('contact', 'invitation'), true);
+	$form_class = 'site-form' . ($card ? ' contact-form' : '');
+	echo '<form class="' . esc_attr($form_class) . '" method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+	if ($card) {
+		echo '<div class="form-grid">';
+	}
 	foreach ($fields as $field) {
-		$name  = $field['name'];
-		$label = $field['label'];
-		$type  = isset($field['type']) ? $field['type'] : 'text';
-		echo '<label>' . esc_html($label);
+		$name     = $field['name'];
+		$label    = $field['label'];
+		$type     = isset($field['type']) ? $field['type'] : 'text';
+		$required = empty($field['optional']);
+		$req      = $required ? ' required' : '';
+		$wide     = !empty($field['wide']) ? ' class="is-wide"' : '';
+		echo '<label' . $wide . '>' . esc_html($label);
 		if ($type === 'textarea') {
-			echo '<textarea name="' . esc_attr($name) . '" rows="5" required></textarea>';
+			echo '<textarea name="' . esc_attr($name) . '" rows="5"' . $req . '></textarea>';
 		} elseif ($type === 'select') {
-			echo '<select name="' . esc_attr($name) . '" required><option value="">Select</option>';
+			$autocomplete = isset($field['autocomplete']) ? ' autocomplete="' . esc_attr($field['autocomplete']) . '"' : '';
+			echo '<select name="' . esc_attr($name) . '"' . $req . $autocomplete . '><option value="">Select</option>';
 			foreach ($field['options'] as $option) {
 				echo '<option>' . esc_html($option) . '</option>';
 			}
 			echo '</select>';
 		} else {
-			$placeholder = isset($field['placeholder']) ? ' placeholder="' . esc_attr($field['placeholder']) . '"' : '';
+			$placeholder  = isset($field['placeholder']) ? ' placeholder="' . esc_attr($field['placeholder']) . '"' : '';
 			$autocomplete = isset($field['autocomplete']) ? ' autocomplete="' . esc_attr($field['autocomplete']) . '"' : '';
-			echo '<input name="' . esc_attr($name) . '" type="' . esc_attr($type) . '" required' . $placeholder . $autocomplete . ' />';
+			echo '<input name="' . esc_attr($name) . '" type="' . esc_attr($type) . '"' . $req . $placeholder . $autocomplete . ' />';
 		}
 		echo '</label>';
+	}
+	if ($card) {
+		echo '</div>';
 	}
 	echo '<label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>';
 	echo '<input type="hidden" name="action" value="hohorizon_form" />';
@@ -83,8 +129,8 @@ function hohorizon_handle_form() {
 	}
 
 	$allowed = array(
-		'contact'     => array('name', 'email', 'message'),
-		'invitation'  => array('name', 'organisation', 'role', 'country', 'email', 'message'),
+		'contact'     => array('name', 'organisation', 'email', 'phone', 'enquiry'),
+		'invitation'  => array('name', 'email', 'organisation', 'role', 'phone', 'country', 'gathering', 'industry', 'message'),
 		'partnership' => array('name', 'organisation', 'email', 'interest', 'message'),
 		'newsletter'  => array('email'),
 	);
@@ -103,6 +149,9 @@ function hohorizon_handle_form() {
 			$value = sanitize_text_field($raw);
 		}
 		if ($value === '') {
+			if ($key === 'phone') {
+				continue;
+			}
 			$fail();
 		}
 		$lines[] = ucfirst($key) . ': ' . $value;

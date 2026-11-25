@@ -11,28 +11,34 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-$video_id  = absint(get_theme_mod('hohorizon_hero_video', 0));
-$video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directory_uri() . '/assets/hero.mp4';
 ?>
-<section class="hero" data-hero>
-	<div class="hero-slide is-on">
-		<?php if ($video_url) : ?>
-			<video class="hero-video" autoplay muted loop playsinline>
-				<source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
-			</video>
-		<?php endif; ?>
-		<div class="hero-shade"></div>
-		<div class="hero-copy">
-			<div class="hero-lead">
-				<p class="eyebrow">Horizon Global Summits</p>
-				<h1><?php echo preg_replace('/here\./', '<span class="hero-here">here.</span>', esc_html(hohorizon_mod('cta_title')), 1); ?></h1>
-				<div class="rule"></div>
-				<div class="hero-actions">
-					<a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a>
+<section class="hero hero-net" data-hero>
+	<canvas class="hero-net-canvas" aria-hidden="true"></canvas>
+	<div class="hero-inner">
+		<div class="hero-lead">
+			<p class="eyebrow">Horizon Global Summits</p>
+			<h1><?php echo esc_html(hohorizon_mod('hero_title')); ?></h1>
+			<div class="rule"></div>
+			<div class="hero-actions">
+				<a class="btn" href="#contact">Request an invitation</a>
+			</div>
+		</div>
+		<div class="hero-visual" aria-hidden="true">
+			<div class="hero-orbit">
+				<div class="hero-blob">
+					<img class="is-on" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" />
+					<img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
+					<img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
+					<img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
 				</div>
 			</div>
 		</div>
 	</div>
+	<svg class="hero-fan" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+		<path opacity="0.25" d="M0 90V30C240 70 480 10 720 40s480 40 720-10v60z" />
+		<path opacity="0.45" d="M0 90V50C260 80 500 30 760 55s440 25 680-5v40z" />
+		<path d="M0 90V70C300 92 560 58 820 72s420 12 620-4v22z" />
+	</svg>
 </section>
 
 <?php get_template_part('about'); ?>
@@ -40,8 +46,8 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 <section class="section next-meet" id="next-meet">
 	<div class="wrap next-meet-grid">
 		<div class="next-meet-copy">
-			<p class="eyebrow">Explore our upcoming events</p>
-			<h2>The next business meet.</h2>
+			<p class="eyebrow">Explore our upcoming conferences</p>
+			<h2>Your next global connection starts here.</h2>
 			<a class="next-meet-link" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">View all</a>
 		</div>
 		<div class="next-meet-cards">
@@ -72,7 +78,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 						<div>
 							<h3><?php the_title(); ?></h3>
 							<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
-							<a class="meet-visit" href="<?php the_permalink(); ?>">View details</a>
+							<span class="meet-visit">View details</span>
 						</div>
 					</article>
 					<?php
@@ -88,7 +94,7 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 					<div>
 						<h3><?php echo esc_html($card['title']); ?></h3>
 						<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
-						<a class="meet-visit" href="<?php echo esc_url($card['url']); ?>">View details</a>
+						<span class="meet-visit">View details</span>
 					</div>
 				</article>
 				<?php
@@ -122,56 +128,31 @@ $video_url = $video_id ? wp_get_attachment_url($video_id) : get_template_directo
 <section class="section home-panel" id="contact">
 	<div class="wrap">
 		<h2 class="about-display">Contact us</h2>
-		<p class="section-lead">Write to the forum at connect@horizonglobalsummits.com.</p>
-		<div class="contact-split">
+		<div class="contact-split is-solo">
 			<div>
 				<?php
 				hohorizon_form(
 					'contact',
 					array(
 						array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
+						array('name' => 'organisation', 'label' => 'Company / Organisation', 'autocomplete' => 'organization'),
 						array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
-						array('name' => 'message', 'label' => 'Message', 'type' => 'textarea'),
+						array('name' => 'phone', 'label' => 'Contact number', 'type' => 'tel', 'autocomplete' => 'tel'),
+						array(
+							'name'    => 'enquiry',
+							'label'   => 'I want to',
+							'type'    => 'select',
+							'wide'    => true,
+							'options' => array('Become a Partner', 'Explore Speaking Opportunity'),
+						),
 					),
-					'Send'
+					'Send message'
 				);
 				?>
-			</div>
-			<div class="contact-facts">
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M12 19v2"/></svg>
-					<p><small>Info line</small><strong>To be confirmed</strong></p>
-				</article>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-					<p><small>Email address</small><strong><a href="mailto:<?php echo esc_attr(hohorizon_mod('public_email')); ?>"><?php echo esc_html(hohorizon_mod('public_email')); ?></a></strong></p>
-				</article>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/><path d="M9 10h.01M15 10h.01"/></svg>
-					<p><small>Head office</small><strong><?php echo esc_html(hohorizon_mod('office')); ?></strong></p>
-				</article>
-				<article class="contact-fact">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>
-					<p><small>Business hours</small><strong>To be confirmed</strong></p>
-				</article>
 			</div>
 		</div>
 	</div>
 </section>
 
-<?php
-$cta_image = hohorizon_mod('cta_image');
-if (strpos($cta_image, 'photo-1497366754035') !== false) {
-	$cta_image = hohorizon_defaults()['cta_image'];
-}
-?>
-<section class="cta" style="background-image:url('<?php echo esc_url($cta_image); ?>')">
-	<div class="wrap">
-		<p class="eyebrow"><?php echo esc_html(hohorizon_mod('cta_eyebrow')); ?></p>
-		<h2><?php echo esc_html(hohorizon_mod('cta_title')); ?></h2>
-		<p class="lede" style="margin-top:16px;color:rgba(251,250,247,.86)"><?php echo esc_html(hohorizon_mod('cta_text')); ?></p>
-		<div class="actions"><a class="btn" href="<?php echo esc_url(hohorizon_page_url('invitation')); ?>">Request an invitation</a></div>
-	</div>
-</section>
 <?php
 get_footer();

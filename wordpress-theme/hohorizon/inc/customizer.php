@@ -37,6 +37,7 @@ function hohorizon_customize($wp_customize) {
 		'line1'             => array('Hero line 1', 'hohorizon_hero', 'text'),
 		'line2'             => array('Hero line 2', 'hohorizon_hero', 'text'),
 		'line3'             => array('Hero line 3', 'hohorizon_hero', 'text'),
+		'hero_title'        => array('Main heading', 'hohorizon_hero', 'text'),
 		'mark'              => array('Word under the line', 'hohorizon_hero', 'text'),
 		'button_partner'    => array('Partner button', 'hohorizon_hero', 'text'),
 		'button_invite'     => array('Invitation button', 'hohorizon_hero', 'text'),
@@ -74,6 +75,9 @@ function hohorizon_customize($wp_customize) {
 		'cta_text'          => array('Closing text', 'hohorizon_home', 'textarea'),
 		'footer_text'       => array('Footer introduction', 'hohorizon_footer', 'textarea'),
 		'public_email'      => array('Email shown on the site', 'hohorizon_footer', 'text'),
+		'office'            => array('Head office', 'hohorizon_footer', 'text'),
+		'hours'             => array('Business hours', 'hohorizon_footer', 'text'),
+		'phone'             => array('Mobile number', 'hohorizon_footer', 'text'),
 		'venue'             => array('Venue shown on the site', 'hohorizon_footer', 'text'),
 		'inbox'             => array('Inbox that receives forms', 'hohorizon_footer', 'email'),
 		'ga'                => array('Google Analytics measurement ID', 'hohorizon_footer', 'text'),
@@ -130,25 +134,6 @@ function hohorizon_customize($wp_customize) {
 			)
 		);
 	}
-
-	$wp_customize->add_setting(
-		'hohorizon_hero_video',
-		array(
-			'default'           => 0,
-			'sanitize_callback' => 'absint',
-		)
-	);
-	$wp_customize->add_control(
-		new WP_Customize_Media_Control(
-			$wp_customize,
-			'hohorizon_hero_video',
-			array(
-				'label'     => 'Hero video',
-				'section'   => 'hohorizon_hero',
-				'mime_type' => 'video',
-			)
-		)
-	);
 }
 
 /**

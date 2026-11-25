@@ -3,7 +3,6 @@ const NAV = [
   { href: "/#about", label: "About", id: "about" },
   { href: "/#next-meet", label: "Conference", id: "conference" },
   { href: "/#speakers", label: "Speakers", id: "speakers" },
-  { href: "/#partners", label: "Partners", id: "partners" },
   { href: "/#contact", label: "Contact", id: "contact" },
 ];
 
@@ -23,6 +22,9 @@ const ICON_PATHS = {
   partners: '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
   events: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
   contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+  pin: '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock: '<circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/>',
+  phone: '<path d="M8 4h3l1.4 3.4-1.8 1.1a11 11 0 0 0 4.9 4.9l1.1-1.8L21 13v3a2 2 0 0 1-2.2 2A16 16 0 0 1 6 5.2 2 2 0 0 1 8 4z"/>',
   mission: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
   membership: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
   partner: '<path d="M12 5v14M5 12h14"/>',
@@ -39,6 +41,13 @@ function icon(id) {
 }
 
 function socialIcon(id, label) {
+  const links = {
+    linkedin: "https://www.linkedin.com/company/horizon-global-summits/",
+  };
+  const href = links[id];
+  if (href) {
+    return `<a href="${href}" aria-label="${label}">${icon(id)}</a>`;
+  }
   return `<span aria-label="${label}, to be added">${icon(id)}</span>`;
 }
 
@@ -75,7 +84,6 @@ function renderChrome() {
     footer.innerHTML = `
       <div>
         <a class="logo" href="/" aria-label="Horizon Global Summits"><img class="logo-for-dark" src="/logo-horizon.png" alt="" /><img class="logo-for-light" src="/logo-horizon-dark.png" alt="" /></a>
-        <p class="footer-blurb">To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.</p>
         <div class="socials" aria-label="Social media">
           ${socialIcon("linkedin", "LinkedIn")}
           ${socialIcon("instagram", "Instagram")}
@@ -88,34 +96,27 @@ function renderChrome() {
         <ul>
           <li><a href="/about.html">${icon("about")}About Us</a></li>
           <li><a href="/#next-meet">${icon("conference")}Conference</a></li>
-          <li><a href="/mission.html">${icon("mission")}Our Mission</a></li>
-          <li><a href="/membership.html">${icon("membership")}Membership</a></li>
           <li><a href="/#contact">${icon("contact")}Contact</a></li>
           <li><a href="/privacy.html">${icon("privacy")}Privacy Policy</a></li>
           <li><a href="/terms.html">${icon("terms")}Terms &amp; Conditions</a></li>
         </ul>
       </div>
       <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="/events.html">${icon("events")}Events</a></li>
-          <li><a href="/#next-meet">${icon("conference")}Conference</a></li>
-          <li><a href="/programme.html">${icon("programme")}Programme</a></li>
-          <li><a href="/speakers.html">${icon("speakers")}Speakers</a></li>
-          <li><a href="/#partners">${icon("partners")}Partners</a></li>
-          <li><a href="/become-a-partner.html">${icon("partner")}Become a Partner</a></li>
-          <li><a href="/invitation.html">${icon("contact")}Request an invitation</a></li>
-        </ul>
-      </div>
-      <div>
         <h2>Contact</h2>
         <ul>
-          <li>connect@horizonglobalsummits.com</li>
-          <li>CWFZ0398, Compass Building, Ras Al Khaimah, United Arab Emirates</li>
+          <li><a href="mailto:connect@horizonglobalsummits.com">${icon("contact")}connect@horizonglobalsummits.com</a></li>
+          <li><span class="contact-line">${icon("pin")}Dubai, United Arab Emirates</span></li>
+          <li><span class="contact-line">${icon("clock")}09:30 AM to 5:30 PM GST (UTC+4)</span></li>
         </ul>
       </div>
       <div class="fineprint">
         <span>© ${new Date().getFullYear()} Horizon Global Summits. All Rights Reserved.</span>
+        <nav class="legal" aria-label="Legal">
+          <a href="/terms.html">Terms and conditions</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/cookies.html">Cookie policy</a>
+          <button class="manage-cookies" type="button">Manage Cookies</button>
+        </nav>
       </div>
     `;
   }
@@ -167,6 +168,125 @@ function initEvents() {
   panels.forEach((panel) => panel.classList.toggle("is-on", panel.dataset.event === active));
 }
 
+const COUNTRIES = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
+function initFancySelects() {
+  const closeAll = (except) => {
+    document.querySelectorAll(".fancy-select.is-open").forEach((node) => {
+      if (node === except) return;
+      node.classList.remove("is-open");
+      const panel = node.querySelector(".fancy-select-panel");
+      if (panel) panel.hidden = true;
+    });
+  };
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".fancy-select")) closeAll();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAll();
+  });
+  document.querySelectorAll(".contact-form select").forEach((select) => {
+    if (select.closest(".fancy-select")) return;
+    const choices = [...select.options].filter((option) => option.value);
+    const wrap = document.createElement("div");
+    wrap.className = "fancy-select";
+    select.after(wrap);
+    wrap.append(select);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "fancy-select-button";
+    button.setAttribute("aria-haspopup", "listbox");
+    const panel = document.createElement("div");
+    panel.className = "fancy-select-panel";
+    panel.hidden = true;
+    const search = document.createElement("input");
+    search.type = "search";
+    search.className = "fancy-select-search";
+    search.placeholder = "Search";
+    search.setAttribute("aria-label", "Search");
+    if (choices.length <= 8) search.hidden = true;
+    const list = document.createElement("div");
+    list.className = "fancy-select-list";
+    list.setAttribute("role", "listbox");
+    panel.append(search, list);
+    const paint = () => {
+      const current = select.options[select.selectedIndex];
+      const empty = !select.value;
+      button.innerHTML = `<span class="${empty ? "is-placeholder" : ""}">${current ? current.textContent : "Select"}</span><i aria-hidden="true"></i>`;
+    };
+    const choose = (option) => {
+      select.value = option.value;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      paint();
+      wrap.classList.remove("is-open");
+      panel.hidden = true;
+      search.value = "";
+    };
+    const build = () => {
+      const needle = search.value.trim().toLowerCase();
+      const matches = choices.filter((option) => option.textContent.toLowerCase().includes(needle));
+      list.replaceChildren();
+      if (!matches.length) {
+        const empty = document.createElement("p");
+        empty.className = "fancy-select-empty";
+        empty.textContent = "No matches";
+        list.append(empty);
+        return;
+      }
+      matches.forEach((option) => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.setAttribute("role", "option");
+        const selected = option.value === select.value;
+        if (selected) item.setAttribute("aria-selected", "true");
+        item.innerHTML = `<span></span><i class="fancy-check" aria-hidden="true"></i>`;
+        item.querySelector("span").textContent = option.textContent;
+        item.addEventListener("click", () => choose(option));
+        list.append(item);
+      });
+      const current = list.querySelector('[aria-selected="true"]');
+      if (current) current.scrollIntoView({ block: "nearest" });
+    };
+    search.addEventListener("input", build);
+    search.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      const first = list.querySelector("button");
+      if (!first) return;
+      event.preventDefault();
+      first.click();
+    });
+    button.addEventListener("click", () => {
+      const willOpen = panel.hidden;
+      closeAll(wrap);
+      if (!willOpen) {
+        wrap.classList.remove("is-open");
+        panel.hidden = true;
+        return;
+      }
+      build();
+      panel.hidden = false;
+      wrap.classList.add("is-open");
+      const space = window.innerHeight - button.getBoundingClientRect().bottom;
+      panel.classList.toggle("is-up", space < 280 && button.getBoundingClientRect().top > space);
+      if (!search.hidden) search.focus({ preventScroll: true });
+    });
+    wrap.append(button, panel);
+    paint();
+  });
+}
+
+function initCountries() {
+  document.querySelectorAll("select[data-countries]").forEach((select) => {
+    if (select.options.length > 1) return;
+    COUNTRIES.forEach((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      select.append(option);
+    });
+  });
+}
+
 function initForms() {
   document.querySelectorAll(".site-form").forEach((form) => {
     form.addEventListener("submit", (event) => {
@@ -210,56 +330,122 @@ function initForms() {
 function initHero() {
   const hero = document.querySelector("[data-hero]");
   if (!hero) return;
-  const slides = [...hero.querySelectorAll(".hero-slide")];
-  const dots = [...hero.querySelectorAll(".hero-dots button")];
-  const video = hero.querySelector(".hero-video");
-  let index = 0;
-  let timer = 0;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const show = (next) => {
-    index = (next + slides.length) % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle("is-on", i === index));
-    dots.forEach((dot, i) => dot.setAttribute("aria-current", i === index ? "true" : "false"));
-    if (!video) return;
-    if (slides[index].contains(video)) {
-      video.hidden = false;
-      const play = video.play();
-      if (play) play.catch(() => {});
-    } else {
-      video.pause();
+  // Photo slider inside the blob: crossfade with a slow zoom.
+  const photos = [...hero.querySelectorAll(".hero-blob img")];
+  if (photos.length > 1 && !reduced) {
+    let index = 0;
+    window.setInterval(() => {
+      photos[index].classList.remove("is-on");
+      index = (index + 1) % photos.length;
+      photos[index].classList.add("is-on");
+    }, 5000);
+  }
+
+  // Particle network behind the hero.
+  const canvas = hero.querySelector(".hero-net-canvas");
+  const ctx = canvas?.getContext("2d");
+  if (!ctx) return;
+  const LINK = 140;
+  let width = 0;
+  let height = 0;
+  let points = [];
+  let frame = 0;
+  let visible = true;
+  const mouse = { x: -9999, y: -9999 };
+
+  const resize = () => {
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    width = hero.clientWidth;
+    height = hero.clientHeight;
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = Math.max(28, Math.min(110, Math.round((width * height) / 15000)));
+    points = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      r: Math.random() * 1.6 + 1,
+      gold: Math.random() < 0.45,
+    }));
+  };
+
+  const draw = () => {
+    ctx.clearRect(0, 0, width, height);
+    for (let i = 0; i < points.length; i += 1) {
+      const a = points[i];
+      for (let j = i + 1; j < points.length; j += 1) {
+        const b = points[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < LINK) {
+          ctx.strokeStyle = `rgba(230, 184, 74, ${(1 - d / LINK) * 0.28})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+      const m = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (m < LINK * 1.3) {
+        ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - m / (LINK * 1.3)) * 0.45})`;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
     }
+    points.forEach((p) => {
+      ctx.fillStyle = p.gold ? "rgba(230, 184, 74, 0.85)" : "rgba(255, 255, 255, 0.7)";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
   };
 
-  const arm = () => {
-    window.clearInterval(timer);
-    if (reduced || slides.length < 2) return;
-    timer = window.setInterval(() => show(index + 1), 7000);
+  const step = () => {
+    points.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+    });
+    draw();
+    frame = visible && !document.hidden ? window.requestAnimationFrame(step) : 0;
   };
 
-  hero.querySelectorAll("[data-dir]").forEach((button) => {
-    button.addEventListener("click", () => {
-      show(index + Number(button.dataset.dir));
-      arm();
-    });
+  const start = () => {
+    if (!frame && !reduced) frame = window.requestAnimationFrame(step);
+  };
+
+  resize();
+  draw();
+  window.addEventListener("resize", () => {
+    resize();
+    draw();
   });
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      show(i);
-      arm();
-    });
+  hero.addEventListener("pointermove", (event) => {
+    const box = hero.getBoundingClientRect();
+    mouse.x = event.clientX - box.left;
+    mouse.y = event.clientY - box.top;
   });
-  hero.addEventListener("mouseenter", () => window.clearInterval(timer));
-  hero.addEventListener("mouseleave", arm);
-  hero.addEventListener("focusin", () => window.clearInterval(timer));
-  hero.addEventListener("focusout", (event) => {
-    if (!hero.contains(event.relatedTarget)) arm();
+  hero.addEventListener("pointerleave", () => {
+    mouse.x = -9999;
+    mouse.y = -9999;
   });
-  video?.addEventListener("error", () => {
-    video.hidden = true;
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+    }).observe(hero);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) start();
   });
-  show(0);
-  arm();
+  start();
 }
 
 function initToTop() {
@@ -317,8 +503,8 @@ function initTheme() {
   });
 }
 
-function initCookie() {
-  if (localStorage.getItem("hohorizon-cookie")) return;
+function showCookieBanner() {
+  if (document.querySelector(".cookie")) return;
   const banner = document.createElement("div");
   banner.className = "cookie";
   banner.innerHTML = `
@@ -336,6 +522,15 @@ function initCookie() {
     if (choice === "accept") loadAnalytics();
   });
   document.body.append(banner);
+}
+
+function initCookie() {
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".manage-cookies")) return;
+    localStorage.removeItem("hohorizon-cookie");
+    showCookieBanner();
+  });
+  if (!localStorage.getItem("hohorizon-cookie")) showCookieBanner();
 }
 
 function loadAnalytics() {
@@ -446,6 +641,8 @@ renderChrome();
 initHeader();
 initFilters();
 initEvents();
+initCountries();
+initFancySelects();
 initForms();
 initHero();
 initClock();

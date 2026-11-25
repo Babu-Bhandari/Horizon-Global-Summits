@@ -23,7 +23,6 @@ $socials = array(
 			<img class="logo-for-dark" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon.png'); ?>" alt="" />
 			<img class="logo-for-light" src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo-horizon-dark.png'); ?>" alt="" />
 		</a>
-		<p class="footer-blurb"><?php echo esc_html(hohorizon_mod('footer_text')); ?></p>
 		<div class="socials" aria-label="Social media">
 			<?php foreach ($socials as $key => $label) : ?>
 				<?php $url = hohorizon_mod($key); ?>
@@ -49,27 +48,21 @@ $socials = array(
 		?>
 	</div>
 	<div>
-		<h2>Explore</h2>
-		<?php
-		wp_nav_menu(
-			array(
-				'theme_location' => 'footer_explore',
-				'container'      => false,
-				'items_wrap'     => '<ul>%3$s</ul>',
-				'fallback_cb'    => 'hohorizon_footer_explore_fallback',
-			)
-		);
-		?>
-	</div>
-	<div>
 		<h2>Contact</h2>
 		<ul>
-			<li><?php echo esc_html(hohorizon_mod('public_email')); ?></li>
-			<li><?php echo esc_html(hohorizon_mod('office')); ?></li>
+			<li><a href="mailto:<?php echo esc_attr(hohorizon_mod('public_email')); ?>"><?php echo hohorizon_menu_icon('email'); ?><?php echo esc_html(hohorizon_mod('public_email')); ?></a></li>
+			<li><span class="contact-line"><?php echo hohorizon_menu_icon('address'); ?><?php echo esc_html(hohorizon_mod('office')); ?></span></li>
+			<li><span class="contact-line"><?php echo hohorizon_menu_icon('business hours'); ?><?php echo esc_html(hohorizon_mod('hours')); ?></span></li>
 		</ul>
 	</div>
 	<div class="fineprint">
 		<span>© <?php echo esc_html(gmdate('Y')); ?> Horizon Global Summits. All Rights Reserved.</span>
+		<nav class="legal" aria-label="Legal">
+			<a href="<?php echo esc_url(hohorizon_page_url('terms')); ?>">Terms and conditions</a>
+			<a href="<?php echo esc_url(hohorizon_page_url('privacy')); ?>">Privacy</a>
+			<a href="<?php echo esc_url(hohorizon_page_url('cookies')); ?>">Cookie policy</a>
+			<button class="manage-cookies" type="button">Manage Cookies</button>
+		</nav>
 	</div>
 </footer>
 <?php wp_footer(); ?>

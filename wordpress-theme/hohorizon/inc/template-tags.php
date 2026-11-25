@@ -22,6 +22,7 @@ function hohorizon_defaults() {
 		'mark'             => 'Forum',
 		'button_partner'   => 'Partner With Us',
 		'button_invite'    => 'Explore Our Summits',
+		'hero_title'       => 'Expanding Horizons Uniting Global Minds',
 		'hero_name'        => 'Horizon Global Affairs',
 		'hero_date'        => 'Date to be confirmed.',
 		'hero_venue'       => 'Venue to be confirmed.',
@@ -57,15 +58,17 @@ function hohorizon_defaults() {
 		'member_image'     => 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=80',
 		'cta_eyebrow'      => 'Invitation',
 		'cta_title'        => 'Your next global connection starts here.',
-		'cta_text'         => 'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
+		'cta_text'         => '',
 		'cta_image'        => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=2000&q=80',
 		'footer_text'      => 'To build influential global platforms that bring business leaders together, foster cross-industry connections, and transform meaningful dialogue into strategic partnerships, valuable opportunities, and sustainable business impact.',
 		'public_email'     => 'connect@horizonglobalsummits.com',
 		'venue'            => 'Venue to be confirmed',
-		'office'           => 'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
+		'office'           => 'Dubai, United Arab Emirates',
+		'hours'            => '09:30 AM to 5:30 PM GST (UTC+4)',
+		'phone'            => 'To be confirmed',
 		'inbox'            => 'connect@horizonglobalsummits.com',
 		'ga'               => '',
-		'linkedin'         => '',
+		'linkedin'         => 'https://www.linkedin.com/company/horizon-global-summits/',
 		'instagram'        => '',
 		'youtube'          => '',
 		'facebook'         => '',
@@ -84,12 +87,21 @@ function hohorizon_mod($key) {
 	$value    = get_theme_mod('hohorizon_' . $key, $default);
 	$value    = is_string($value) ? $value : $default;
 	$retired  = array(
-		'Email to be confirmed',
+		'xxxxx@horizonglobalsummits.com',
 		'To be confirmed',
 		'Venue to be confirmed',
+		'CWFZ0398, Compass Building. Al Shohada Road, Al Hamra industrial Zone-FZ, Ras Al Khaimah. United Arab Emirates',
+		'CWFZ0398, Compass Building, Ras Al Khaimah, United Arab Emirates',
 		'An invitation-led forum for executives, investors, policymakers and operators who need a quieter room for serious conversations.',
+		'Join an international community of business leaders and decision-makers. Applications are read. An invitation is sent only when a place is confirmed.',
 	);
 	if ($value === '' || in_array($value, $retired, true)) {
+		$value = $default;
+	}
+	if ($key === 'linkedin') {
+		return $default;
+	}
+	if (in_array($key, array('public_email', 'inbox'), true) && preg_match('/^x+@/i', $value)) {
 		$value = $default;
 	}
 	return hohorizon_brand_name($value);
@@ -401,7 +413,6 @@ function hohorizon_primary_fallback() {
 		array('About', 'about', array()),
 		array('Conference', 'next-meet', array()),
 		array('Speakers', 'speakers', array()),
-		array('Partners', 'partners', array()),
 		array('Contact', 'contact', array()),
 	);
 	foreach ($items as $item) {
@@ -437,8 +448,6 @@ function hohorizon_footer_quick_fallback() {
 		array(
 			'About Us'             => 'about',
 			'Conference'           => '#next-meet',
-			'Our Mission'          => 'mission',
-			'Membership'           => 'membership',
 			'Contact'              => '#contact',
 			'Privacy Policy'       => 'privacy',
 			'Terms & Conditions'   => 'terms',
@@ -452,7 +461,6 @@ function hohorizon_footer_quick_fallback() {
 function hohorizon_footer_explore_fallback() {
 	hohorizon_link_list(
 		array(
-			'Events'                 => 'events',
 			'Conference'             => '#next-meet',
 			'Programme'              => 'programme',
 			'Speakers'               => 'speakers',
@@ -520,7 +528,7 @@ function hohorizon_rewrite_legacy_menu_urls($items) {
 	foreach ($items as $item) {
 		$title = strtolower(trim(wp_strip_all_tags($item->title)));
 		$url = isset($item->url) ? $item->url : '';
-		if ($title === 'agenda' || $title === 'media' || strpos($url, '#agenda') !== false || strpos($url, '#media') !== false) {
+		if ($title === 'agenda' || $title === 'media' || $title === 'our mission' || $title === 'membership' || $title === 'events' || strpos($url, '#agenda') !== false || strpos($url, '#media') !== false) {
 			continue;
 		}
 		$anchors = array(
@@ -917,6 +925,10 @@ function hohorizon_menu_icon($label) {
 		'become a partner'      => 'partner',
 		'request an invitation' => 'contact',
 		'request an invite'     => 'contact',
+		'email'                 => 'contact',
+		'address'               => 'pin',
+		'business hours'        => 'clock',
+		'mobile'                => 'phone',
 	);
 	$paths = array(
 		'home'       => '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/>',
@@ -927,6 +939,9 @@ function hohorizon_menu_icon($label) {
 		'partners'   => '<circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5M11.5 18.5c.7-2.4 2.3-3.5 4.5-3.5s3.8 1.1 4.5 3.5"/>',
 		'events'     => '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="m10 9 5 3-5 3z"/>',
 		'contact'    => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+		'pin'        => '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+		'clock'      => '<circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/>',
+		'phone'      => '<path d="M8 4h3l1.4 3.4-1.8 1.1a11 11 0 0 0 4.9 4.9l1.1-1.8L21 13v3a2 2 0 0 1-2.2 2A16 16 0 0 1 6 5.2 2 2 0 0 1 8 4z"/>',
 		'mission'    => '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
 		'membership' => '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
 		'partner'    => '<path d="M12 5v14M5 12h14"/>',

@@ -99,27 +99,17 @@
       <section class="section next-meet" id="next-meet">
         <div class="wrap next-meet-grid">
           <div class="next-meet-copy">
-            <p class="eyebrow">Explore our upcoming conferences</p>
-            <h2>Your next global connection starts here.</h2>
-            <a class="next-meet-link" href="/events.html">View all</a>
+            <div class="next-meet-heading">
+              <p class="eyebrow">Explore our upcoming conferences</p>
+              <h2>Your next global connection starts here.</h2>
+            </div>
+            <div class="conf-nav" hidden>
+              <button type="button" class="conf-arrow" data-conf-prev aria-label="Previous conferences"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button type="button" class="conf-arrow" data-conf-next aria-label="Next conferences"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
           </div>
-          <div class="next-meet-cards">
-            <article class="meet-card">
-              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80" alt="Delegates seated at a conference" />
-              <div>
-                <h3>Horizon flagship forum</h3>
-                <p class="where"><span>Location :</span> Venue to be confirmed</p>
-                <span class="meet-visit">View details</span>
-              </div>
-            </article>
-            <article class="meet-card">
-              <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" alt="A conference hall prepared for a meeting" />
-              <div>
-                <h3>Horizon private briefing</h3>
-                <p class="where"><span>Location :</span> Venue to be confirmed</p>
-                <span class="meet-visit">View details</span>
-              </div>
-            </article>
+          <div class="conf-scroller">
+            <div class="conf-track" data-conferences tabindex="0" aria-label="Upcoming conferences"></div>
           </div>
         </div>
       </section>
@@ -172,40 +162,6 @@
             <div class="logo-tile">Logo to add</div>
           </div>
           <div class="actions" style="justify-content:center"><a class="btn btn-ink" href="/partners.html">Partner page</a></div>
-        </div>
-      </section>
-
-      <section class="section home-panel" id="media">
-        <div class="wrap">
-          <h2 class="about-display">Media</h2>
-          <p class="section-lead">Gatherings on the calendar. Dates, venues and coverage are published when they are fixed.</p>
-          <div class="events">
-            <article class="event-card">
-              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="A bright executive meeting room" />
-              <div>
-                <p class="eyebrow">Flagship forum · Placeholder</p>
-                <h3>Horizon flagship forum</h3>
-                <p class="lede" style="margin-top:12px">Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.</p>
-                <div class="actions">
-                  <a class="btn btn-ink" href="/event.html?event=flagship">View details</a>
-                  <a class="btn btn-ink" href="/invitation.html">Request invitation</a>
-                </div>
-              </div>
-            </article>
-            <article class="event-card">
-              <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80" alt="A boardroom prepared for a private meeting" />
-              <div>
-                <p class="eyebrow">Private briefing · Placeholder</p>
-                <h3>Horizon private briefing</h3>
-                <p class="lede" style="margin-top:12px">Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.</p>
-                <div class="actions">
-                  <a class="btn btn-ink" href="/event.html?event=briefing">View details</a>
-                  <a class="btn btn-ink" href="/invitation.html">Request invitation</a>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="actions" style="justify-content:center"><a class="btn btn-ink" href="/events.html">All events</a></div>
         </div>
       </section>
 

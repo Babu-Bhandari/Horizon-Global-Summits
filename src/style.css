@@ -2,7 +2,7 @@
 
 html { scroll-behavior: smooth; }
 #about, #agenda, #speakers, #media, #next-meet, #contact { scroll-margin-top: calc(var(--header) + 16px); }
-#media, #partners { display: none; }
+#partners { display: none; }
 
 :root {
   --bg: #07091a;
@@ -2055,4 +2055,261 @@ body.is-ready .hero-visual { animation: hero-in 1.2s cubic-bezier(0.16, 0.84, 0.
 @media (prefers-reduced-motion: reduce) {
   .li-pop, .li-pop-card { transition: none; }
   .li-pop-orb, .li-pop-badge, .li-pop-follow::after { animation: none; }
+}
+
+/* Contact page: deep teal colour scheme */
+body[data-page="contact"],
+html[data-theme="light"] body[data-page="contact"] {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(230, 184, 74, 0.10), transparent 40%),
+    radial-gradient(circle at 10% 60%, rgba(32, 178, 170, 0.14), transparent 45%),
+    #061f24;
+  color: #f2f8f7;
+}
+body[data-page="contact"] .page-hero {
+  background-color: #0a2e33;
+  background-image:
+    radial-gradient(circle at 80% 20%, rgba(230, 184, 74, 0.18), transparent 45%),
+    linear-gradient(135deg, #0d3b40 0%, #0a2e33 55%, #061f24 100%);
+}
+body[data-page="contact"] .page-hero p { color: rgba(242, 248, 247, 0.75); }
+body[data-page="contact"] .contact-form,
+html[data-theme="light"] body[data-page="contact"] .contact-form {
+  border: 1px solid rgba(94, 214, 200, 0.22);
+  background:
+    linear-gradient(180deg, rgba(94, 214, 200, 0.10), transparent 110px),
+    #0b2d32;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  color: #f2f8f7;
+}
+body[data-page="contact"] .contact-form input,
+body[data-page="contact"] .contact-form textarea,
+body[data-page="contact"] .contact-form select {
+  border-color: rgba(94, 214, 200, 0.2);
+  background-color: rgba(3, 18, 21, 0.55);
+  color: #f2f8f7;
+}
+body[data-page="contact"] .contact-form input:focus,
+body[data-page="contact"] .contact-form textarea:focus,
+body[data-page="contact"] .contact-form select:focus {
+  border-color: rgba(94, 214, 200, 0.75);
+  box-shadow: 0 0 0 3px rgba(94, 214, 200, 0.18);
+}
+
+/* Conference tiles */
+.conf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 8px;
+}
+.conf-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #18204a 0%, #10163a 100%);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+  color: #f4f6fb;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s, border-color 0.4s;
+}
+.conf-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(230, 184, 74, 0.45);
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.4), 0 0 40px rgba(230, 184, 74, 0.08);
+}
+.conf-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.conf-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.conf-card:hover .conf-media img { transform: scale(1.06); }
+.conf-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 9, 26, 0) 45%, rgba(16, 22, 58, 0.85) 100%);
+  pointer-events: none;
+}
+.conf-date {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 16px;
+  display: grid;
+  place-items: center;
+  min-width: 64px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #10163a;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+.conf-date strong {
+  color: #a6842e;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.conf-region {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(7, 9, 26, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.conf-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 22px 24px 24px;
+}
+.conf-body h3 {
+  margin: 0 0 16px;
+  color: #f4f6fb;
+  font-size: 1.32rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+}
+.conf-meta {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.conf-meta li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(244, 246, 251, 0.75);
+  font-size: 0.95rem;
+}
+.conf-meta svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+}
+.conf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.conf-link svg { width: 16px; height: 16px; transition: transform 0.25s; }
+.conf-link:hover svg,
+.conf-card:hover .conf-link svg { transform: translateX(4px); }
+@media (max-width: 700px) {
+  .conf-grid { grid-template-columns: 1fr; gap: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .conf-card, .conf-media img { transition: none; }
+}
+
+/* Homepage: scrollable conference tiles */
+.next-meet-grid { align-items: center; }
+.conf-scroller { position: relative; min-width: 0; }
+.conf-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 10px 4px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(230, 184, 74, 0.55) rgba(255, 255, 255, 0.06);
+}
+.conf-track:focus-visible { outline: 2px solid rgba(230, 184, 74, 0.6); outline-offset: 4px; border-radius: 22px; }
+.conf-track::-webkit-scrollbar { height: 6px; }
+.conf-track::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.06); border-radius: 999px; }
+.conf-track::-webkit-scrollbar-thumb { background: rgba(230, 184, 74, 0.55); border-radius: 999px; }
+.conf-track .conf-card {
+  flex: 0 0 min(320px, 82%);
+  scroll-snap-align: start;
+}
+.conf-track .conf-card:hover { transform: translateY(-4px); }
+.conf-nav { display: flex; gap: 10px; margin-top: 22px; }
+.conf-arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(230, 184, 74, 0.55);
+  border-radius: 50%;
+  background: rgba(18, 22, 58, 0.6);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, opacity 0.25s, transform 0.25s;
+}
+.conf-arrow svg { width: 20px; height: 20px; }
+.conf-arrow:hover:not(:disabled) { background: var(--gold); border-color: var(--gold); color: #10163a; transform: translateY(-2px); }
+.conf-arrow:disabled { opacity: 0.35; cursor: default; }
+html[data-theme="light"] .conf-arrow { color: #fff; }
+@media (max-width: 700px) {
+  .conf-track .conf-card { flex-basis: 86%; }
+  .conf-nav { margin-top: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .conf-track { scroll-behavior: auto; }
+}
+
+/* Homepage conferences: heading on top, all five tiles in one row */
+#next-meet .next-meet-grid {
+  width: min(1440px, calc(100% - 48px));
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+#next-meet .next-meet-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px 28px;
+}
+#next-meet .next-meet-heading { flex: 1 1 420px; }
+#next-meet .next-meet-copy h2 { max-width: 22ch; margin: 0; }
+#next-meet .next-meet-link { margin: 0 0 10px; }
+#next-meet .conf-nav { margin: 0 0 2px; }
+#next-meet .conf-nav[hidden] { display: none; }
+#next-meet .conf-track { gap: 18px; }
+#next-meet .conf-track .conf-card { flex: 1 0 250px; min-width: 0; }
+#next-meet .conf-media { aspect-ratio: 4 / 3; }
+#next-meet .conf-body { padding: 18px 18px 20px; }
+#next-meet .conf-body h3 { margin-bottom: 14px; font-size: 1.12rem; }
+#next-meet .conf-meta li { font-size: 0.9rem; }
+@media (max-width: 700px) {
+  #next-meet .next-meet-grid { width: min(var(--wrap), calc(100% - 40px)); }
+  #next-meet .conf-track .conf-card { flex: 0 0 80%; }
 }

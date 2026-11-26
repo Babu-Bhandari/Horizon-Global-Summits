@@ -165,6 +165,100 @@ function initFilters() {
   });
 }
 
+const CONFERENCES = [
+  {
+    name: "GCC Tax Leadership Summit & Awards 2027",
+    location: "Dubai, United Arab Emirates",
+    month: "March 2027",
+    region: "GCC",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80",
+    alt: "Dubai skyline at sunset",
+  },
+  {
+    name: "European Tax Leadership Summit & Awards 2027 - Viva La ViDA",
+    location: "Madrid, Spain",
+    month: "May 2027",
+    region: "Europe",
+    image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1000&q=80",
+    alt: "Madrid's Gran Vía at dusk",
+  },
+  {
+    name: "APAC CFO Assembly & Awards 2027",
+    location: "India",
+    month: "July 2027",
+    region: "APAC",
+    image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=80",
+    alt: "India Gate in New Delhi at dawn",
+  },
+  {
+    name: "2nd APAC CFO Assembly & Awards 2027",
+    location: "India",
+    month: "September 2027",
+    region: "APAC",
+    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1000&q=80",
+    alt: "The Taj Mahal reflected in its pool",
+  },
+  {
+    name: "GCC CFO Assembly & Awards 2027",
+    location: "United Arab Emirates",
+    month: "November 2027",
+    region: "GCC",
+    image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80",
+    alt: "Aerial view of the Dubai coastline",
+  },
+];
+
+function initConferences() {
+  const pin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  const cal = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+  document.querySelectorAll("[data-conferences]").forEach((grid) => {
+    grid.innerHTML = CONFERENCES.map((c) => {
+      const [monthName, year] = c.month.split(" ");
+      return `
+      <article class="conf-card">
+        <div class="conf-media">
+          <img src="${c.image}" alt="${c.alt}" loading="lazy" />
+          <span class="conf-date"><strong>${monthName.slice(0, 3)}</strong>${year}</span>
+          <span class="conf-region">${c.region}</span>
+        </div>
+        <div class="conf-body">
+          <h3>${c.name}</h3>
+          <ul class="conf-meta">
+            <li>${pin}${c.location}</li>
+            <li>${cal}${c.month}</li>
+          </ul>
+          <a class="conf-link" href="/#contact">Request invitation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>`;
+    }).join("");
+  });
+}
+
+function initConferenceScroll() {
+  const track = document.querySelector(".conf-track");
+  if (!track) return;
+  const prev = document.querySelector("[data-conf-prev]");
+  const next = document.querySelector("[data-conf-next]");
+  const step = () => {
+    const card = track.querySelector(".conf-card");
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.8;
+  };
+  const nav = document.querySelector(".conf-nav");
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth - 2;
+    // Only show arrows when some tiles don't fit on screen
+    if (nav) nav.hidden = max <= 0;
+    if (prev) prev.disabled = track.scrollLeft <= 2;
+    if (next) next.disabled = track.scrollLeft >= max;
+  };
+  prev?.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+  next?.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+  track.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+}
+
 function initEvents() {
   const panels = [...document.querySelectorAll("[data-event]")];
   if (!panels.length) return;
@@ -742,7 +836,7 @@ function initIntro() {
 }
 
 function initReveal() {
-  const nodes = document.querySelectorAll(".section, .event-card, .topic, .speaker, .card, .stat");
+  const nodes = document.querySelectorAll(".section, .event-card, .conf-grid .conf-card, .topic, .speaker, .card, .stat");
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   nodes.forEach((node) => node.classList.add("reveal"));
   const observer = new IntersectionObserver(
@@ -761,6 +855,8 @@ function initReveal() {
 renderChrome();
 initHeader();
 initFilters();
+initConferences();
+initConferenceScroll();
 initEvents();
 initCountries();
 initFancySelects();

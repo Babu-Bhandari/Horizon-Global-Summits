@@ -13,6 +13,7 @@ get_header();
 
 ?>
 <section class="hero hero-net" data-hero>
+	<img class="hero-bg-photo" src="<?php echo esc_url(get_template_directory_uri() . '/assets/hero-bg.jpg'); ?>" alt="" aria-hidden="true" />
 	<canvas class="hero-net-canvas" aria-hidden="true"></canvas>
 	<div class="hero-inner">
 		<div class="hero-lead">
@@ -23,15 +24,22 @@ get_header();
 				<a class="btn" href="#contact">Request an invitation</a>
 			</div>
 		</div>
-		<div class="hero-visual" aria-hidden="true">
-			<div class="hero-orbit">
-				<div class="hero-blob">
-					<img class="is-on" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" />
-					<img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
-					<img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
-					<img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="" loading="lazy" />
-				</div>
-			</div>
+		<?php
+		$hohorizon_columns = array(
+			'col-up'   => array('1540575467063-178a50c2df87', '1515187029135-18ee286d815b', '1559223607-a43c990c692c', '1475721027785-f74eccf877e2'),
+			'col-down' => array('1505373877841-8d25f7d46678', '1512453979798-5ea266f8880c', '1511578314322-379afb476865', '1587825140708-dfaf72ae4b04'),
+		);
+		?>
+		<div class="hero-visual hero-columns" aria-hidden="true">
+			<?php foreach ($hohorizon_columns as $hohorizon_class => $hohorizon_ids) : ?>
+				<div class="photo-col <?php echo esc_attr($hohorizon_class); ?>"><div class="photo-track">
+					<?php for ($hohorizon_pass = 0; $hohorizon_pass < 2; $hohorizon_pass++) : ?>
+						<?php foreach ($hohorizon_ids as $hohorizon_id) : ?>
+							<figure class="photo-tile"><img src="<?php echo esc_url('https://images.unsplash.com/photo-' . $hohorizon_id . '?auto=format&fit=crop&w=600&q=80'); ?>" alt="" loading="lazy" /></figure>
+						<?php endforeach; ?>
+					<?php endfor; ?>
+				</div></div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 	<svg class="hero-fan" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
@@ -135,7 +143,7 @@ get_header();
 					'contact',
 					array(
 						array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-						array('name' => 'organisation', 'label' => 'Company / Organisation', 'autocomplete' => 'organization'),
+						array('name' => 'organisation', 'label' => 'Company', 'autocomplete' => 'organization'),
 						array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
 						array('name' => 'phone', 'label' => 'Contact number', 'type' => 'tel', 'autocomplete' => 'tel'),
 						array(
@@ -143,7 +151,7 @@ get_header();
 							'label'   => 'I want to',
 							'type'    => 'select',
 							'wide'    => true,
-							'options' => array('Become a Partner', 'Explore Speaking Opportunity'),
+							'options' => array('Request an Invitation', 'Become a Partner', 'Explore Speaking Opportunity'),
 						),
 					),
 					'Send message'

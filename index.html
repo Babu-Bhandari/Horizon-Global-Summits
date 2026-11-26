@@ -19,6 +19,7 @@
     <header id="site-header"></header>
     <main id="content">
       <section class="hero hero-net" data-hero>
+        <img class="hero-bg-photo" src="/hero-bg.jpg" alt="" aria-hidden="true" />
         <canvas class="hero-net-canvas" aria-hidden="true"></canvas>
         <div class="hero-inner">
           <div class="hero-lead">
@@ -29,15 +30,27 @@
               <a class="btn" href="#contact">Request an invitation</a>
             </div>
           </div>
-          <div class="hero-visual" aria-hidden="true">
-            <div class="hero-orbit">
-              <div class="hero-blob">
-                <img class="is-on" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80" alt="" />
-                <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1000&q=80" alt="" loading="lazy" />
-                <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&fit=crop&w=1000&q=80" alt="" loading="lazy" />
-                <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=80" alt="" loading="lazy" />
-              </div>
-            </div>
+          <div class="hero-visual hero-columns" aria-hidden="true">
+            <div class="photo-col col-up"><div class="photo-track">
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+            </div></div>
+            <div class="photo-col col-down"><div class="photo-track">
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+              <figure class="photo-tile"><img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /></figure>
+            </div></div>
           </div>
         </div>
         <svg class="hero-fan" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
@@ -210,6 +223,7 @@
                   <label class="is-wide">I want to
                     <select name="enquiry" required>
                       <option value="">Select</option>
+                      <option>Request an Invitation</option>
                       <option>Become a Partner</option>
                       <option>Explore Speaking Opportunity</option>
                     </select>

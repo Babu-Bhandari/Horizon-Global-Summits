@@ -82,7 +82,7 @@ while (have_posts()) :
 			'contact',
 			array(
 				array('name' => 'name', 'label' => 'Name', 'autocomplete' => 'name'),
-				array('name' => 'organisation', 'label' => 'Company / Organisation', 'autocomplete' => 'organization'),
+				array('name' => 'organisation', 'label' => 'Company', 'autocomplete' => 'organization'),
 				array('name' => 'email', 'label' => 'Email', 'type' => 'email', 'autocomplete' => 'email'),
 				array('name' => 'phone', 'label' => 'Contact number', 'type' => 'tel', 'autocomplete' => 'tel'),
 				array(
@@ -90,7 +90,7 @@ while (have_posts()) :
 					'label'   => 'I want to',
 					'type'    => 'select',
 					'wide'    => true,
-					'options' => array('Become a Partner', 'Explore Speaking Opportunity'),
+					'options' => array('Request an Invitation', 'Become a Partner', 'Explore Speaking Opportunity'),
 				),
 			),
 			'Send message'

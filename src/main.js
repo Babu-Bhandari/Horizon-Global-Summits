@@ -380,16 +380,6 @@ function initHero() {
   if (!hero) return;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Photo slider inside the blob: crossfade with a slow zoom.
-  const photos = [...hero.querySelectorAll(".hero-blob img")];
-  if (photos.length > 1 && !reduced) {
-    let index = 0;
-    window.setInterval(() => {
-      photos[index].classList.remove("is-on");
-      index = (index + 1) % photos.length;
-      photos[index].classList.add("is-on");
-    }, 5000);
-  }
 
   // Particle network behind the hero.
   const canvas = hero.querySelector(".hero-net-canvas");

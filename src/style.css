@@ -1687,6 +1687,20 @@ html[data-theme="light"] .to-top {
     linear-gradient(120deg, #0b1f33 0%, #12475a 50%, #37ada7 100%);
   color: #fff;
 }
+.hero-bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+  transform: scaleX(-1);
+  -webkit-mask-image: linear-gradient(90deg, transparent 8%, #000 48%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 8%, #000 48%, #000 82%, transparent 100%);
+}
 .hero-net-canvas {
   position: absolute;
   inset: 0;
@@ -1709,54 +1723,47 @@ html[data-theme="light"] .to-top {
 .hero-visual {
   position: relative;
   justify-self: end;
-  width: min(100%, 540px);
-  aspect-ratio: 9 / 8;
+  width: min(100%, 500px);
+  height: min(640px, 74vh);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
 }
-.hero-orbit {
-  position: absolute;
-  inset: 0;
-  animation: hero-float 7s ease-in-out infinite alternate;
-}
-.hero-orbit::before,
-.hero-blob {
-  border-radius: 58% 42% 46% 54% / 52% 44% 56% 48%;
-  animation: hero-morph 14s ease-in-out infinite alternate;
-}
-.hero-orbit::before {
+.hero-visual::before {
   content: "";
   position: absolute;
-  inset: -16px;
+  inset: 8%;
+  z-index: -1;
   background: linear-gradient(135deg, var(--gold), #37ada7 60%, #5fd4cd);
-  filter: blur(22px);
-  opacity: 0.65;
+  filter: blur(48px);
+  opacity: 0.4;
 }
-.hero-visual::after {
-  content: "";
-  position: absolute;
-  inset: -34px;
-  border: 1px dashed rgba(230, 184, 74, 0.35);
-  border-radius: 50%;
-  animation: hero-spin 60s linear infinite;
-  pointer-events: none;
+.photo-col { overflow: hidden; padding: 3px; }
+.photo-track {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 18px;
+  animation: photo-scroll 38s linear infinite;
 }
-.hero-blob {
-  position: absolute;
-  inset: 0;
+.col-down .photo-track { animation-direction: reverse; animation-duration: 44s; }
+.hero-visual:hover .photo-track { animation-play-state: paused; }
+.photo-tile {
+  flex: none;
+  margin: 0;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
+  border-radius: 22px;
   background: #141a4c;
-  box-shadow: 0 0 0 4px rgba(230, 184, 74, 0.8), 0 30px 80px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 2px rgba(230, 184, 74, 0.75), 0 16px 36px rgba(0, 0, 0, 0.35);
 }
-.hero-blob img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.14);
-  transition: opacity 1.4s ease, transform 7s ease-out;
+.photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@keyframes photo-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 }
-.hero-blob img.is-on { opacity: 1; transform: scale(1); }
 .hero-fan {
   position: absolute;
   left: 0;
@@ -1771,16 +1778,10 @@ html[data-theme="light"] .to-top {
 body.is-ready .hero-net .eyebrow { animation: fade-up 0.8s ease 0.05s both; }
 body.is-ready .hero-net h1 { animation: fade-up 1s cubic-bezier(0.16, 0.84, 0.24, 1) 0.15s both; }
 body.is-ready .hero-visual { animation: hero-in 1.2s cubic-bezier(0.16, 0.84, 0.24, 1) 0.3s both; }
-@keyframes hero-morph {
-  0% { border-radius: 58% 42% 46% 54% / 52% 44% 56% 48%; }
-  50% { border-radius: 44% 56% 60% 40% / 42% 58% 42% 58%; }
-  100% { border-radius: 52% 48% 38% 62% / 60% 40% 60% 40%; }
-}
 @keyframes hero-float {
-  from { transform: translateY(-10px); }
-  to { transform: translateY(12px); }
+  from { transform: translateY(-6px); }
+  to { transform: translateY(8px); }
 }
-@keyframes hero-spin { to { transform: rotate(360deg); } }
 @keyframes hero-in {
   from { opacity: 0; transform: translateY(40px) scale(0.94); }
   to { opacity: 1; transform: none; }
@@ -1801,10 +1802,10 @@ body.is-ready .hero-visual { animation: hero-in 1.2s cubic-bezier(0.16, 0.84, 0.
   .hero-net .rule { margin-inline: auto; transform-origin: center; }
   .hero-net .hero-actions { justify-content: center; }
   .hero-inner { gap: 40px; padding-bottom: 90px; }
-  .hero-visual { width: min(80%, 320px); }
-  .hero-visual::after { inset: -20px; }
+  .hero-visual { width: min(92%, 360px); height: 400px; gap: 12px; }
+  .photo-track { gap: 12px; padding-bottom: 12px; }
+  .photo-tile { border-radius: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-orbit, .hero-orbit::before, .hero-blob, .hero-visual::after { animation: none; }
-  .hero-blob img { transition: none; }
+  .photo-track { animation: none; }
 }

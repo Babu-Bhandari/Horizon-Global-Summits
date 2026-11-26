@@ -585,6 +585,75 @@ function initCookie() {
   if (!localStorage.getItem("hohorizon-cookie")) showCookieBanner();
 }
 
+const LINKEDIN_URL = "https://www.linkedin.com/company/horizon-global-summits/";
+const LI_PATH = '<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>';
+
+function initLinkedInPopup() {
+  try {
+    if (localStorage.getItem("hohorizon-li-followed") || sessionStorage.getItem("hohorizon-li-seen")) return;
+  } catch (e) {
+    return;
+  }
+  setTimeout(showLinkedInPopup, 2500);
+}
+
+function showLinkedInPopup() {
+  if (document.querySelector(".li-pop")) return;
+  sessionStorage.setItem("hohorizon-li-seen", "1");
+  const pop = document.createElement("div");
+  pop.className = "li-pop";
+  pop.innerHTML = `
+    <div class="li-pop-card" role="dialog" aria-modal="true" aria-labelledby="li-pop-title">
+      <div class="li-pop-hero" aria-hidden="true">
+        <span class="li-pop-orb li-pop-orb-a"></span>
+        <span class="li-pop-orb li-pop-orb-b"></span>
+        <span class="li-pop-ring"></span>
+        <span class="li-pop-badge"><svg viewBox="0 0 24 24" fill="currentColor">${LI_PATH}</svg></span>
+      </div>
+      <button class="li-pop-close" type="button" aria-label="Close" data-li="close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="li-pop-body">
+        <p class="li-pop-eyebrow">Stay connected</p>
+        <h2 id="li-pop-title">Join our community<br />on <span>LinkedIn</span></h2>
+        <p class="li-pop-text">Be the first to hear what's next from Horizon Global Summits.</p>
+        <ul class="li-pop-perks">
+          ${["Summit announcements and dates", "Speaker reveals and agenda updates", "Executive insights and highlights"]
+            .map((perk) => `<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>${perk}</li>`)
+            .join("")}
+        </ul>
+        <a class="li-pop-follow" href="${LINKEDIN_URL}" target="_blank" rel="noopener" data-li="follow">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${LI_PATH}</svg>
+          Follow on LinkedIn
+          <svg class="li-pop-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <button class="li-pop-later" type="button" data-li="close">Maybe later</button>
+      </div>
+    </div>
+  `;
+  const close = () => {
+    pop.classList.remove("is-open");
+    document.removeEventListener("keydown", onKey);
+    setTimeout(() => pop.remove(), 300);
+  };
+  const onKey = (event) => {
+    if (event.key === "Escape") close();
+  };
+  pop.addEventListener("click", (event) => {
+    const action = event.target.closest("[data-li]")?.dataset.li;
+    if (action === "follow") {
+      localStorage.setItem("hohorizon-li-followed", "1");
+      close();
+    } else if (action === "close" || event.target === pop) {
+      close();
+    }
+  });
+  document.addEventListener("keydown", onKey);
+  document.body.append(pop);
+  requestAnimationFrame(() => pop.classList.add("is-open"));
+  pop.querySelector("[data-li='follow']").focus({ preventScroll: true });
+}
+
 function loadAnalytics() {
   const id = (document.body.dataset.ga || "").trim();
   if (!id || document.querySelector(`script[data-ga="${id}"]`)) return;
@@ -705,6 +774,7 @@ initToTop();
 initTheme();
 initCookie();
 initButtonIcons();
+initLinkedInPopup();
 initHeroRule();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();
 

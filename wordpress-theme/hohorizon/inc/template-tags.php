@@ -484,7 +484,7 @@ function hohorizon_footer_explore_fallback() {
 			'Speakers'               => 'speakers',
 			'Partners'               => '#partners',
 			'Become a Partner'       => 'become-a-partner',
-			'Request an invitation'  => 'invitation',
+			'Request an invitation'  => '#contact',
 		)
 	);
 }
@@ -699,63 +699,87 @@ class Hohorizon_Walker extends Walker_Nav_Menu {
 }
 
 /**
- * Event cards.
+ * The conference calendar. Edit this list to change the tiles on the homepage and the Events page.
  *
- * @param int $count How many. -1 for all.
+ * @return array<int, array<string, string>>
  */
-function hohorizon_event_list($count = -1) {
-	$events = hohorizon_query('hoh_event', $count);
-	$samples = array(
+function hohorizon_conferences() {
+	return array(
 		array(
-			'Flagship forum · Placeholder',
-			'Horizon flagship forum',
-			'Date to be confirmed. Venue to be confirmed. A full-day programme of discussions, private meetings and a hosted close.',
-			'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
-			'A bright executive meeting room',
+			'name'     => 'GCC Tax Leadership Summit & Awards 2027',
+			'location' => 'Dubai, United Arab Emirates',
+			'month'    => 'March 2027',
+			'region'   => 'GCC',
+			'image'    => 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80',
+			'alt'      => 'Dubai skyline at sunset',
 		),
 		array(
-			'Private briefing · Placeholder',
-			'Horizon private briefing',
-			'Date to be confirmed. Venue to be confirmed. A smaller sitting for a single theme and a longer discussion.',
-			'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80',
-			'A boardroom prepared for a private meeting',
+			'name'     => 'European Tax Leadership Summit & Awards 2027 - Viva La ViDA',
+			'location' => 'Madrid, Spain',
+			'month'    => 'May 2027',
+			'region'   => 'Europe',
+			'image'    => 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1000&q=80',
+			'alt'      => 'Madrid\'s Gran Vía at dusk',
+		),
+		array(
+			'name'     => 'APAC CFO Assembly & Awards 2027',
+			'location' => 'India',
+			'month'    => 'July 2027',
+			'region'   => 'APAC',
+			'image'    => 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=80',
+			'alt'      => 'India Gate in New Delhi at dawn',
+		),
+		array(
+			'name'     => '2nd APAC CFO Assembly & Awards 2027',
+			'location' => 'India',
+			'month'    => 'September 2027',
+			'region'   => 'APAC',
+			'image'    => 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1000&q=80',
+			'alt'      => 'The Taj Mahal reflected in its pool',
+		),
+		array(
+			'name'     => 'GCC CFO Assembly & Awards 2027',
+			'location' => 'United Arab Emirates',
+			'month'    => 'November 2027',
+			'region'   => 'GCC',
+			'image'    => 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80',
+			'alt'      => 'Aerial view of the Dubai coastline',
 		),
 	);
-	echo '<div class="events">';
-	$shown = 0;
-	if ($events->have_posts()) {
-		while ($events->have_posts()) {
-			$events->the_post();
-			$image = hohorizon_image_url(get_the_ID(), '_hohorizon_image', isset($samples[$shown]) ? $samples[$shown][3] : '');
-			echo '<article class="event-card">';
-			if ($image) {
-				echo '<img src="' . esc_url($image) . '" alt="" />';
-			}
-			echo '<div><p class="eyebrow">' . esc_html((string) get_post_meta(get_the_ID(), '_hohorizon_kicker', true)) . '</p>';
-			echo '<h3>' . esc_html(get_the_title()) . '</h3>';
-			echo '<p class="lede" style="margin-top:12px">' . esc_html(has_excerpt() ? get_the_excerpt() : '') . '</p>';
-			echo '<div class="actions">';
-			echo '<a class="btn btn-ink" href="' . esc_url(get_permalink()) . '">View details</a>';
-			echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('invitation')) . '">Request invitation</a>';
-			echo '</div></div></article>';
-			$shown++;
-		}
-		wp_reset_postdata();
+}
+
+/**
+ * Conference tiles.
+ */
+function hohorizon_conference_cards() {
+	$pin   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+	$cal   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+	$arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+	foreach (hohorizon_conferences() as $c) {
+		$parts = explode(' ', $c['month']);
+		$short = substr($parts[0], 0, 3);
+		$year  = isset($parts[1]) ? $parts[1] : '';
+		echo '<article class="conf-card">';
+		echo '<div class="conf-media">';
+		echo '<img src="' . esc_url($c['image']) . '" alt="' . esc_attr($c['alt']) . '" loading="lazy" />';
+		echo '<span class="conf-date"><strong>' . esc_html($short) . '</strong>' . esc_html($year) . '</span>';
+		echo '<span class="conf-region">' . esc_html($c['region']) . '</span>';
+		echo '</div><div class="conf-body">';
+		echo '<h3>' . esc_html($c['name']) . '</h3>';
+		echo '<ul class="conf-meta"><li>' . $pin . esc_html($c['location']) . '</li><li>' . $cal . esc_html($c['month']) . '</li></ul>';
+		echo '<a class="conf-link" href="' . esc_url(home_url('/#contact')) . '">Request invitation' . $arrow . '</a>';
+		echo '</div></article>';
 	}
-	$limit = $count > 0 ? $count : count($samples);
-	while ($shown < $limit && $shown < count($samples)) {
-		$card = $samples[$shown];
-		echo '<article class="event-card">';
-		echo '<img src="' . esc_url($card[3]) . '" alt="' . esc_attr($card[4]) . '" />';
-		echo '<div><p class="eyebrow">' . esc_html($card[0]) . '</p>';
-		echo '<h3>' . esc_html($card[1]) . '</h3>';
-		echo '<p class="lede" style="margin-top:12px">' . esc_html($card[2]) . '</p>';
-		echo '<div class="actions">';
-		echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('events')) . '">View details</a>';
-		echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('invitation')) . '">Request invitation</a>';
-		echo '</div></div></article>';
-		$shown++;
-	}
+}
+
+/**
+ * Event cards: the conference calendar as a grid.
+ *
+ * @param int $count Unused. Kept so older template calls still work.
+ */
+function hohorizon_event_list($count = -1) {
+	echo '<div class="conf-grid">';
+	hohorizon_conference_cards();
 	echo '</div>';
 }
 

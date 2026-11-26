@@ -171,7 +171,7 @@ function hohorizon_seed_pages() {
 		),
 		'events' => array(
 			'Events',
-			'These cards are placeholders. A date or venue on this page will be replaced when it is confirmed.',
+			'Tax and finance leadership summits and awards across the GCC, Europe and Asia-Pacific.',
 			'',
 			array(
 				'_hohorizon_eyebrow' => 'Events',

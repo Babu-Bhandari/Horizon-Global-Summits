@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 	<?php wp_head(); ?>
 	<script>try{if(localStorage.getItem("hohorizon-theme")==="light")document.documentElement.dataset.theme="light";}catch(e){}</script>
 </head>
-<body <?php body_class(); ?> data-ga="<?php echo esc_attr(hohorizon_mod('ga')); ?>">
+<body <?php body_class(); ?> data-page="<?php echo esc_attr(is_front_page() ? 'home' : (is_page() ? get_post_field('post_name', get_queried_object_id()) : '')); ?>" data-linkedin="<?php echo esc_url(hohorizon_mod('linkedin')); ?>" data-ga="<?php echo esc_attr(hohorizon_mod('ga')); ?>">
 <?php wp_body_open(); ?>
 <a class="skip" href="#content">Skip to content</a>
 <header class="site-header">

@@ -54,61 +54,19 @@ get_header();
 <section class="section next-meet" id="next-meet">
 	<div class="wrap next-meet-grid">
 		<div class="next-meet-copy">
-			<p class="eyebrow">Explore our upcoming conferences</p>
-			<h2>Your next global connection starts here.</h2>
-			<a class="next-meet-link" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">View all</a>
+			<div class="next-meet-heading">
+				<p class="eyebrow">Explore our upcoming conferences</p>
+				<h2>Your next global connection starts here.</h2>
+			</div>
+			<div class="conf-nav" hidden>
+				<button type="button" class="conf-arrow" data-conf-prev aria-label="Previous conferences"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+				<button type="button" class="conf-arrow" data-conf-next aria-label="Next conferences"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+			</div>
 		</div>
-		<div class="next-meet-cards">
-			<?php
-			$meets = hohorizon_query('hoh_event', 2);
-			$fallbacks = array(
-				array(
-					'title' => 'Horizon flagship forum',
-					'image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80',
-					'alt'   => 'Delegates seated at a conference',
-					'url'   => hohorizon_page_url('events'),
-				),
-				array(
-					'title' => 'Horizon private briefing',
-					'image' => 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
-					'alt'   => 'A conference hall prepared for a meeting',
-					'url'   => hohorizon_page_url('events'),
-				),
-			);
-			$shown = 0;
-			if ($meets->have_posts()) :
-				while ($meets->have_posts()) :
-					$meets->the_post();
-					$image = hohorizon_image_url(get_the_ID(), '_hohorizon_image', $fallbacks[$shown]['image']);
-					?>
-					<article class="meet-card">
-						<img src="<?php echo esc_url($image); ?>" alt="" />
-						<div>
-							<h3><?php the_title(); ?></h3>
-							<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
-							<span class="meet-visit">View details</span>
-						</div>
-					</article>
-					<?php
-					$shown++;
-				endwhile;
-				wp_reset_postdata();
-			endif;
-			while ($shown < 2) :
-				$card = $fallbacks[$shown];
-				?>
-				<article class="meet-card">
-					<img src="<?php echo esc_url($card['image']); ?>" alt="<?php echo esc_attr($card['alt']); ?>" />
-					<div>
-						<h3><?php echo esc_html($card['title']); ?></h3>
-						<p class="where"><span>Location :</span> <?php echo esc_html(hohorizon_mod('venue')); ?></p>
-						<span class="meet-visit">View details</span>
-					</div>
-				</article>
-				<?php
-				$shown++;
-			endwhile;
-			?>
+		<div class="conf-scroller">
+			<div class="conf-track" tabindex="0" aria-label="Upcoming conferences">
+				<?php hohorizon_conference_cards(); ?>
+			</div>
 		</div>
 	</div>
 </section>
@@ -121,15 +79,6 @@ get_header();
 		<p class="section-lead">Logo places for organisations that help shape the gathering. A name appears here only after the partnership is agreed.</p>
 		<?php hohorizon_partner_row(4); ?>
 		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('partners')); ?>">Partner page</a></div>
-	</div>
-</section>
-
-<section class="section home-panel" id="media">
-	<div class="wrap">
-		<h2 class="about-display">Media</h2>
-		<p class="section-lead">Gatherings on the calendar. Dates, venues and coverage are published when they are fixed.</p>
-		<?php hohorizon_event_list(2); ?>
-		<div class="actions" style="justify-content:center"><a class="btn btn-ink" href="<?php echo esc_url(hohorizon_page_url('events')); ?>">All events</a></div>
 	</div>
 </section>
 

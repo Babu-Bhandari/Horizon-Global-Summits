@@ -32,7 +32,7 @@ while (have_posts()) :
 	the_content();
 	echo '<div class="actions">';
 	echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('programme')) . '">Sample programme</a>';
-	echo '<a class="btn btn-ink" href="' . esc_url(hohorizon_page_url('invitation')) . '">Request an invitation</a>';
+	echo '<a class="btn btn-ink" href="' . esc_url(home_url('/#contact')) . '">Request an invitation</a>';
 	echo '</div></div></section>';
 endwhile;
 

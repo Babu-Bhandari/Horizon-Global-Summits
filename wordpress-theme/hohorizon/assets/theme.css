@@ -939,11 +939,11 @@ input, textarea, select {
   max-width: none;
   gap: 18px;
   padding: 22px;
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
   border-radius: 18px;
   background:
-    linear-gradient(180deg, rgba(230, 184, 74, 0.08), transparent 90px),
-    #121833;
+    linear-gradient(180deg, rgba(230, 184, 74, 0.10), transparent 120px),
+    #222b52;
 }
 .contact-form .form-grid {
   display: grid;
@@ -956,9 +956,9 @@ input, textarea, select {
 .contact-form textarea,
 .contact-form select {
   padding: 12px 14px;
-  border: 1px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.2);
   border-radius: 12px;
-  background: rgba(6, 8, 20, 0.45);
+  background: rgba(10, 14, 34, 0.32);
 }
 .contact-form textarea { min-height: 120px; resize: vertical; }
 .contact-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, #e6b84a 50%), linear-gradient(135deg, #e6b84a 50%, transparent 50%); background-position: calc(100% - 18px) 55%, calc(100% - 12px) 55%; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; }
@@ -981,9 +981,9 @@ input, textarea, select {
   width: 100%;
   min-height: 46px;
   padding: 12px 14px;
-  border: 1px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.2);
   border-radius: 12px;
-  background: rgba(6, 8, 20, 0.45);
+  background: rgba(10, 14, 34, 0.32);
   color: #fff;
   font: inherit;
   letter-spacing: 0;
@@ -2078,18 +2078,19 @@ body[data-page="contact"] .page-hero {
 body[data-page="contact"] .page-hero p { color: rgba(242, 248, 247, 0.75); }
 body[data-page="contact"] .contact-form,
 html[data-theme="light"] body[data-page="contact"] .contact-form {
-  border: 1px solid rgba(94, 214, 200, 0.22);
+  border: 1px solid rgba(94, 214, 200, 0.28);
   background:
-    linear-gradient(180deg, rgba(94, 214, 200, 0.10), transparent 110px),
-    #0b2d32;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    linear-gradient(180deg, rgba(94, 214, 200, 0.16), transparent 160px),
+    #1d5960;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
   color: #f2f8f7;
 }
 body[data-page="contact"] .contact-form input,
 body[data-page="contact"] .contact-form textarea,
-body[data-page="contact"] .contact-form select {
-  border-color: rgba(94, 214, 200, 0.2);
-  background-color: rgba(3, 18, 21, 0.55);
+body[data-page="contact"] .contact-form select,
+body[data-page="contact"] .contact-form .fancy-select-button {
+  border-color: rgba(94, 214, 200, 0.3);
+  background-color: rgba(10, 44, 48, 0.42);
   color: #f2f8f7;
 }
 body[data-page="contact"] .contact-form input:focus,

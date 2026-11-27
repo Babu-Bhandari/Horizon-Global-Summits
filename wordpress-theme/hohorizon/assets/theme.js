@@ -367,7 +367,7 @@ function initPhoneFields() {
       option.textContent = `${name} (${code})`;
       option.dataset.short = code;
       option.dataset.flag = flag;
-      if (name === "United Arab Emirates") option.selected = true;
+      if (name === "United Arab Emirates") option.defaultSelected = true;
       select.append(option);
     });
     const field = document.createElement("div");
@@ -498,6 +498,7 @@ function initFancySelects() {
     });
     wrap.append(button, panel);
     paint();
+    select.form?.addEventListener("reset", () => setTimeout(paint));
   });
 }
 
@@ -515,6 +516,7 @@ initTheme();
 initCookie();
 initButtonIcons();
 initConferenceScroll();
+initSentPopup();
 initLinkedInPopup();
 initHeroRule();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();
@@ -569,9 +571,58 @@ function initConferenceScroll() {
 const LINKEDIN_URL = document.body.dataset.linkedin || "https://www.linkedin.com/company/horizon-global-summits/";
 const LI_PATH = '<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>';
 
+function showSentPopup() {
+  if (document.querySelector(".ok-pop")) return;
+  const pop = document.createElement("div");
+  pop.className = "ok-pop";
+  pop.innerHTML = `
+    <div class="ok-pop-card" role="dialog" aria-modal="true" aria-labelledby="ok-pop-title">
+      <button class="ok-pop-close" type="button" aria-label="Close" data-ok="close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <span class="ok-pop-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </span>
+      <p class="ok-pop-eyebrow">Message sent</p>
+      <h2 id="ok-pop-title">We'll Connect With You Shortly</h2>
+      <p class="ok-pop-text">Thank you for reaching out to Horizon Global Summits. Our team will get back to you soon.</p>
+      <button class="btn ok-pop-btn" type="button" data-ok="close">Close</button>
+    </div>`;
+  const close = () => {
+    pop.classList.remove("is-open");
+    document.removeEventListener("keydown", onKey);
+    setTimeout(() => pop.remove(), 300);
+  };
+  const onKey = (event) => {
+    if (event.key === "Escape") close();
+  };
+  pop.addEventListener("click", (event) => {
+    if (event.target === pop || event.target.closest('[data-ok="close"]')) close();
+  });
+  document.addEventListener("keydown", onKey);
+  document.body.append(pop);
+  requestAnimationFrame(() => pop.classList.add("is-open"));
+  pop.querySelector(".ok-pop-btn").focus({ preventScroll: true });
+}
+
+function initSentPopup() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("sent") !== "1") return;
+  showSentPopup();
+  params.delete("sent");
+  params.delete("form");
+  const query = params.toString();
+  history.replaceState(null, "", window.location.pathname + (query ? `?${query}` : "") + window.location.hash);
+}
+
+// Show the LinkedIn popup again only after this many days. Stops for good once a visitor clicks Follow.
+const LI_POPUP_GAP_DAYS = 3;
+
 function initLinkedInPopup() {
   try {
-    if (localStorage.getItem("hohorizon-li-followed") || sessionStorage.getItem("hohorizon-li-seen")) return;
+    if (localStorage.getItem("hohorizon-li-followed")) return;
+    const last = Number(localStorage.getItem("hohorizon-li-last")) || 0;
+    if (Date.now() - last < LI_POPUP_GAP_DAYS * 86400000) return;
   } catch (e) {
     return;
   }
@@ -579,8 +630,10 @@ function initLinkedInPopup() {
 }
 
 function showLinkedInPopup() {
-  if (document.querySelector(".li-pop")) return;
-  sessionStorage.setItem("hohorizon-li-seen", "1");
+  if (document.querySelector(".li-pop, .ok-pop")) return;
+  try {
+    localStorage.setItem("hohorizon-li-last", String(Date.now()));
+  } catch (e) {}
   const pop = document.createElement("div");
   pop.className = "li-pop";
   pop.innerHTML = `

@@ -2375,3 +2375,94 @@ html[data-theme="light"] .contact-form .btn {
 .contact-form .btn .btn-icon { color: #000; }
 .phone-field { grid-template-columns: 108px minmax(0, 1fr); }
 .phone-field .fancy-select-button { padding-left: 12px; padding-right: 12px; }
+
+/* "We'll connect with you shortly" popup after a form is sent */
+.ok-pop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: radial-gradient(circle at 50% 40%, rgba(20, 30, 80, 0.55), rgba(3, 5, 14, 0.8));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.ok-pop.is-open { opacity: 1; }
+.ok-pop-card {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 40px 32px 32px;
+  border: 1px solid rgba(230, 184, 74, 0.45);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(230, 184, 74, 0.22), transparent 60%),
+    linear-gradient(180deg, #1b2348 0%, #0c1024 100%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  color: #f4f6fb;
+  text-align: center;
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ok-pop.is-open .ok-pop-card { transform: none; }
+.ok-pop-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4f6fb;
+  cursor: pointer;
+}
+.ok-pop-close:hover { background: rgba(255, 255, 255, 0.16); }
+.ok-pop-close svg { width: 16px; height: 16px; }
+.ok-pop-badge {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 0 0 10px rgba(230, 184, 74, 0.14), 0 12px 30px rgba(230, 184, 74, 0.3);
+}
+.ok-pop-badge svg { width: 32px; height: 32px; }
+.ok-pop-eyebrow {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.ok-pop-card h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.5rem, 4vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.ok-pop-text { margin: 0 0 24px; color: rgba(244, 246, 251, 0.75); font-size: 0.95rem; }
+.ok-pop-btn,
+.ok-pop-btn:hover,
+.ok-pop-btn:focus-visible {
+  min-height: 46px;
+  padding: 0 34px;
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #000;
+  font-size: 0.8rem;
+}
+.ok-pop-btn::before { background: linear-gradient(160deg, #f3cd6b 0%, var(--gold) 100%); }
+@media (prefers-reduced-motion: reduce) {
+  .ok-pop, .ok-pop-card { transition: none; }
+}

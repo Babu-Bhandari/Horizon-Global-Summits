@@ -16,9 +16,6 @@ if (!defined('ABSPATH')) {
 	<?php if (!has_site_icon()) : ?>
 		<link rel="icon" href="<?php echo esc_url(get_template_directory_uri() . '/assets/favicon.png'); ?>" type="image/png" />
 	<?php endif; ?>
-	<?php if (is_front_page()) : ?>
-		<link rel="preload" as="image" href="<?php echo esc_url(hohorizon_hero_still()); ?>" />
-	<?php endif; ?>
 	<?php wp_head(); ?>
 	<script>try{if(localStorage.getItem("hohorizon-theme")==="light")document.documentElement.dataset.theme="light";}catch(e){}</script>
 </head>

@@ -502,23 +502,6 @@ function initFancySelects() {
   });
 }
 
-initHeader();
-initPhoneFields();
-initFancySelects();
-initFilters();
-initHero();
-initClock();
-initSpeakers();
-initIntro();
-initReveal();
-initToTop();
-initTheme();
-initCookie();
-initButtonIcons();
-initConferenceScroll();
-initSentPopup();
-initLinkedInPopup();
-initHeroRule();
 if (localStorage.getItem("hohorizon-cookie") === "accept") loadAnalytics();
 
 function initHeroRule() {
@@ -692,3 +675,21 @@ function showLinkedInPopup() {
   requestAnimationFrame(() => pop.classList.add("is-open"));
   pop.querySelector("[data-li='follow']").focus({ preventScroll: true });
 }
+
+initHeader();
+initPhoneFields();
+initFancySelects();
+initFilters();
+initHero();
+initClock();
+initSpeakers();
+initIntro();
+initReveal();
+initToTop();
+initTheme();
+initCookie();
+initButtonIcons();
+initConferenceScroll();
+initSentPopup();
+initLinkedInPopup();
+initHeroRule();

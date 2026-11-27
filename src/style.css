@@ -2567,3 +2567,13 @@ html[data-theme="light"] .cpd-title { color: #8f6a1c; }
   .conf-dots { gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) { .conf-dot { transition: none; } }
+
+/* Hero video: never show the browser's play button or controls */
+.hero-bg-video::-webkit-media-controls,
+.hero-bg-video::-webkit-media-controls-panel,
+.hero-bg-video::-webkit-media-controls-overlay-play-button,
+.hero-bg-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0 !important;
+}

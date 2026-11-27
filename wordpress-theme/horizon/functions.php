@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('HOHORIZON_VERSION', '1.9.5');
+define('HOHORIZON_VERSION', '1.9.7');
 
 require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/setup.php';

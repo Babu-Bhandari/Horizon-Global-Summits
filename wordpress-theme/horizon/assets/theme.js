@@ -716,6 +716,33 @@ initTheme();
 initCookie();
 initButtonIcons();
 initConferenceScroll();
+initHeroVideo();
 initSentPopup();
 initLinkedInPopup();
 initHeroRule();
+
+// Hero background video: start on load. If the browser blocks autoplay
+// (for example iPhone Low Power Mode), start it on the first touch or scroll.
+function initHeroVideo() {
+  const video = document.querySelector(".hero-bg-video");
+  if (!video) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.controls = false;
+  const play = () => {
+    const attempt = video.play();
+    if (attempt && attempt.catch) attempt.catch(() => {});
+  };
+  const events = ["touchstart", "pointerdown", "scroll", "keydown"];
+  const onGesture = () => {
+    play();
+    if (!video.paused) events.forEach((e) => window.removeEventListener(e, onGesture));
+  };
+  events.forEach((e) => window.addEventListener(e, onGesture, { passive: true }));
+  video.addEventListener("playing", () => events.forEach((e) => window.removeEventListener(e, onGesture)), { once: true });
+  if (video.readyState >= 2) play();
+  else video.addEventListener("loadeddata", play, { once: true });
+  play();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && video.paused) play(); });
+}

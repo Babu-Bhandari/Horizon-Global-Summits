@@ -36,16 +36,7 @@ $socials = array(
 	</div>
 	<div>
 		<h2>Quick links</h2>
-		<?php
-		wp_nav_menu(
-			array(
-				'theme_location' => 'footer_quick',
-				'container'      => false,
-				'items_wrap'     => '<ul>%3$s</ul>',
-				'fallback_cb'    => 'hohorizon_footer_quick_fallback',
-			)
-		);
-		?>
+		<?php hohorizon_footer_quick_fallback(); ?>
 	</div>
 	<div>
 		<h2>Contact</h2>

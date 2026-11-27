@@ -413,11 +413,7 @@ function hohorizon_seed_menus($pages) {
 		$locations['footer_quick'] = hohorizon_menu(
 			'Footer quick links',
 			array(
-				array('About Us', $pages['about'], array()),
 				array('Conference', 0, array(), home_url('/') . '#next-meet'),
-				array('Contact', 0, array(), home_url('/') . '#contact'),
-				array('Privacy Policy', $pages['privacy'], array()),
-				array('Terms & Conditions', $pages['terms'], array()),
 			)
 		);
 	}

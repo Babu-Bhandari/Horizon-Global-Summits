@@ -459,16 +459,15 @@ function hohorizon_primary_fallback() {
 }
 
 /**
- * Footer quick links fallback.
+ * Footer quick links: About, Conference, Speakers, Contact Us.
  */
 function hohorizon_footer_quick_fallback() {
 	hohorizon_link_list(
 		array(
-			'About Us'             => 'about',
-			'Conference'           => '#next-meet',
-			'Contact'              => '#contact',
-			'Privacy Policy'       => 'privacy',
-			'Terms & Conditions'   => 'terms',
+			'About'      => '#about',
+			'Conference' => '#next-meet',
+			'Speakers'   => 'speakers',
+			'Contact Us' => '#contact',
 		)
 	);
 }
@@ -1029,3 +1028,27 @@ function hohorizon_footer_menu_icon($title, $item, $args, $depth) {
 	return hohorizon_menu_icon($title) . esc_html(wp_strip_all_tags($title));
 }
 add_filter('nav_menu_item_title', 'hohorizon_footer_menu_icon', 10, 4);
+
+/**
+ * Footer quick links: leave these pages out, whatever the saved menu contains.
+ *
+ * @param array<int, WP_Post> $items Menu items.
+ * @param stdClass            $args  Menu arguments.
+ * @return array<int, WP_Post>
+ */
+function hohorizon_trim_footer_quick($items, $args) {
+	if (empty($args->theme_location) || $args->theme_location !== 'footer_quick') {
+		return $items;
+	}
+	$drop = array('manage cookies', 'terms and conditions', 'privacy', 'privacy policy', 'about', 'about us', 'contact', 'request an invitation', 'become a partner', 'programme', 'speakers');
+	$kept = array();
+	foreach ($items as $item) {
+		$label = strtolower(trim(wp_strip_all_tags($item->title)));
+		$label = preg_replace('/\s+/', ' ', str_replace('&', 'and', html_entity_decode($label)));
+		if (!in_array($label, $drop, true)) {
+			$kept[] = $item;
+		}
+	}
+	return $kept;
+}
+add_filter('wp_nav_menu_objects', 'hohorizon_trim_footer_quick', 20, 2);

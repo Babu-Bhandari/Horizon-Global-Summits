@@ -94,11 +94,10 @@ function renderChrome() {
       <div>
         <h2>Quick links</h2>
         <ul>
-          <li><a href="/about.html">${icon("about")}About Us</a></li>
+          <li><a href="/#about">${icon("about")}About</a></li>
           <li><a href="/#next-meet">${icon("conference")}Conference</a></li>
-          <li><a href="/#contact">${icon("contact")}Contact</a></li>
-          <li><a href="/privacy.html">${icon("privacy")}Privacy Policy</a></li>
-          <li><a href="/terms.html">${icon("terms")}Terms &amp; Conditions</a></li>
+          <li><a href="/speakers.html">${icon("speakers")}Speakers</a></li>
+          <li><a href="/#contact">${icon("contact")}Contact Us</a></li>
         </ul>
       </div>
       <div>
@@ -764,6 +763,11 @@ function showSentPopup() {
 const LI_POPUP_GAP_DAYS = 3;
 
 function initLinkedInPopup() {
+  // Add ?linkedin-popup to any page address to see the popup straight away, for testing.
+  if (new URLSearchParams(window.location.search).has("linkedin-popup")) {
+    setTimeout(showLinkedInPopup, 800);
+    return;
+  }
   try {
     if (localStorage.getItem("hohorizon-li-followed")) return;
     const last = Number(localStorage.getItem("hohorizon-li-last")) || 0;

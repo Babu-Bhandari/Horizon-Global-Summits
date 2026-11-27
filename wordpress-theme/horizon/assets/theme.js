@@ -619,6 +619,11 @@ function initSentPopup() {
 const LI_POPUP_GAP_DAYS = 3;
 
 function initLinkedInPopup() {
+  // Add ?linkedin-popup to any page address to see the popup straight away, for testing.
+  if (new URLSearchParams(window.location.search).has("linkedin-popup")) {
+    setTimeout(showLinkedInPopup, 800);
+    return;
+  }
   try {
     if (localStorage.getItem("hohorizon-li-followed")) return;
     const last = Number(localStorage.getItem("hohorizon-li-last")) || 0;

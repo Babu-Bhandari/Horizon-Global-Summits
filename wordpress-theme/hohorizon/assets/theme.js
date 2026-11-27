@@ -379,7 +379,7 @@ function initPhoneFields() {
     input.autocomplete = "tel-national";
     input.maxLength = 10;
     input.pattern = "[0-9]{10}";
-    input.placeholder = "10-digit number";
+    input.placeholder = "10 digits";
     input.title = "Enter exactly 10 digits";
     input.addEventListener("input", () => {
       const digits = input.value.replace(/\D/g, "").slice(0, 10);

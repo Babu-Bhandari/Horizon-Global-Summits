@@ -2373,3 +2373,5 @@ html[data-theme="light"] .contact-form .btn {
 }
 .hero-actions .btn .btn-icon,
 .contact-form .btn .btn-icon { color: #000; }
+.phone-field { grid-template-columns: 108px minmax(0, 1fr); }
+.phone-field .fancy-select-button { padding-left: 12px; padding-right: 12px; }

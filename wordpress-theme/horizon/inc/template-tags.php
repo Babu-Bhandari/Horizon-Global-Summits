@@ -2,7 +2,7 @@
 /**
  * Template helpers.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

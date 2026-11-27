@@ -2,7 +2,7 @@
 /**
  * Site footer.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

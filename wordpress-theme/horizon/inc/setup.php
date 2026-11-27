@@ -2,7 +2,7 @@
 /**
  * Theme setup, content types, and assets.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {
@@ -19,7 +19,7 @@ add_action('init', 'hohorizon_ensure_home_link');
  * Theme supports.
  */
 function hohorizon_setup() {
-	load_theme_textdomain('hohorizon', get_template_directory() . '/languages');
+	load_theme_textdomain('horizon', get_template_directory() . '/languages');
 	add_theme_support('title-tag');
 	add_filter('document_title_parts', 'hohorizon_document_title_parts');
 	add_theme_support('post-thumbnails');
@@ -60,8 +60,8 @@ function hohorizon_document_title_parts($parts) {
 function hohorizon_assets() {
 	$css = get_template_directory() . '/assets/theme.css';
 	$js  = get_template_directory() . '/assets/theme.js';
-	wp_enqueue_style('hohorizon', get_template_directory_uri() . '/assets/theme.css', array(), file_exists($css) ? (string) filemtime($css) : HOHORIZON_VERSION);
-	wp_enqueue_script('hohorizon', get_template_directory_uri() . '/assets/theme.js', array(), file_exists($js) ? (string) filemtime($js) : HOHORIZON_VERSION, true);
+	wp_enqueue_style('horizon', get_template_directory_uri() . '/assets/theme.css', array(), file_exists($css) ? (string) filemtime($css) : HOHORIZON_VERSION);
+	wp_enqueue_script('horizon', get_template_directory_uri() . '/assets/theme.js', array(), file_exists($js) ? (string) filemtime($js) : HOHORIZON_VERSION, true);
 }
 
 /**

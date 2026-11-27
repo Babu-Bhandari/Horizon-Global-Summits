@@ -2,7 +2,7 @@
 /**
  * First-run pages, menus, and sample entries.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

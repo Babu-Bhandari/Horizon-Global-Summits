@@ -2,14 +2,14 @@
 /**
  * Horizon theme.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('HOHORIZON_VERSION', '1.8.6');
+define('HOHORIZON_VERSION', '1.8.9');
 
 require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/setup.php';

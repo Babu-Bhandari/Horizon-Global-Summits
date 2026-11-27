@@ -2,7 +2,7 @@
 /**
  * Opening screen on the homepage.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

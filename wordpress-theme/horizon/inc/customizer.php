@@ -2,7 +2,7 @@
 /**
  * Customizer fields for the designed homepage and footer.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

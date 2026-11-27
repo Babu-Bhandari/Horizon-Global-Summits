@@ -2,7 +2,7 @@
 /**
  * Extra fields on pages and theme content.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

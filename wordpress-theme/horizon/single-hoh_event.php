@@ -2,7 +2,7 @@
 /**
  * One gathering.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

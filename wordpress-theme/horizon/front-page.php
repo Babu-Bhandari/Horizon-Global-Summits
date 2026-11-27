@@ -2,7 +2,7 @@
 /**
  * Homepage.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {
@@ -13,7 +13,7 @@ get_header();
 
 ?>
 <section class="hero hero-net" data-hero>
-	<img class="hero-bg-photo" src="<?php echo esc_url(get_template_directory_uri() . '/assets/hero-bg.jpg'); ?>" alt="" aria-hidden="true" />
+	<video class="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="<?php echo esc_url(get_template_directory_uri() . '/assets/hero-bg.jpg'); ?>" aria-hidden="true"><source src="<?php echo esc_url(get_template_directory_uri() . '/assets/hero-bg.mp4'); ?>" type="video/mp4" /></video>
 	<canvas class="hero-net-canvas" aria-hidden="true"></canvas>
 	<div class="hero-inner">
 		<div class="hero-lead">

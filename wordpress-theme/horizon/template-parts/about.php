@@ -2,7 +2,7 @@
 /**
  * Homepage About section.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

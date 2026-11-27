@@ -2,7 +2,7 @@
 /**
  * Inner pages.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

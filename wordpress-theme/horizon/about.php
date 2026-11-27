@@ -3,7 +3,7 @@
  * Homepage About section.
  * This file is in the main theme folder so it shows in Appearance → Theme File Editor.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

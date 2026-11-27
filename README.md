@@ -2,7 +2,7 @@
 
 A multi-page site for an international business forum. It runs locally with Vite.
 
-The preview at localhost is still the static site. The same design is also a WordPress theme in `wordpress-theme/hohorizon`. Upload that folder in Appearance → Themes, then activate it. Edit the hero in Appearance → Customize, and edit pages, events, speakers, sessions, and partners from the admin menu.
+The preview at localhost is still the static site. The same design is also a WordPress theme in `wordpress-theme/horizon`. Upload that folder in Appearance → Themes, then activate it. Edit the hero in Appearance → Customize, and edit pages, events, speakers, sessions, and partners from the admin menu.
 
 ## Run it
 

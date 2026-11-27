@@ -2,7 +2,7 @@
 /**
  * Forms that email the site inbox.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

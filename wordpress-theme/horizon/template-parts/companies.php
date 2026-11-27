@@ -2,7 +2,7 @@
 /**
  * Rotating sample company logos.
  *
- * @package Hohorizon
+ * @package Horizon
  */
 
 if (!defined('ABSPATH')) {

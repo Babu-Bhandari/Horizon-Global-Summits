@@ -2544,3 +2544,29 @@ html[data-theme="light"] .cpd-title { color: #8f6a1c; }
   .hero-cpd { height: 56px; }
   .hero-net .hero-actions { align-items: center; }
 }
+
+/* Conferences: no scrollbar; arrows and dots centred below the cards */
+.conf-track { scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 10px; }
+.conf-track::-webkit-scrollbar { display: none; }
+#next-meet .conf-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 18px 0 0; }
+#next-meet .conf-nav[hidden] { display: none; }
+.conf-dots { display: flex; align-items: center; gap: 10px; }
+.conf-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(230, 184, 74, 0.35);
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+.conf-dot:hover { background: rgba(230, 184, 74, 0.7); }
+.conf-dot.is-active { width: 28px; background: var(--gold); }
+.conf-dot:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+@media (max-width: 700px) {
+  #next-meet .conf-nav { gap: 12px; }
+  .conf-arrow { width: 40px; height: 40px; }
+  .conf-dots { gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .conf-dot { transition: none; } }

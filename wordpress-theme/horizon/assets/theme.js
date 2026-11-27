@@ -537,12 +537,38 @@ function initConferenceScroll() {
     return card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.8;
   };
   const nav = document.querySelector(".conf-nav");
+  const dots = document.querySelector("[data-conf-dots]");
+  const maxScroll = () => track.scrollWidth - track.clientWidth;
+  // One dot per scroll stop
+  const stops = () => (maxScroll() <= 2 ? 1 : Math.ceil((maxScroll() - 2) / step()) + 1);
+  const current = () => (track.scrollLeft >= maxScroll() - 2 ? stops() - 1 : Math.round(track.scrollLeft / step()));
+  const buildDots = () => {
+    if (!dots) return;
+    const count = stops();
+    if (dots.children.length === count) return;
+    dots.innerHTML = "";
+    for (let i = 0; i < count; i += 1) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "conf-dot";
+      dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      dot.addEventListener("click", () => track.scrollTo({ left: Math.min(i * step(), maxScroll()), behavior: "smooth" }));
+      dots.append(dot);
+    }
+  };
   const update = () => {
-    const max = track.scrollWidth - track.clientWidth - 2;
-    // Only show arrows when some tiles don't fit on screen
+    const max = maxScroll() - 2;
+    // Only show the controls when some tiles don't fit on screen
     if (nav) nav.hidden = max <= 0;
     if (prev) prev.disabled = track.scrollLeft <= 2;
     if (next) next.disabled = track.scrollLeft >= max;
+    buildDots();
+    const active = current();
+    dots?.querySelectorAll(".conf-dot").forEach((dot, i) => {
+      dot.classList.toggle("is-active", i === active);
+      if (i === active) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
   };
   prev?.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
   next?.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));

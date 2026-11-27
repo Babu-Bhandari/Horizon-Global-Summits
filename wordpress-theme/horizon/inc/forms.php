@@ -319,8 +319,13 @@ function hohorizon_handle_form() {
 		$back = home_url('/');
 	}
 	$back = remove_query_arg(array('sent', 'form'), $back);
+	// theme.js sends forms in the background with ajax=1 and expects JSON, so the page does not reload.
+	$ajax = !empty($_POST['ajax']);
 
-	$fail = function () use ($back, $kind) {
+	$fail = function () use ($back, $kind, $ajax) {
+		if ($ajax) {
+			wp_send_json(array('success' => false), 400);
+		}
 		wp_safe_redirect(add_query_arg(array('sent' => '0', 'form' => $kind), $back));
 		exit;
 	};
@@ -389,6 +394,9 @@ function hohorizon_handle_form() {
 		$headers[] = 'Reply-To: ' . $reply;
 	}
 	$sent = wp_mail($to, 'Horizon ' . $kind, implode("\n", $lines), $headers);
+	if ($ajax) {
+		wp_send_json(array('success' => (bool) $sent), $sent ? 200 : 500);
+	}
 	wp_safe_redirect(add_query_arg(array('sent' => $sent ? '1' : '0', 'form' => $kind), $back));
 	exit;
 }

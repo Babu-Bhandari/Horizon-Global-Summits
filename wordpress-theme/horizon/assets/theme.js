@@ -592,9 +592,8 @@ function showSentPopup() {
       <span class="ok-pop-badge" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
       </span>
-      <p class="ok-pop-eyebrow">Message sent</p>
-      <h2 id="ok-pop-title">We'll Connect With You Shortly</h2>
-      <p class="ok-pop-text">Thank you for reaching out to Horizon Global Summits. Our team will get back to you soon.</p>
+      <h2 id="ok-pop-title">Thank You!</h2>
+      <p class="ok-pop-text">We'll Connect With You Shortly.</p>
       <button class="btn ok-pop-btn" type="button" data-ok="close">Close</button>
     </div>`;
   const close = () => {
@@ -738,6 +737,7 @@ initButtonIcons();
 initConferenceScroll();
 initHeroVideo();
 initSentPopup();
+initWpForms();
 initLinkedInPopup();
 initHeroRule();
 
@@ -765,4 +765,47 @@ function initHeroVideo() {
   else video.addEventListener("loadeddata", play, { once: true });
   play();
   document.addEventListener("visibilitychange", () => { if (!document.hidden && video.paused) play(); });
+}
+
+// Send WordPress forms in the background, so the page stays where it is
+// and the thank-you popup appears. Without JavaScript the form still posts normally.
+function initWpForms() {
+  document.querySelectorAll('form.site-form[action*="admin-post.php"]').forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const button = form.querySelector('[type="submit"]');
+      let error = form.querySelector(".form-error");
+      if (!error) {
+        error = document.createElement("p");
+        error.className = "form-error";
+        error.setAttribute("role", "alert");
+        (button || form.lastElementChild).before(error);
+      }
+      error.hidden = true;
+      if (button) button.disabled = true;
+      const data = new FormData(form);
+      data.set("ajax", "1");
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: data,
+          credentials: "same-origin",
+          headers: { Accept: "application/json" },
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.success !== true) throw new Error("send failed");
+        form.reset();
+        showSentPopup();
+      } catch (err) {
+        error.textContent = "The message could not be sent. Please try again, or email us directly.";
+        error.hidden = false;
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  });
 }

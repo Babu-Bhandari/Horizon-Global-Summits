@@ -763,9 +763,8 @@ function showSentPopup() {
       <span class="ok-pop-badge" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
       </span>
-      <p class="ok-pop-eyebrow">Message sent</p>
-      <h2 id="ok-pop-title">We'll Connect With You Shortly</h2>
-      <p class="ok-pop-text">Thank you for reaching out to Horizon Global Summits. Our team will get back to you soon.</p>
+      <h2 id="ok-pop-title">Thank You!</h2>
+      <p class="ok-pop-text">We'll Connect With You Shortly.</p>
       <button class="btn ok-pop-btn" type="button" data-ok="close">Close</button>
     </div>`;
   const close = () => {

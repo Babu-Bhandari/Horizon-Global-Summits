@@ -939,11 +939,11 @@ input, textarea, select {
   max-width: none;
   gap: 18px;
   padding: 22px;
-  border: 1px solid rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.24);
   border-radius: 18px;
   background:
-    linear-gradient(180deg, rgba(230, 184, 74, 0.10), transparent 120px),
-    #222b52;
+    linear-gradient(180deg, rgba(230, 184, 74, 0.14), transparent 160px),
+    #343f78;
 }
 .contact-form .form-grid {
   display: grid;

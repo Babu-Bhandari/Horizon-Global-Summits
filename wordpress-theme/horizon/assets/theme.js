@@ -624,8 +624,30 @@ function initSentPopup() {
   history.replaceState(null, "", window.location.pathname + (query ? `?${query}` : "") + window.location.hash);
 }
 
-// Show the LinkedIn popup again only after this many days. Stops for good once a visitor clicks Follow.
-const LI_POPUP_GAP_DAYS = 3;
+// The LinkedIn popup shows up to this many times per visit, this many seconds after it was last closed.
+// It stops for good once a visitor clicks Follow.
+const LI_POPUP_MAX_PER_VISIT = 3;
+const LI_POPUP_REPEAT_SECONDS = 45;
+let liPopupTimer = 0;
+
+function liPopupCount() {
+  try {
+    return Number(sessionStorage.getItem("hohorizon-li-count")) || 0;
+  } catch (e) {
+    return LI_POPUP_MAX_PER_VISIT;
+  }
+}
+
+function scheduleLinkedInPopup(delay) {
+  clearTimeout(liPopupTimer);
+  try {
+    if (localStorage.getItem("hohorizon-li-followed")) return;
+  } catch (e) {
+    return;
+  }
+  if (liPopupCount() >= LI_POPUP_MAX_PER_VISIT) return;
+  liPopupTimer = setTimeout(showLinkedInPopup, delay);
+}
 
 function initLinkedInPopup() {
   // Add ?linkedin-popup to any page address to see the popup straight away, for testing.
@@ -633,20 +655,17 @@ function initLinkedInPopup() {
     setTimeout(showLinkedInPopup, 800);
     return;
   }
-  try {
-    if (localStorage.getItem("hohorizon-li-followed")) return;
-    const last = Number(localStorage.getItem("hohorizon-li-last")) || 0;
-    if (Date.now() - last < LI_POPUP_GAP_DAYS * 86400000) return;
-  } catch (e) {
-    return;
-  }
-  setTimeout(showLinkedInPopup, 2500);
+  // First time this visit: shortly after load. After that: the normal gap, also across page changes.
+  scheduleLinkedInPopup(liPopupCount() === 0 ? 2500 : LI_POPUP_REPEAT_SECONDS * 1000);
 }
 
 function showLinkedInPopup() {
-  if (document.querySelector(".li-pop, .ok-pop")) return;
+  if (document.querySelector(".li-pop, .ok-pop")) {
+    scheduleLinkedInPopup(LI_POPUP_REPEAT_SECONDS * 1000);
+    return;
+  }
   try {
-    localStorage.setItem("hohorizon-li-last", String(Date.now()));
+    sessionStorage.setItem("hohorizon-li-count", String(liPopupCount() + 1));
   } catch (e) {}
   const pop = document.createElement("div");
   pop.className = "li-pop";
@@ -683,6 +702,7 @@ function showLinkedInPopup() {
     pop.classList.remove("is-open");
     document.removeEventListener("keydown", onKey);
     setTimeout(() => pop.remove(), 300);
+    scheduleLinkedInPopup(LI_POPUP_REPEAT_SECONDS * 1000);
   };
   const onKey = (event) => {
     if (event.key === "Escape") close();

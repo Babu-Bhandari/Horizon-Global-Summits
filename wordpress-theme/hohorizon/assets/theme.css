@@ -2355,3 +2355,24 @@ html[data-theme="light"] #next-meet .next-meet-heading .section-lead { color: in
 .site-footer li a,
 .site-footer .contact-line { align-items: flex-start; gap: 10px; line-height: 1.5; }
 .site-footer li .nav-icon { width: 16px; height: 16px; margin-top: calc((1.5em - 16px) / 2); }
+
+/* Gold buttons: hero CTA and form submit */
+.hero-actions .btn,
+.contact-form .btn,
+html[data-theme="light"] .hero-actions .btn,
+html[data-theme="light"] .contact-form .btn {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #000;
+}
+.hero-actions .btn::before,
+.contact-form .btn::before { background: linear-gradient(160deg, #f3cd6b 0%, var(--gold) 100%); }
+.hero-actions .btn:hover,
+.hero-actions .btn:focus-visible,
+.contact-form .btn:hover,
+.contact-form .btn:focus-visible {
+  color: #000;
+  box-shadow: 0 14px 30px rgba(230, 184, 74, 0.35);
+}
+.hero-actions .btn .btn-icon,
+.contact-form .btn .btn-icon { color: #000; }

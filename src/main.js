@@ -482,7 +482,7 @@ function initForms() {
       const error = form.querySelector(".form-error");
       const button = form.querySelector('[type="submit"]');
       if (error) error.hidden = true;
-      if (form.website?.value) {
+      if (form.elements.hz_trap?.value) {
         if (error) {
           error.hidden = false;
           error.textContent = "The message could not be sent.";
@@ -501,7 +501,7 @@ function initForms() {
         _captcha: "false",
       };
       for (const [key, value] of data.entries()) {
-        if (key === "website" || key === "phone_code" || String(value).trim() === "") continue;
+        if (key === "hz_trap" || key === "phone_code" || String(value).trim() === "") continue;
         const label = FIELD_LABELS[key] || key;
         const code = key === "phone" ? form.elements.phone_code?.selectedOptions[0]?.dataset.short : "";
         payload[label] = code ? `${code} ${value}` : value;

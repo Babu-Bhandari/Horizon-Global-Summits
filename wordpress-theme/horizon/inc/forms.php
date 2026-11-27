@@ -301,7 +301,7 @@ function hohorizon_form($kind, $fields, $submit) {
 	if ($card) {
 		echo '</div>';
 	}
-	echo '<label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>';
+	echo '<label class="hp" aria-hidden="true">Leave this empty<input type="text" name="hz_trap" value="" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" /></label>';
 	echo '<input type="hidden" name="action" value="hohorizon_form" />';
 	echo '<input type="hidden" name="kind" value="' . esc_attr($kind) . '" />';
 	wp_nonce_field('hohorizon_form', 'hohorizon_nonce');
@@ -328,7 +328,7 @@ function hohorizon_handle_form() {
 	if (!isset($_POST['hohorizon_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['hohorizon_nonce'])), 'hohorizon_form')) {
 		$fail();
 	}
-	if (!empty($_POST['website'])) {
+	if (!empty($_POST['hz_trap'])) {
 		$fail();
 	}
 

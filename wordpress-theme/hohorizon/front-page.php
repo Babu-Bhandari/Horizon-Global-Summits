@@ -22,6 +22,7 @@ get_header();
 			<div class="rule"></div>
 			<div class="hero-actions">
 				<a class="btn" href="#contact">Request an invitation</a>
+				<a class="hero-cpd" href="https://thecpdregister.com" target="_blank" rel="noopener" aria-label="CPD Approved Provider #791599, verify on thecpdregister.com"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/cpd-approved-provider.jpeg'); ?>" alt="The CPD Group Approved Provider #791599" width="1552" height="531" /></a>
 			</div>
 		</div>
 		<?php

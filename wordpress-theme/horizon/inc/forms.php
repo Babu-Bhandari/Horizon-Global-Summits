@@ -250,6 +250,25 @@ add_action('admin_post_nopriv_hohorizon_form', 'hohorizon_handle_form');
 add_action('admin_post_hohorizon_form', 'hohorizon_handle_form');
 
 /**
+ * Forms post to the home page, not wp-admin/admin-post.php, because security plugins
+ * and hosts often block or hide wp-admin for visitors (it then returns 404).
+ * This runs early on init and always exits, before WordPress reads the posted fields
+ * as page queries.
+ */
+function hohorizon_catch_form_post() {
+	if (
+		isset($_SERVER['REQUEST_METHOD'], $_POST['action'])
+		&& $_SERVER['REQUEST_METHOD'] === 'POST'
+		&& $_POST['action'] === 'hohorizon_form'
+		&& !is_admin()
+	) {
+		hohorizon_handle_form();
+		exit;
+	}
+}
+add_action('init', 'hohorizon_catch_form_post', 1);
+
+/**
  * Print a form.
  *
  * @param string $kind Form kind.
@@ -269,7 +288,7 @@ function hohorizon_form($kind, $fields, $submit) {
 	}
 	$card       = in_array($kind, array('contact', 'invitation'), true);
 	$form_class = 'site-form' . ($card ? ' contact-form' : '');
-	echo '<form class="' . esc_attr($form_class) . '" method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+	echo '<form class="' . esc_attr($form_class) . '" method="post" action="' . esc_url(home_url('/')) . '" data-hz-form>';
 	if ($card) {
 		echo '<div class="form-grid">';
 	}
@@ -322,19 +341,20 @@ function hohorizon_handle_form() {
 	// theme.js sends forms in the background with ajax=1 and expects JSON, so the page does not reload.
 	$ajax = !empty($_POST['ajax']);
 
-	$fail = function () use ($back, $kind, $ajax) {
+	// $reason tells the page which check failed: expired, spam, kind, field or mail.
+	$fail = function ($reason = '', $field = '') use ($back, $kind, $ajax) {
 		if ($ajax) {
-			wp_send_json(array('success' => false), 400);
+			wp_send_json(array('success' => false, 'reason' => $reason, 'field' => $field), 400);
 		}
 		wp_safe_redirect(add_query_arg(array('sent' => '0', 'form' => $kind), $back));
 		exit;
 	};
 
 	if (!isset($_POST['hohorizon_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['hohorizon_nonce'])), 'hohorizon_form')) {
-		$fail();
+		$fail('expired');
 	}
 	if (!empty($_POST['hz_trap'])) {
-		$fail();
+		$fail('spam');
 	}
 
 	$allowed = array(
@@ -344,7 +364,7 @@ function hohorizon_handle_form() {
 		'newsletter'  => array('email'),
 	);
 	if (!isset($allowed[$kind])) {
-		$fail();
+		$fail('kind');
 	}
 
 	$lines = array();
@@ -361,17 +381,17 @@ function hohorizon_handle_form() {
 			if ($key === 'phone') {
 				continue;
 			}
-			$fail();
+			$fail('field', $key);
 		}
 		if ($key === 'phone') {
 			if (!preg_match('/^[0-9]{10}$/', $value)) {
-				$fail();
+				$fail('field', 'phone');
 			}
 			$codes   = hohorizon_dial_codes();
 			$country = isset($_POST['phone_code']) ? sanitize_text_field(wp_unslash($_POST['phone_code'])) : '';
 			if ($country !== '') {
 				if (!isset($codes[$country])) {
-					$fail();
+					$fail('field', 'phone_code');
 				}
 				$value = $codes[$country] . ' ' . $value;
 			}
@@ -393,9 +413,25 @@ function hohorizon_handle_form() {
 	if (is_email($reply)) {
 		$headers[] = 'Reply-To: ' . $reply;
 	}
+	$mail_error = '';
+	$catch_mail_error = function ($error) use (&$mail_error) {
+		if (is_wp_error($error)) {
+			$mail_error = $error->get_error_message();
+		}
+	};
+	add_action('wp_mail_failed', $catch_mail_error);
 	$sent = wp_mail($to, 'Horizon ' . $kind, implode("\n", $lines), $headers);
+	remove_action('wp_mail_failed', $catch_mail_error);
 	if ($ajax) {
-		wp_send_json(array('success' => (bool) $sent), $sent ? 200 : 500);
+		if ($sent) {
+			wp_send_json(array('success' => true));
+		}
+		$response = array('success' => false, 'reason' => 'mail');
+		// Only a logged-in administrator sees the mail server's own error text.
+		if (current_user_can('manage_options')) {
+			$response['detail'] = $mail_error !== '' ? $mail_error : 'wp_mail() returned false.';
+		}
+		wp_send_json($response, 500);
 	}
 	wp_safe_redirect(add_query_arg(array('sent' => $sent ? '1' : '0', 'form' => $kind), $back));
 	exit;

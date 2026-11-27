@@ -770,7 +770,7 @@ function initHeroVideo() {
 // Send WordPress forms in the background, so the page stays where it is
 // and the thank-you popup appears. Without JavaScript the form still posts normally.
 function initWpForms() {
-  document.querySelectorAll('form.site-form[action*="admin-post.php"]').forEach((form) => {
+  document.querySelectorAll("form.site-form[data-hz-form]").forEach((form) => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!form.checkValidity()) {
@@ -790,22 +790,50 @@ function initWpForms() {
       const data = new FormData(form);
       data.set("ajax", "1");
       try {
-        const response = await fetch(form.action, {
+        // Post back to this same page; the theme catches it on init (see inc/forms.php).
+        const response = await fetch(window.location.pathname + window.location.search, {
           method: "POST",
           body: data,
           credentials: "same-origin",
           headers: { Accept: "application/json" },
         });
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok || result.success !== true) throw new Error("send failed");
+        const result = await response.json().catch(() => ({ reason: `http-${response.status}` }));
+        if (!response.ok || result.success !== true) throw Object.assign(new Error("send failed"), { result });
         form.reset();
         showSentPopup();
       } catch (err) {
-        error.textContent = "The message could not be sent. Please try again, or email us directly.";
+        const result = err.result || { reason: "network" };
+        console.warn("Form not sent:", result);
+        error.textContent = wpFormErrorText(form, result);
         error.hidden = false;
       } finally {
         if (button) button.disabled = false;
       }
     });
   });
+}
+
+// Turn the server's reason code into a message the visitor can act on.
+function wpFormErrorText(form, result) {
+  const inbox = (document.body.dataset.email || "").trim();
+  const emailUs = inbox ? `email ${inbox} directly` : "email us directly";
+  const reason = result.reason || "";
+  if (reason === "expired") {
+    return "This page has been open too long. Refresh the page and send the message again.";
+  }
+  if (reason === "field") {
+    const input = result.field && form.elements[result.field];
+    const label = input && input.closest && input.closest("label");
+    const name = label ? label.firstChild.textContent.trim() : result.field === "phone_code" ? "Country code" : "a field";
+    if (input && input.focus) input.focus();
+    return `Please check ${name} and try again.`;
+  }
+  if (reason === "mail") {
+    const detail = result.detail ? ` (Admin note: ${result.detail})` : "";
+    return `The site could not email your message. Please try again later, or ${emailUs}.${detail}`;
+  }
+  if (reason === "network") {
+    return `The message could not be sent. Check your connection and try again, or ${emailUs}.`;
+  }
+  return `The message could not be sent (${reason || "unknown error"}). Please try again, or ${emailUs}.`;
 }

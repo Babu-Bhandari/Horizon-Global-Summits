@@ -270,6 +270,48 @@ function initEvents() {
 
 const COUNTRIES = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
 
+const DIAL_CODES = [["Afghanistan","+93","af"],["Albania","+355","al"],["Algeria","+213","dz"],["Andorra","+376","ad"],["Angola","+244","ao"],["Antigua and Barbuda","+1 268","ag"],["Argentina","+54","ar"],["Armenia","+374","am"],["Australia","+61","au"],["Austria","+43","at"],["Azerbaijan","+994","az"],["Bahamas","+1 242","bs"],["Bahrain","+973","bh"],["Bangladesh","+880","bd"],["Barbados","+1 246","bb"],["Belarus","+375","by"],["Belgium","+32","be"],["Belize","+501","bz"],["Benin","+229","bj"],["Bhutan","+975","bt"],["Bolivia","+591","bo"],["Bosnia and Herzegovina","+387","ba"],["Botswana","+267","bw"],["Brazil","+55","br"],["Brunei","+673","bn"],["Bulgaria","+359","bg"],["Burkina Faso","+226","bf"],["Burundi","+257","bi"],["Cabo Verde","+238","cv"],["Cambodia","+855","kh"],["Cameroon","+237","cm"],["Canada","+1","ca"],["Central African Republic","+236","cf"],["Chad","+235","td"],["Chile","+56","cl"],["China","+86","cn"],["Colombia","+57","co"],["Comoros","+269","km"],["Congo","+242","cg"],["Costa Rica","+506","cr"],["Croatia","+385","hr"],["Cuba","+53","cu"],["Cyprus","+357","cy"],["Czechia","+420","cz"],["Denmark","+45","dk"],["Djibouti","+253","dj"],["Dominica","+1 767","dm"],["Dominican Republic","+1 809","do"],["Ecuador","+593","ec"],["Egypt","+20","eg"],["El Salvador","+503","sv"],["Equatorial Guinea","+240","gq"],["Eritrea","+291","er"],["Estonia","+372","ee"],["Eswatini","+268","sz"],["Ethiopia","+251","et"],["Fiji","+679","fj"],["Finland","+358","fi"],["France","+33","fr"],["Gabon","+241","ga"],["Gambia","+220","gm"],["Georgia","+995","ge"],["Germany","+49","de"],["Ghana","+233","gh"],["Greece","+30","gr"],["Grenada","+1 473","gd"],["Guatemala","+502","gt"],["Guinea","+224","gn"],["Guinea-Bissau","+245","gw"],["Guyana","+592","gy"],["Haiti","+509","ht"],["Honduras","+504","hn"],["Hungary","+36","hu"],["Iceland","+354","is"],["India","+91","in"],["Indonesia","+62","id"],["Iran","+98","ir"],["Iraq","+964","iq"],["Ireland","+353","ie"],["Israel","+972","il"],["Italy","+39","it"],["Jamaica","+1 876","jm"],["Japan","+81","jp"],["Jordan","+962","jo"],["Kazakhstan","+7","kz"],["Kenya","+254","ke"],["Kiribati","+686","ki"],["Kuwait","+965","kw"],["Kyrgyzstan","+996","kg"],["Laos","+856","la"],["Latvia","+371","lv"],["Lebanon","+961","lb"],["Lesotho","+266","ls"],["Liberia","+231","lr"],["Libya","+218","ly"],["Liechtenstein","+423","li"],["Lithuania","+370","lt"],["Luxembourg","+352","lu"],["Madagascar","+261","mg"],["Malawi","+265","mw"],["Malaysia","+60","my"],["Maldives","+960","mv"],["Mali","+223","ml"],["Malta","+356","mt"],["Marshall Islands","+692","mh"],["Mauritania","+222","mr"],["Mauritius","+230","mu"],["Mexico","+52","mx"],["Micronesia","+691","fm"],["Moldova","+373","md"],["Monaco","+377","mc"],["Mongolia","+976","mn"],["Montenegro","+382","me"],["Morocco","+212","ma"],["Mozambique","+258","mz"],["Myanmar","+95","mm"],["Namibia","+264","na"],["Nauru","+674","nr"],["Nepal","+977","np"],["Netherlands","+31","nl"],["New Zealand","+64","nz"],["Nicaragua","+505","ni"],["Niger","+227","ne"],["Nigeria","+234","ng"],["North Korea","+850","kp"],["North Macedonia","+389","mk"],["Norway","+47","no"],["Oman","+968","om"],["Pakistan","+92","pk"],["Palau","+680","pw"],["Palestine","+970","ps"],["Panama","+507","pa"],["Papua New Guinea","+675","pg"],["Paraguay","+595","py"],["Peru","+51","pe"],["Philippines","+63","ph"],["Poland","+48","pl"],["Portugal","+351","pt"],["Qatar","+974","qa"],["Romania","+40","ro"],["Russia","+7","ru"],["Rwanda","+250","rw"],["Saint Kitts and Nevis","+1 869","kn"],["Saint Lucia","+1 758","lc"],["Saint Vincent and the Grenadines","+1 784","vc"],["Samoa","+685","ws"],["San Marino","+378","sm"],["Sao Tome and Principe","+239","st"],["Saudi Arabia","+966","sa"],["Senegal","+221","sn"],["Serbia","+381","rs"],["Seychelles","+248","sc"],["Sierra Leone","+232","sl"],["Singapore","+65","sg"],["Slovakia","+421","sk"],["Slovenia","+386","si"],["Solomon Islands","+677","sb"],["Somalia","+252","so"],["South Africa","+27","za"],["South Korea","+82","kr"],["South Sudan","+211","ss"],["Spain","+34","es"],["Sri Lanka","+94","lk"],["Sudan","+249","sd"],["Suriname","+597","sr"],["Sweden","+46","se"],["Switzerland","+41","ch"],["Syria","+963","sy"],["Tajikistan","+992","tj"],["Tanzania","+255","tz"],["Thailand","+66","th"],["Timor-Leste","+670","tl"],["Togo","+228","tg"],["Tonga","+676","to"],["Trinidad and Tobago","+1 868","tt"],["Tunisia","+216","tn"],["Turkey","+90","tr"],["Turkmenistan","+993","tm"],["Tuvalu","+688","tv"],["Uganda","+256","ug"],["Ukraine","+380","ua"],["United Arab Emirates","+971","ae"],["United Kingdom","+44","gb"],["United States","+1","us"],["Uruguay","+598","uy"],["Uzbekistan","+998","uz"],["Vanuatu","+678","vu"],["Vatican City","+39","va"],["Venezuela","+58","ve"],["Vietnam","+84","vn"],["Yemen","+967","ye"],["Zambia","+260","zm"],["Zimbabwe","+263","zw"]];
+const flagImg = (code) => `<img class="flag" src="https://flagcdn.com/w40/${code}.png" alt="" width="20" height="15" loading="lazy" decoding="async">`;
+
+function initPhoneFields() {
+  document.querySelectorAll('.contact-form input[name="phone"]').forEach((input) => {
+    if (input.closest(".phone-field")) return;
+    const select = document.createElement("select");
+    select.name = "phone_code";
+    select.className = "phone-code";
+    select.required = true;
+    select.setAttribute("aria-label", "Country code");
+    DIAL_CODES.forEach(([name, code, flag]) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = `${name} (${code})`;
+      option.dataset.short = code;
+      option.dataset.flag = flag;
+      if (name === "United Arab Emirates") option.selected = true;
+      select.append(option);
+    });
+    const field = document.createElement("div");
+    field.className = "phone-field";
+    input.before(field);
+    field.append(select, input);
+    input.type = "tel";
+    input.inputMode = "numeric";
+    input.autocomplete = "tel-national";
+    input.maxLength = 10;
+    input.pattern = "[0-9]{10}";
+    input.placeholder = "10-digit number";
+    input.title = "Enter exactly 10 digits";
+    input.addEventListener("input", () => {
+      const digits = input.value.replace(/\D/g, "").slice(0, 10);
+      if (digits !== input.value) input.value = digits;
+      input.setCustomValidity("");
+    });
+    input.addEventListener("invalid", () => {
+      input.setCustomValidity("Enter a 10-digit number, digits only.");
+    });
+  });
+}
+
 function initFancySelects() {
   const closeAll = (except) => {
     document.querySelectorAll(".fancy-select.is-open").forEach((node) => {
@@ -312,7 +354,10 @@ function initFancySelects() {
     const paint = () => {
       const current = select.options[select.selectedIndex];
       const empty = !select.value;
-      button.innerHTML = `<span class="${empty ? "is-placeholder" : ""}">${current ? current.textContent : "Select"}</span><i aria-hidden="true"></i>`;
+      button.innerHTML = `<span class="${empty ? "is-placeholder" : ""}"></span><i aria-hidden="true"></i>`;
+      const label = button.querySelector("span");
+      label.textContent = current ? current.dataset.short || current.textContent : "Select";
+      if (current?.dataset.flag) label.insertAdjacentHTML("afterbegin", flagImg(current.dataset.flag));
     };
     const choose = (option) => {
       select.value = option.value;
@@ -341,6 +386,7 @@ function initFancySelects() {
         if (selected) item.setAttribute("aria-selected", "true");
         item.innerHTML = `<span></span><i class="fancy-check" aria-hidden="true"></i>`;
         item.querySelector("span").textContent = option.textContent;
+        if (option.dataset.flag) item.querySelector("span").insertAdjacentHTML("afterbegin", flagImg(option.dataset.flag));
         item.addEventListener("click", () => choose(option));
         list.append(item);
       });
@@ -429,9 +475,10 @@ function initForms() {
         _captcha: "false",
       };
       for (const [key, value] of data.entries()) {
-        if (key === "website" || String(value).trim() === "") continue;
+        if (key === "website" || key === "phone_code" || String(value).trim() === "") continue;
         const label = FIELD_LABELS[key] || key;
-        payload[label] = value;
+        const code = key === "phone" ? form.elements.phone_code?.selectedOptions[0]?.dataset.short : "";
+        payload[label] = code ? `${code} ${value}` : value;
         if (key === "email") payload._replyto = value;
       }
       if (button) button.disabled = true;
@@ -859,6 +906,7 @@ initConferences();
 initConferenceScroll();
 initEvents();
 initCountries();
+initPhoneFields();
 initFancySelects();
 initForms();
 initHero();

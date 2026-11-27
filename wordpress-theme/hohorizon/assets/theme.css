@@ -2317,3 +2317,36 @@ html[data-theme="light"] .conf-arrow { color: #fff; }
   #next-meet .next-meet-grid { width: min(var(--wrap), calc(100% - 40px)); }
   #next-meet .conf-track .conf-card { flex: 0 0 80%; }
 }
+
+/* Homepage: close the gap between conferences and contact */
+#next-meet { padding-bottom: 0; }
+#contact.home-panel { padding-top: 32px; }
+
+/* Homepage: conferences title matches About us / Contact us */
+#next-meet .next-meet-copy { justify-content: center; }
+#next-meet .next-meet-heading { flex: 1 1 100%; }
+#next-meet .next-meet-copy h2.about-display {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(2.6rem, 4.2vw, 3.6rem);
+  text-align: center;
+}
+@media (max-width: 700px) {
+  #next-meet .next-meet-copy h2.about-display { font-size: clamp(2rem, 9vw, 2.6rem); }
+}
+#next-meet .next-meet-heading .section-lead {
+  max-width: 34rem;
+  margin: 10px auto 0;
+  text-align: center;
+  color: rgba(255,255,255,.78);
+  font-size: 0.95rem;
+}
+html[data-theme="light"] #next-meet .next-meet-heading .section-lead { color: inherit; opacity: .78; }
+#next-meet .next-meet-heading .section-lead { max-width: 40rem; font-size: clamp(1.15rem, 1.6vw, 1.4rem); }
+
+/* Contact number: country code + 10 digits */
+.phone-field { display: grid; grid-template-columns: minmax(92px, 118px) 1fr; gap: 8px; align-items: stretch; }
+.phone-field > input { min-width: 0; }
+.phone-field .fancy-select-panel { right: auto; width: min(320px, 80vw); }
+.fancy-select .flag { display: inline-block; flex: none; width: 20px; height: 15px; margin-right: 8px; border-radius: 3px; object-fit: cover; vertical-align: -2px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18); }
+.phone-field { grid-template-columns: minmax(112px, 132px) 1fr; }

@@ -2347,3 +2347,8 @@ html[data-theme="light"] #next-meet .next-meet-heading .section-lead { color: in
 .phone-field .fancy-select-panel { right: auto; width: min(320px, 80vw); }
 .fancy-select .flag { display: inline-block; flex: none; width: 20px; height: 15px; margin-right: 8px; border-radius: 3px; object-fit: cover; vertical-align: -2px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18); }
 .phone-field { grid-template-columns: minmax(112px, 132px) 1fr; }
+
+/* Footer: centre icons on the first line of text */
+.site-footer li a,
+.site-footer .contact-line { align-items: flex-start; gap: 10px; line-height: 1.5; }
+.site-footer li .nav-icon { width: 16px; height: 16px; margin-top: calc((1.5em - 16px) / 2); }

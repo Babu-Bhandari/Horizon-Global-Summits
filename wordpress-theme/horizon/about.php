@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 			</div>
 		</article>
 		<article class="cpd-panel">
-			<a class="cpd-badge" href="https://thecpdregister.com" target="_blank" rel="noopener" aria-label="Verify CPD Approved Provider #791599 on thecpdregister.com"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/cpd-approved-provider.jpeg'); ?>" alt="The CPD Group Approved Provider #791599" width="1552" height="531" loading="lazy" /></a>
+			<a class="cpd-badge" href="https://thecpdregister.com/providers/cpd-group-providers--791599" target="_blank" rel="noopener" aria-label="Verify CPD Approved Provider #791599 on thecpdregister.com"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/cpd-approved-provider.jpeg'); ?>" alt="The CPD Group Approved Provider #791599" width="1552" height="531" loading="lazy" /></a>
 			<div>
 				<h3 class="cpd-title">We are an approved CPD provider</h3>
 				<p class="lede">At Horizon Global Summits, we know your time is valuable, and we want you to get the most out of every event you attend. From learning new industry insights to hearing from experienced professionals, our conferences are designed to give you something valuable to take back.</p>

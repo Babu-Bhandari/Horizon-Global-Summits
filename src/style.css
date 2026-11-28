@@ -2586,7 +2586,7 @@ html[data-theme="light"] .form-error { color: #b42318; }
 /* About us: CPD panel with certificate showcase */
 .cpd-panel {
   position: relative;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-columns: 1fr;
   gap: 48px;
   padding: 44px;
   overflow: hidden;
@@ -2626,77 +2626,35 @@ html[data-theme="light"] .form-error { color: #b42318; }
   border-top: 1px solid rgba(230, 184, 74, 0.22);
 }
 .cpd-panel .cpd-meta .cpd-badge { width: 210px; max-width: 100%; margin: 0; flex: none; }
-.cpd-facts { display: flex; gap: 28px; margin: 0; }
-.cpd-facts div { display: grid; gap: 4px; }
-.cpd-facts dt { color: rgba(244, 246, 251, 0.6); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; }
-.cpd-facts dd { margin: 0; color: var(--gold); font-size: 1.2rem; font-weight: 600; letter-spacing: 0.04em; }
-
-.cpd-cert { margin: 0; display: grid; gap: 14px; justify-items: center; }
-.cpd-cert-frame {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border: 0;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #f6d98a 0%, var(--gold) 38%, #9c7420 70%, #f3cd6b 100%);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  cursor: zoom-in;
-  transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
-  transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
-}
-.cpd-cert-frame:hover,
-.cpd-cert-frame:focus-visible {
-  transform: perspective(1200px) rotateY(0) rotateX(0) translateY(-4px);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 48px rgba(230, 184, 74, 0.28);
-}
-.cpd-cert-frame:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
-.cpd-cert-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-}
-.cpd-cert-zoom {
-  position: absolute;
-  right: 22px;
-  bottom: 22px;
+.cpd-view-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
+  gap: 10px;
+  padding: 13px 24px;
+  border: 1px solid var(--gold);
   border-radius: 999px;
-  background: rgba(11, 18, 48, 0.88);
-  color: #fff;
-  font: 500 0.8rem/1 var(--sans);
-  letter-spacing: 0.06em;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  background: linear-gradient(145deg, #f6d98a 0%, var(--gold) 55%, #c2952f 100%);
+  color: #0b1230;
+  font: 600 0.92rem/1 var(--sans);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(230, 184, 74, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.cpd-cert-frame:hover .cpd-cert-zoom,
-.cpd-cert-frame:focus-visible .cpd-cert-zoom { opacity: 1; transform: none; }
-.cpd-cert figcaption { color: rgba(244, 246, 251, 0.62); font-size: 0.82rem; letter-spacing: 0.08em; text-align: center; }
-
+.cpd-view-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(230, 184, 74, 0.34); }
+.cpd-view-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 html[data-theme="light"] .cpd-kicker { color: #4a5068; }
-html[data-theme="light"] .cpd-facts dt { color: #5b6178; }
-html[data-theme="light"] .cpd-facts dd { color: #8f6a1c; }
-html[data-theme="light"] .cpd-cert figcaption { color: #5b6178; }
-html[data-theme="light"] .cpd-cert-frame { box-shadow: 0 20px 50px rgba(22, 26, 40, 0.22); }
+html[data-theme="light"] .cpd-view-btn:focus-visible { outline-color: #0b1230; }
 
 @media (max-width: 900px) {
-  .cpd-panel { grid-template-columns: 1fr; gap: 32px; padding: 28px 20px; }
-  .cpd-cert { order: -1; }
-  .cpd-cert-frame { transform: none; }
-  .cpd-cert-zoom { opacity: 1; transform: none; right: 18px; bottom: 18px; }
+  .cpd-panel { gap: 32px; padding: 28px 20px; }
 }
 @media (max-width: 520px) {
   .cpd-meta { gap: 18px; }
-  .cpd-facts { gap: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cpd-cert-frame, .cpd-cert-zoom { transition: none; transform: none; }
+  .cpd-view-btn { transition: none; }
+  .cpd-view-btn:hover { transform: none; }
 }
 
 /* Certificate lightbox */

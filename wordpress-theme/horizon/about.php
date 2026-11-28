@@ -32,19 +32,9 @@ if (!defined('ABSPATH')) {
 				<p class="lede">And there&#39;s more! As we are a CDP-accredited event organiser, you can also earn Career Development Points (CDPs) by attending our events, making your time with us even more rewarding.</p>
 				<div class="cpd-meta">
 					<a class="cpd-badge" href="https://thecpdregister.com/providers/cpd-group-providers--791599" target="_blank" rel="noopener" aria-label="Verify CPD Approved Provider #791599 on thecpdregister.com"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/cpd-approved-provider.jpeg'); ?>" alt="The CPD Group Approved Provider #791599" width="1552" height="531" loading="lazy" /></a>
-					<dl class="cpd-facts">
-						<div><dt>Provider no.</dt><dd>#791599</dd></div>
-						<div><dt>Issued</dt><dd>26 Nov 2026</dd></div>
-					</dl>
+					<button type="button" class="cpd-view-btn" data-cert-open="<?php echo esc_url($hg_cert); ?>" data-cert-alt="Certificate from The CPD Group confirming Horizon Global Summits is an Approved CPD Provider, number 791599, issued 26/11/2026" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>View certificate</button>
 				</div>
 			</div>
-			<figure class="cpd-cert">
-				<button type="button" class="cpd-cert-frame" data-cert-open="<?php echo esc_url($hg_cert); ?>" aria-label="View the CPD Approved Provider certificate full size">
-					<img src="<?php echo esc_url($hg_cert); ?>" alt="Certificate from The CPD Group confirming Horizon Global Summits is an Approved CPD Provider, number 791599, issued 26/11/2026" width="1599" height="1131" loading="lazy" />
-					<span class="cpd-cert-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>View certificate</span>
-				</button>
-				<figcaption>Official certificate of approval &middot; The CPD Group</figcaption>
-			</figure>
 		</article>
 	</div>
 </section>

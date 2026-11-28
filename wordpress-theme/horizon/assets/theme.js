@@ -859,7 +859,7 @@ function wpFormErrorText(form, result) {
       if (!modal) build();
       const img = modal.querySelector("img");
       img.src = src;
-      img.alt = (btn.querySelector("img") || {}).alt || "CPD certificate";
+      img.alt = btn.getAttribute("data-cert-alt") || "CPD certificate";
       modal.showModal();
     });
   });

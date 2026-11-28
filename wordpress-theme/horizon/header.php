@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<?php if (!has_site_icon()) : ?>
 		<link rel="icon" href="<?php echo esc_url(get_template_directory_uri() . '/assets/favicon.png'); ?>" type="image/png" />
+		<link rel="apple-touch-icon" href="<?php echo esc_url(get_template_directory_uri() . '/assets/apple-touch-icon.png'); ?>" />
 	<?php endif; ?>
 	<?php wp_head(); ?>
 	<script>try{if(localStorage.getItem("hohorizon-theme")==="light")document.documentElement.dataset.theme="light";}catch(e){}</script>

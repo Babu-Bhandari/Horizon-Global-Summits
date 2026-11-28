@@ -837,3 +837,30 @@ function wpFormErrorText(form, result) {
   }
   return `The message could not be sent (${reason || "unknown error"}). Please try again, or ${emailUs}.`;
 }
+
+// About us: open the CPD certificate full size in a lightbox.
+(function initCertLightbox() {
+  const triggers = document.querySelectorAll("[data-cert-open]");
+  if (!triggers.length) return;
+  let modal;
+  const build = () => {
+    modal = document.createElement("dialog");
+    modal.className = "cert-modal";
+    modal.setAttribute("aria-label", "CPD Approved Provider certificate");
+    modal.innerHTML = '<button type="button" class="cert-modal-close" aria-label="Close">&times;</button><img alt="" />';
+    document.body.appendChild(modal);
+    modal.querySelector(".cert-modal-close").addEventListener("click", () => modal.close());
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); });
+  };
+  triggers.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const src = btn.getAttribute("data-cert-open");
+      if (typeof HTMLDialogElement !== "function") { window.open(src, "_blank", "noopener"); return; }
+      if (!modal) build();
+      const img = modal.querySelector("img");
+      img.src = src;
+      img.alt = (btn.querySelector("img") || {}).alt || "CPD certificate";
+      modal.showModal();
+    });
+  });
+})();

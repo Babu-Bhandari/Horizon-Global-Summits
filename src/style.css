@@ -2648,6 +2648,8 @@ html[data-theme="light"] .cpd-view-btn:focus-visible { outline-color: #0b1230; }
 
 @media (max-width: 900px) {
   .cpd-panel { gap: 32px; padding: 28px 20px; }
+  .cpd-meta { flex-direction: column; justify-content: center; text-align: center; }
+  .cpd-panel .cpd-meta .cpd-badge { margin: 0 auto; }
 }
 @media (max-width: 520px) {
   .cpd-meta { gap: 18px; }
